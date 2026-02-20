@@ -1,0 +1,191 @@
+---
+/*
+  TESTIMONIALS BLOCK
+  ------------------
+  Auto-cycling carousel of client quotes.
+  Pure CSS animation — no JS library needed.
+*/
+
+interface Testimonial {
+  quote: string;
+  authorName: string;
+  authorTitle?: string;
+  avatarUrl?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  testimonials?: Testimonial[];
+}
+
+const {
+  eyebrow,
+  heading,
+  testimonials = [],
+} = Astro.props;
+---
+
+<section class="woc-section">
+  <div class="woc-container">
+    <div class="woc-section-header">
+      {eyebrow && <p class="woc-eyebrow">{eyebrow}</p>}
+      <h2 class="woc-h2" style="margin-top: 0.5rem">{heading}</h2>
+    </div>
+
+    <div class="woc-testimonials" id="testimonials">
+      {testimonials.map((t, i) => (
+        <div class="woc-testimonial" data-index={i}>
+          <div class="woc-testimonial__quote-mark" aria-hidden="true">"</div>
+          <blockquote class="woc-testimonial__quote">{t.quote}</blockquote>
+          <footer class="woc-testimonial__author">
+            {t.avatarUrl && (
+              <img src={t.avatarUrl} alt={t.authorName} class="woc-testimonial__avatar" loading="lazy" />
+            )}
+            <div>
+              <strong class="woc-testimonial__name">{t.authorName}</strong>
+              {t.authorTitle && <p class="woc-testimonial__title">{t.authorTitle}</p>}
+            </div>
+          </footer>
+        </div>
+      ))}
+    </div>
+
+    <!-- Dot indicators -->
+    {testimonials.length > 1 && (
+      <div class="woc-testimonial-dots" role="tablist" aria-label="Testimonials">
+        {testimonials.map((_, i) => (
+          <button
+            class={`woc-testimonial-dot ${i === 0 ? 'is-active' : ''}`}
+            data-target={i}
+            role="tab"
+            aria-selected={i === 0}
+            aria-label={`Testimonial ${i + 1}`}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  const container = document.getElementById('testimonials');
+  if (container) {
+    const items = container.querySelectorAll<HTMLElement>('.woc-testimonial');
+    const dots = document.querySelectorAll<HTMLElement>('.woc-testimonial-dot');
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    function show(index: number) {
+      items.forEach((el, i) => el.classList.toggle('is-active', i === index));
+      dots.forEach((el, i) => {
+        el.classList.toggle('is-active', i === index);
+        el.setAttribute('aria-selected', String(i === index));
+      });
+      current = index;
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        clearInterval(timer);
+        show(Number(dot.dataset.target));
+        startTimer();
+      });
+    });
+
+    function startTimer() {
+      timer = setInterval(() => {
+        show((current + 1) % items.length);
+      }, 5000);
+    }
+
+    show(0);
+    if (items.length > 1) startTimer();
+  }
+</script>
+
+<style>
+  .woc-section-header { margin-bottom: 3rem; }
+
+  .woc-testimonials {
+    position: relative;
+    min-height: 16rem;
+  }
+
+  .woc-testimonial {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    padding: 2.5rem;
+    max-width: 52rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border: 1px solid var(--color-surface-border);
+  }
+  .woc-testimonial.is-active {
+    display: flex;
+    opacity: 1;
+    position: relative;
+  }
+
+  .woc-testimonial__quote-mark {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    line-height: 0.5;
+    color: var(--color-primary);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+  }
+  .woc-testimonial__quote {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-foreground);
+    font-style: italic;
+    flex: 1;
+  }
+  .woc-testimonial__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .woc-testimonial__avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .woc-testimonial__name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+  .woc-testimonial__title {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin-top: 0.125rem;
+  }
+
+  .woc-testimonial-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+  .woc-testimonial-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--color-surface-border);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .woc-testimonial-dot.is-active {
+    background: var(--color-primary);
+    transform: scale(1.4);
+  }
+</style>

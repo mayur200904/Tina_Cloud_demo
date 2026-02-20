@@ -1,25 +1,30 @@
 ---
 name: woc-builder
-description: Builds an 80% complete, client-ready website using the woc-starter template (Astro + Tailwind + TinaCMS). Use when a builder has collected a client brief and needs to produce a site in one shot. Handles design token selection, block assembly, content writing, and image sourcing. Triggered by /woc-builder or when a client brief is provided.
+description: Builds a complete, client-ready multi-page website using the woc-starter-next template (Next.js + Tailwind + TinaCMS). Use when a builder has collected a client brief and needs to produce a site in one shot. Handles design token selection, page planning, block assembly, content writing, and image sourcing. Triggered by /woc-builder or when a client brief is provided.
 ---
 
 # WoC Builder — Full Agent Guide
 
-You are the site-building agent for **Website Over Coffee**. You take a client brief and produce an 80%-complete website in one session by writing three files. Read this document fully before executing.
+You are the site-building agent for **Website Over Coffee**. You take a client brief and produce a complete, production-ready website in one session. Read this document fully before executing.
 
 For block selection logic, niche token profiles, and the interview checklist, read the `references/` files as needed — they are referenced throughout.
 
 ---
 
-## The Three Files You Write
+## Files You Write
 
-Every build session writes exactly these three files and nothing else:
+Every build session writes these files:
 
-1. `src/styles/global.css` — design token values inside `@theme {}`
-2. `content/pages/index.md` — all page blocks with populated content
-3. `content/settings/global.json` — site name, nav, footer, Google Fonts URL
+1. `src/app/globals.css` — design token values inside `@theme {}`
+2. `content/settings/global.json` — site name, nav, footer, Google Fonts URL
+3. **One markdown file per page** in `content/pages/`:
+   - `content/pages/index.md` — Home page (always required)
+   - `content/pages/about.md` — About page
+   - `content/pages/services.md` — Services page
+   - `content/pages/contact.md` — Contact page
+   - Additional pages as the brief requires
 
-**Never modify `.astro` files, `tina/config.ts`, or `package.json`.** These are fixed infrastructure. The component structure is locked to the TinaCMS schema.
+**Never modify `.tsx` files, `tina/config.ts`, or `package.json`.** These are fixed infrastructure.
 
 ---
 
@@ -37,9 +42,24 @@ Read `references/interview-checklist.md` for the full list of questions. At mini
 
 ---
 
-## Step 2: Select a Design Profile
+## Step 2: Plan the Pages
 
-Read `references/niche-profiles.md`. Choose the closest profile and apply it by replacing values in the `@theme {}` block of `src/styles/global.css`.
+Based on the brief, decide which pages to build. A standard 4-page site:
+
+| Page | URL | Purpose |
+|---|---|---|
+| Home | `/` | Hook, overview, primary CTA |
+| About | `/about` | Story, team, trust signals |
+| Services | `/services` | Full service detail, pricing signals |
+| Contact | `/contact` | Lead capture form + contact info |
+
+Add or remove pages based on the brief. A gym might need a `/classes` page. A law firm might need a `/practice-areas` page. Use good judgment — more pages = more authority.
+
+---
+
+## Step 3: Select a Design Profile
+
+Read `references/niche-profiles.md`. Choose the closest profile and apply it by replacing values in the `@theme {}` block of `src/app/globals.css`.
 
 **Modify only these variables:**
 ```css
@@ -68,11 +88,42 @@ Also update `googleFontsUrl` in `content/settings/global.json` with the matching
 
 ---
 
-## Step 3: Select and Populate Blocks
+## Step 4: Populate `content/settings/global.json`
 
-Read `references/block-catalog.md` for which blocks to include per niche and what order to arrange them.
+Nav links should point to **page routes** (not anchor links) since this is a multi-page site. Use anchor links only within the same page.
 
-Write `content/pages/index.md` using this frontmatter structure. Only include blocks you are filling with real content — remove empty blocks entirely.
+```json
+{
+  "siteName": "Client Business Name",
+  "siteTagline": "One-sentence value proposition",
+  "logoText": "Brand",
+  "logoImage": null,
+  "navLinks": [
+    { "label": "Services", "href": "/services" },
+    { "label": "About", "href": "/about" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "navCtaLabel": "Get in Touch",
+  "navCtaLink": "/contact",
+  "footerTagline": "",
+  "footerLinks": [
+    { "label": "Services", "href": "/services" },
+    { "label": "About", "href": "/about" },
+    { "label": "Privacy Policy", "href": "/privacy" }
+  ],
+  "copyrightText": "© 2026 Client Name. All rights reserved.",
+  "googleFontsUrl": "https://fonts.googleapis.com/css2?...",
+  "socialLinks": [
+    { "platform": "linkedin", "url": "https://linkedin.com/company/..." }
+  ]
+}
+```
+
+---
+
+## Step 5: Build Each Page
+
+Write one markdown file per page. Each file is self-contained — pick blocks that make sense for that page's purpose. Do not repeat identical blocks across pages.
 
 ### TinaCMS Markdown Rules (Critical)
 
@@ -81,7 +132,7 @@ Write `content/pages/index.md` using this frontmatter structure. Only include bl
 title: "Page Title"           # required, string
 seoDescription: ""            # used for <meta description>
 blocks:
-  - _template: hero           # must match the template name in tina/config.ts exactly
+  - _template: hero
     headline: "..."
     # ... other fields
 ---
@@ -89,16 +140,63 @@ blocks:
 
 - `_template` values are case-sensitive. Valid values: `hero`, `serviceGrid`, `contentSplit`, `statsBar`, `testimonialCarousel`, `logoCloud`, `faq`, `contactForm`
 - String values containing `:` or `#` must be quoted: `headline: "Build. Ship. Done."`
-- Multi-line strings: use `|` for literal block scalars
+- Multi-line strings use `|`:
   ```yaml
   body: |
-    First paragraph here.
-    
-    Second paragraph here.
+    First paragraph.
+
+    Second paragraph.
   ```
-- Image fields (`imageUrl`, `avatarUrl`, `logoImage`) accept either a URL string or a path relative to `/public/uploads/`
-- Boolean fields (`showAddress`) must be unquoted: `showAddress: true` not `showAddress: "true"`
-- List items use `- fieldName: value` indented under the parent field
+- Image fields accept URL strings or paths relative to `/public/uploads/`
+- Boolean fields must be unquoted: `showAddress: true`
+- List items use `- fieldName: value` under the parent field
+
+---
+
+### Page-by-Page Block Guide
+
+#### Home (`content/pages/index.md`)
+The job of the home page is to hook the visitor and route them deeper.
+
+Recommended block order:
+1. `hero` — big headline, primary value prop, hero image, CTA to `/contact` or `/services`
+2. `logoCloud` — social proof strip (if client has notable clients/partners)
+3. `statsBar` — 3–4 key numbers (years, clients, projects, revenue)
+4. `serviceGrid` — 3–6 service cards, brief descriptions, link to `/services`
+5. `contentSplit` — "Why us" or "Our story" teaser with CTA to `/about`
+6. `testimonialCarousel` — 2–3 client quotes
+7. `contactForm` — simplified lead capture CTA (or link to `/contact`)
+
+#### About (`content/pages/about.md`)
+Build trust and humanise the brand.
+
+Recommended block order:
+1. `hero` — page title, tagline, team/office image, `layout: "image-right"`
+2. `contentSplit` — origin story / founder message
+3. `statsBar` — milestone numbers
+4. `serviceGrid` — values or team members as cards (use columns: 3 or 4)
+5. `testimonialCarousel` — client quotes
+6. `contactForm` — simple closing CTA
+
+#### Services (`content/pages/services.md`)
+Full detail on what the business offers.
+
+Recommended block order:
+1. `hero` — services headline, `layout: "centered"` or `"full-bleed"`
+2. `serviceGrid` — comprehensive service list (up to 8 cards, columns: 3)
+3. `contentSplit` — deep-dive on the hero/flagship service
+4. `faq` — common questions about pricing, process, timeline
+5. `statsBar` — delivery metrics (projects completed, avg turnaround, etc.)
+6. `contactForm` — quote / enquiry CTA
+
+#### Contact (`content/pages/contact.md`)
+Remove all friction from reaching the business.
+
+Recommended block order:
+1. `hero` — short, direct. "Let's Talk." or "Get a Free Quote". `layout: "centered"`
+2. `contactForm` — `showAddress: true` if physical location, full form, Formspree ID
+
+---
 
 ### Block Field Reference
 
@@ -109,7 +207,7 @@ blocks:
   headline: ""                       # H1, required
   subheadline: ""                    # supporting description
   primaryCtaLabel: ""
-  primaryCtaLink: "/#contact"
+  primaryCtaLink: "/contact"
   secondaryCtaLabel: ""              # optional
   secondaryCtaLink: ""               # optional
   imageUrl: "https://source.unsplash.com/1600x900/?keywords"
@@ -127,7 +225,7 @@ blocks:
   services:
     - title: ""
       description: ""
-      icon: "🔧"                     # emoji, or leave blank
+      icon: "🔧"
 ```
 
 #### `contentSplit`
@@ -136,8 +234,8 @@ blocks:
   eyebrow: ""
   heading: ""
   body: ""                           # multi-line: use | syntax
-  ctaLabel: ""                       # optional
-  ctaLink: ""                        # optional
+  ctaLabel: ""
+  ctaLink: ""
   imageUrl: ""
   imageAlt: ""
   imagePosition: "right"            # left | right
@@ -146,12 +244,12 @@ blocks:
 #### `statsBar`
 ```yaml
 - _template: statsBar
-  eyebrow: ""                        # optional
-  heading: ""                        # optional
+  eyebrow: ""
+  heading: ""
   stats:
     - value: "25+"
       label: "Years Experience"
-      prefix: ""                     # e.g. "$" or ">" — optional
+      prefix: ""
 ```
 
 #### `testimonialCarousel`
@@ -162,8 +260,8 @@ blocks:
   testimonials:
     - quote: ""
       authorName: ""
-      authorTitle: ""                # e.g. "CEO, Acme Corp"
-      avatarUrl: ""                  # optional
+      authorTitle: ""
+      avatarUrl: ""
 ```
 
 #### `logoCloud`
@@ -192,54 +290,22 @@ blocks:
   eyebrow: ""
   heading: ""
   subheading: ""
-  formspreeId: ""                    # from formspree.io — builder sets up per client
+  formspreeId: ""
   successMessage: "Thank you! We'll be in touch soon."
-  showAddress: false                 # set true if client has a physical location
+  showAddress: false
   phone: ""
   email: ""
-  address: ""                        # multi-line: use | syntax
+  address: ""
 ```
 
 ---
 
-## Step 4: Populate `content/settings/global.json`
+## Step 6: Image Sourcing
 
-```json
-{
-  "siteName": "Client Business Name",
-  "siteTagline": "One-sentence value proposition",
-  "logoText": "Brand",
-  "logoImage": null,
-  "navLinks": [
-    { "label": "Services", "href": "/#services" },
-    { "label": "About", "href": "/#about" },
-    { "label": "Contact", "href": "/#contact" }
-  ],
-  "navCtaLabel": "Get in Touch",
-  "navCtaLink": "/#contact",
-  "footerTagline": "",
-  "footerLinks": [
-    { "label": "Privacy Policy", "href": "/privacy" }
-  ],
-  "copyrightText": "© 2026 Client Name. All rights reserved.",
-  "googleFontsUrl": "https://fonts.googleapis.com/css2?...",
-  "socialLinks": [
-    { "platform": "linkedin", "url": "https://linkedin.com/company/..." }
-  ]
-}
-```
-
-`navLinks` `href` values should use anchor links (`/#services`) that match the block order on the page, not absolute URLs.
-
----
-
-## Step 5: Image Sourcing
-
-Use Unsplash source URLs. Do not leave imageUrl blank — a missing hero image makes the page look unfinished.
+Use Unsplash source URLs. Every `hero` block must have an image. Never leave `imageUrl` blank.
 
 Format: `https://source.unsplash.com/1600x900/?{keywords}`
 
-**Keyword guide by niche:**
 | Niche | Keywords |
 |---|---|
 | Corporate / Law | `office,professionals,meeting,city` |
@@ -251,22 +317,22 @@ Format: `https://source.unsplash.com/1600x900/?{keywords}`
 | Tech / SaaS | `technology,software,laptop,abstract` |
 | Retail | `retail,shop,products,storefront` |
 
-Keep keywords specific. `manufacturing,factory,clean` ≠ `manufacturing` — specificity gets a better image.
+Use different images for different pages — don't repeat the same URL. Be specific: `construction,architecture,building,modern` beats `construction`.
 
 ---
 
-## Astro Best Practices (When Editing `.astro` Blocks)
+## React / Next.js Best Practices (When Editing Block `.tsx` Files)
 
 > These apply when a developer is adding or fixing a block — not for content-only builds.
 
-- **Props interface first.** Always define an `interface Props {}` at the top of the frontmatter. Use `?` for optional fields so the block never crashes on missing data.
-- **Null-guard gracefully.** Use `Astro.props.field ?? defaultValue` — never assume a CMS field is populated.
-- **No runtime JS for layout.** Prefer CSS-only solutions (`:hover`, `<details>`, CSS animations). Use `<script>` only for interactive state that CSS cannot handle (e.g. carousels, mobile nav toggle).
-- **`loading="lazy"` on all images** except the hero (above the fold). Hero uses `loading="eager"`.
-- **`aspect-ratio` on images** to prevent layout shift. Always set with `object-fit: cover`.
-- **Scoped styles are preferred.** Put `<style>` at the bottom of each block file. Only add to `global.css` if the utility is genuinely shared.
-- **Slot `<slot />` in layouts only.** Block components compose themselves — they do not use slots.
-- **Never import one block inside another.** Each block is a flat, independent component.
+- **Typed props interface first.** Use `?` and `| null` for all CMS fields — never assume a field is populated.
+- **Null-guard gracefully.** Use `field ?? defaultValue`.
+- **`'use client'` only when needed.** Blocks with `useState`, `useEffect`, or browser event handlers need it. Pure presentational blocks do not.
+- **No runtime JS for layout.** Prefer CSS-only solutions (`:hover`, `<details>`, transitions).
+- **`loading="lazy"` on all images** except the hero. Hero uses `loading="eager"`.
+- **`aspect-ratio` on images** to prevent layout shift. Pair with `object-fit: cover`.
+- **Never import one block inside another.** Each block is flat and independent.
+- **Parallel data fetching.** In `page.tsx`, use `Promise.all()` for page + settings.
 
 ---
 
@@ -274,14 +340,12 @@ Keep keywords specific. `manufacturing,factory,clean` ≠ `manufacturing` — sp
 
 > These apply when a developer is modifying the schema — not for content-only builds.
 
-- **No `required: true` on block template fields.** TinaCMS generates a GraphQL union across all block templates. Conflicting nullability (`String!` vs `String`) on shared field names causes codegen to fail. Omit `required` entirely from block template fields.
-- **Field names must be camelCase** and must exactly match the Astro component's `Props` interface.
-- **`type: "image"` fields** return a path string (not a URL object). Always treat them as strings in the component.
-- **`type: "object"` with `list: true`** generates an array. Always default to `[]` in the component: `const items = Astro.props.items ?? []`.
-- **`ui: { component: "textarea" }`** on string fields that hold multi-line copy. Without this, TinaCMS renders a single-line input.
-- **`ui: { defaultValue: ... }`** sets the pre-filled value in the CMS editor — it does not affect the content markdown. Use it for fields like `layout: "image-right"` so new blocks are sensible by default.
-- **Site Settings collection** uses `format: "json"` and `match: { include: "global" }` — this locks it to `content/settings/global.json` specifically.
-- **After any schema change**, run `npm run dev` to regenerate `tina/__generated__/`. Commit the generated files — they are required for production builds.
+- **No `required: true` on block template fields.** Causes GraphQL codegen to fail across union types.
+- **Field names must be camelCase** and match the React component's props exactly.
+- **`type: "image"` fields** return a path string — treat as string in components.
+- **`type: "object"` with `list: true`** generates an array — always default with `?? []`.
+- **`ui: { component: "textarea" }`** on multi-line string fields.
+- **After any schema change**, run `npm run dev` to regenerate `tina/__generated__/`. Commit generated files.
 
 ---
 
@@ -289,11 +353,16 @@ Keep keywords specific. `manufacturing,factory,clean` ≠ `manufacturing` — sp
 
 ```
 [ ] Read brief → extract all required fields
+[ ] Plan pages → decide which pages to build (minimum: Home, About, Services, Contact)
 [ ] Select niche profile from references/niche-profiles.md
-[ ] Update @theme block in src/styles/global.css
-[ ] Write content/pages/index.md with all relevant blocks
-[ ] Write content/settings/global.json
-[ ] Confirm: "Site is 80% built. Run npm run dev to preview at http://localhost:4321"
+[ ] Update @theme block in src/app/globals.css
+[ ] Write content/settings/global.json (nav uses page routes, not anchor links)
+[ ] Write content/pages/index.md
+[ ] Write content/pages/about.md
+[ ] Write content/pages/services.md
+[ ] Write content/pages/contact.md
+[ ] Write any additional pages the brief requires
+[ ] Confirm: "Site is complete. Run npm run dev to preview at http://localhost:3000"
 ```
 
 Do not run the dev server. Do not open a browser. The builder does that.
@@ -305,9 +374,12 @@ Do not run the dev server. Do not open a browser. The builder does that.
 | Mistake | Fix |
 |---|---|
 | Using a `_template` key that doesn't exist | Only use: `hero`, `serviceGrid`, `contentSplit`, `statsBar`, `testimonialCarousel`, `logoCloud`, `faq`, `contactForm` |
-| Leaving `imageUrl` blank | Always source an Unsplash image |
-| Hardcoding colors in `global.css` outside `@theme {}` | Token values only go inside `@theme {}` |
-| Writing copy into `.astro` files | All copy goes in `content/pages/index.md` |
+| Leaving `imageUrl` blank on a hero | Always source an Unsplash image |
+| Using anchor links in nav (`/#services`) | Use page routes (`/services`) for multi-page sites |
+| Hardcoding colors in `globals.css` outside `@theme {}` | Token values only go inside `@theme {}` |
+| Writing copy into `.tsx` files | All copy goes in `content/pages/*.md` |
 | Putting `required: true` in `tina/config.ts` block fields | Causes GraphQL codegen to fail |
-| Using `layout: image-right` (unquoted with a space) | Quote all option-field values: `layout: "image-right"` |
+| Using `layout: image-right` (unquoted) | Quote option values: `layout: "image-right"` |
 | Writing `null` for optional string fields | Leave the field out entirely or use `""` |
+| Adding `'use client'` to every block | Only add it when the block needs React state or browser APIs |
+| Duplicating the same blocks across every page | Each page should feel distinct — vary block selection by purpose |

@@ -1,0 +1,78 @@
+---
+/*
+  DYNAMIC PAGE ROUTE
+  ------------------
+  Renders any page from content/pages/*.md
+  Iterates the blocks array and maps each _template to its Astro component.
+  
+  To add a new block type:
+  1. Create the component in src/components/blocks/
+  2. Add it to the template map below
+  3. Add its schema to tina/config.ts
+*/
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import client from '../../tina/__generated__/client';
+
+// Block components
+import HeroBlock from '../components/blocks/HeroBlock.astro';
+import ServiceGridBlock from '../components/blocks/ServiceGridBlock.astro';
+import ContentSplitBlock from '../components/blocks/ContentSplitBlock.astro';
+import StatsBarBlock from '../components/blocks/StatsBarBlock.astro';
+import TestimonialCarouselBlock from '../components/blocks/TestimonialCarouselBlock.astro';
+import LogoCloudBlock from '../components/blocks/LogoCloudBlock.astro';
+import FAQBlock from '../components/blocks/FAQBlock.astro';
+import ContactFormBlock from '../components/blocks/ContactFormBlock.astro';
+
+export async function getStaticPaths() {
+  const pages = await client.queries.pageConnection();
+  return pages.data.pageConnection.edges!.map((edge) => ({
+    params: {
+      slug: edge!.node!._sys.filename === 'index'
+        ? undefined
+        : edge!.node!._sys.filename,
+    },
+    props: { relativePath: edge!.node!._sys.relativePath },
+  }));
+}
+
+const { relativePath } = Astro.props;
+
+// Fetch page + site settings from TinaCMS
+const pageRes = await client.queries.page({ relativePath });
+const settingsRes = await client.queries.settings({ relativePath: 'global.json' }).catch(() => null);
+
+const page = pageRes.data.page;
+const settings = settingsRes?.data?.settings ?? null;
+const blocks = page.blocks ?? [];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.seoDescription ?? ''}
+  settings={settings}
+>
+  {blocks.map((block: any) => {
+    switch (block.__typename) {
+      case 'PageBlocksHero':
+        return <HeroBlock {...block} />;
+      case 'PageBlocksServiceGrid':
+        return <ServiceGridBlock {...block} />;
+      case 'PageBlocksContentSplit':
+        return <ContentSplitBlock {...block} />;
+      case 'PageBlocksStatsBar':
+        return <StatsBarBlock {...block} />;
+      case 'PageBlocksTestimonialCarousel':
+        return <TestimonialCarouselBlock {...block} />;
+      case 'PageBlocksLogoCloud':
+        return <LogoCloudBlock {...block} />;
+      case 'PageBlocksFaq':
+        return <FAQBlock {...block} />;
+      case 'PageBlocksContactForm':
+        return <ContactFormBlock {...block} />;
+      default:
+        return null;
+    }
+  })}
+</BaseLayout>

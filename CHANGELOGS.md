@@ -4,6 +4,37 @@ Changes to the `woc-starter` template and the `woc-builder` agent skill.
 
 ---
 
+## [1.0.0] — 2026-02-20 ⚠️ BREAKING
+
+### Full rewrite — Astro → Next.js App Router
+
+**Stack:** Next.js 16 (App Router) + Tailwind CSS v4 + TinaCMS 3 + TinaCloud
+
+**Why:** TinaCMS visual/contextual editing (`useTina` hook) requires a React-based framework. It is not supported in Astro. This version unlocks the full side-by-side visual editing experience.
+
+**Breaking changes:**
+- Template directory renamed: `woc-starter/` (Astro) → `woc-starter-next/` (Next.js)
+- All block components: `.astro` → `.tsx` React components
+- `BaseLayout.astro` → `BaseLayout.tsx` (uses `useState` for mobile nav)
+- `src/pages/[...slug].astro` → `src/app/[[...slug]]/page.tsx` (App Router catch-all)
+- CSS location: `src/styles/global.css` → `src/app/globals.css` (same token system, same class names)
+- Dev command: still `npm run dev` (tinacms dev -c "next dev")
+
+**Unchanged:**
+- `tina/config.ts` — schema is identical
+- `content/pages/index.md` — same markdown format
+- `content/settings/global.json` — same JSON schema
+- All design token variable names (`--color-primary`, etc.)
+- All BEM class names (`.woc-hero`, `.btn-primary`, etc.)
+- `woc-builder` agent — still writes the same 3 files
+
+#### Visual Editing
+- `src/app/[[...slug]]/page.tsx` — Server Component, parallel-fetches page + settings
+- `src/app/[[...slug]]/page.client.tsx` — Client Component, wraps `useTina` for live editing
+- Admin: `http://localhost:3001/admin/index.html`
+
+---
+
 ## [0.1.0] — 2026-02-20
 
 ### Initial release
