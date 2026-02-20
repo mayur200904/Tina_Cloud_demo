@@ -1,6 +1,36 @@
 # Changelog — WoC Starter Template
 
 Changes to the `woc-starter` template and the `woc-builder` agent skill.
+Newest entries are always at the top.
+
+---
+
+## [1.0.1] — 2026-02-20
+
+### Netlify / static-export hardening
+
+Five fixes backported to the `woc-starter-next` template to ensure every future client project deploys flawlessly out of the box on Netlify (or any static host).
+
+#### `next.config.ts`
+- Added `output: 'export'` — generates a fully static `out/` directory, no Node.js server required.
+- Added `images: { unoptimized: true }` — disables Next.js image optimisation (incompatible with static export).
+
+#### `netlify.toml` *(new)*
+- Tells Netlify to run `npm run build` and publish the `out/` directory.
+- Adds a `[[redirects]]` rule so all `/admin/*` routes fall through to `admin/index.html` (TinaCMS admin is a SPA).
+
+#### `package.json`
+- Added `"type": "module"` — silences the PostCSS ESM compatibility warning.
+- Added `"preview"` script (`npm run build && npx serve@latest out`) for testing the production bundle locally.
+
+#### `src/app/[[...slug]]/page.tsx`
+- Imports `notFound` from `next/navigation`.
+- Early-returns `notFound()` for any slug segment that contains a `.` (catches stray asset requests, e.g. `.png`, `.svg`, that leak into the catch-all route).
+- Wraps the `client.queries.page()` call in `.catch(() => null)`.
+- Guards against a missing/empty `pageRes` and returns `notFound()` instead of crashing.
+
+#### `public/vite.svg` *(new)*
+- Placeholder SVG so the TinaCMS admin's default favicon request resolves without hitting the catch-all route.
 
 ---
 
