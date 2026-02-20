@@ -1,0 +1,102 @@
+---
+/*
+  SERVICE GRID BLOCK
+  ------------------
+  A configurable grid of service cards. 2, 3, or 4 columns.
+  Each card has optional icon, title, and description.
+*/
+
+interface Service {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  services?: Service[];
+  columns?: number;
+}
+
+const {
+  eyebrow,
+  heading,
+  subheading,
+  services = [],
+  columns = 3,
+} = Astro.props;
+---
+
+<section class="woc-section woc-section--surface">
+  <div class="woc-container">
+
+    <!-- Section Header -->
+    <div class="woc-section-header">
+      {eyebrow && <p class="woc-eyebrow">{eyebrow}</p>}
+      <h2 class="woc-h2">{heading}</h2>
+      {subheading && <p class="woc-lead" style="margin-top: 0.75rem">{subheading}</p>}
+    </div>
+
+    <!-- Grid -->
+    <ul class={`woc-service-grid woc-service-grid--cols-${columns}`} role="list">
+      {services.map((service) => (
+        <li class="woc-card woc-service-card">
+          {service.icon && (
+            <div class="woc-service-card__icon" aria-hidden="true">
+              {service.icon}
+            </div>
+          )}
+          <div class="woc-divider"></div>
+          <h3 class="woc-h3 woc-service-card__title">{service.title}</h3>
+          {service.description && (
+            <p class="woc-service-card__desc">{service.description}</p>
+          )}
+        </li>
+      ))}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .woc-section-header {
+    max-width: 40rem;
+    margin-bottom: 3rem;
+  }
+  .woc-section-header .woc-h2 { margin-top: 0.5rem; }
+
+  .woc-service-grid {
+    display: grid;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  .woc-service-grid--cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .woc-service-grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .woc-service-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .woc-service-card__icon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .woc-service-card__title { margin-top: 0.75rem; }
+  .woc-service-card__desc {
+    margin-top: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 900px) {
+    .woc-service-grid--cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .woc-service-grid--cols-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .woc-service-grid--cols-4,
+    .woc-service-grid--cols-3,
+    .woc-service-grid--cols-2 { grid-template-columns: 1fr; }
+  }
+</style>

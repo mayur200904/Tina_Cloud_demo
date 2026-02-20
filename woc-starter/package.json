@@ -1,0 +1,20 @@
+{
+  "name": "woc-starter",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "tinacms dev -c \"astro dev\"",
+    "build": "tinacms build && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "astro:dev": "astro dev",
+    "tinacms": "tinacms"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.0",
+    "@tinacms/cli": "^2.1.6",
+    "astro": "^5.17.1",
+    "tailwindcss": "^4.2.0",
+    "tinacms": "^3.5.0"
+  }
+}
