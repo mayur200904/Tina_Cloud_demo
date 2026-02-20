@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+# TinaCMS Admin is a Single Page Application (SPA).
+# This rule ensures all routes under /admin are handled by its index.html.
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200

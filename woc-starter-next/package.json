@@ -2,10 +2,12 @@
   "name": "woc-starter-next",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
     "build": "tinacms build && next build",
-    "start": "next start"
+    "start": "next start",
+    "preview": "npm run build && npx serve@latest out"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.0",
