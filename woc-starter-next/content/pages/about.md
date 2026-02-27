@@ -1,10 +1,10 @@
 ---
-title: Home
+title: About
 seoDescription: ''
 blocks:
   - eyebrow: ''
-    headline: Headline goes here
-    subheadline: Supporting description goes here
+    headline: About Us
+    subheadline: ''
     primaryCtaLabel: Get in Touch
     primaryCtaLink: /contact
     secondaryCtaLabel: Our Services
@@ -13,23 +13,14 @@ blocks:
     imageAlt: ''
     layout: image-right
     _template: hero
-  - label: Trusted by
-    logos: []
-    _template: logoCloud
-  - eyebrow: What We Do
-    heading: Our Services
-    subheading: ''
-    services: []
-    columns: 3
-    _template: serviceGrid
-  - eyebrow: About Us
+  - eyebrow: Our Story
     heading: Who We Are
     body: ''
     imageUrl: ''
     imageAlt: ''
     imagePosition: right
-    ctaLabel: Learn More
-    ctaLink: /about
+    ctaLabel: See Our Services
+    ctaLink: /services
     _template: contentSplit
   - stats: []
     _template: statsBar
@@ -37,12 +28,8 @@ blocks:
     heading: What Our Clients Say
     testimonials: []
     _template: testimonialCarousel
-  - eyebrow: Common Questions
-    heading: Frequently Asked Questions
-    items: []
-    _template: faq
   - eyebrow: "Let's Talk"
-    heading: Get in Touch
+    heading: Work With Us
     subheading: ''
     formspreeId: ''
     showAddress: false

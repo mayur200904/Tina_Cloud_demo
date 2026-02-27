@@ -6,24 +6,32 @@
     "navLinks": [
         {
             "label": "Services",
-            "href": "/#services"
+            "href": "/services"
         },
         {
             "label": "About",
-            "href": "/#about"
+            "href": "/about"
         },
         {
             "label": "Contact",
-            "href": "/#contact"
+            "href": "/contact"
         }
     ],
     "navCtaLabel": "Get in Touch",
-    "navCtaLink": "/#contact",
+    "navCtaLink": "/contact",
     "footerTagline": "",
     "footerLinks": [
         {
-            "label": "Privacy Policy",
-            "href": "/privacy"
+            "label": "Services",
+            "href": "/services"
+        },
+        {
+            "label": "About",
+            "href": "/about"
+        },
+        {
+            "label": "Contact",
+            "href": "/contact"
         }
     ],
     "copyrightText": "",

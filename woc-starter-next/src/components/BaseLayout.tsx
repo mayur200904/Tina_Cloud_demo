@@ -6,167 +6,167 @@ import type { SettingsQuery } from '../../tina/__generated__/types';
 type Settings = SettingsQuery['settings'] | null;
 
 interface BaseLayoutProps {
-    settings: Settings;
-    title?: string;
-    description?: string;
-    googleFontsUrl?: string;
-    children: React.ReactNode;
+  settings: Settings;
+  title?: string;
+  description?: string;
+  googleFontsUrl?: string;
+  children: React.ReactNode;
 }
 
 export default function BaseLayout({
-    settings,
-    title,
-    description,
-    children,
+  settings,
+  title,
+  description,
+  children,
 }: BaseLayoutProps) {
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    // Lightweight scroll listener — adds shadow/blur only when user scrolls.
-    // CSS handles the visual treatment, keeping JS scope minimal.
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+  // Lightweight scroll listener — adds shadow/blur only when user scrolls.
+  // CSS handles the visual treatment, keeping JS scope minimal.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    const siteName = settings?.siteName ?? 'Site';
-    const logoText = settings?.logoText ?? siteName;
-    const navLinks = settings?.navLinks ?? [];
-    const navCtaLabel = settings?.navCtaLabel ?? '';
-    const navCtaLink = settings?.navCtaLink ?? '#contact';
-    const footerLinks = settings?.footerLinks ?? [];
-    const copyrightText =
-        settings?.copyrightText ?? `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`;
-    const socialLinks = settings?.socialLinks ?? [];
+  const siteName = settings?.siteName ?? 'Site';
+  const logoText = settings?.logoText ?? siteName;
+  const navLinks = settings?.navLinks ?? [];
+  const navCtaLabel = settings?.navCtaLabel ?? '';
+  const navCtaLink = settings?.navCtaLink ?? '/contact';
+  const footerLinks = settings?.footerLinks ?? [];
+  const copyrightText =
+    settings?.copyrightText ?? `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`;
+  const socialLinks = settings?.socialLinks ?? [];
 
-    return (
-        <>
-            {/* NAV */}
-            <header
-                className={`woc-nav${scrolled ? ' is-scrolled' : ''}`}
-                role="banner"
+  return (
+    <>
+      {/* NAV */}
+      <header
+        className={`woc-nav${scrolled ? ' is-scrolled' : ''}`}
+        role="banner"
+      >
+        <div className="woc-container woc-nav__inner">
+          <a href="/" className="woc-nav__logo" aria-label={siteName}>
+            {settings?.logoImage ? (
+              <img src={settings.logoImage} alt={siteName} className="woc-nav__logo-img" />
+            ) : (
+              <span className="woc-nav__logo-text">{logoText}</span>
+            )}
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="woc-nav__links" aria-label="Main navigation">
+            {navLinks.map((link) =>
+              link ? (
+                <a key={link.href} href={link.href ?? '#'} className="woc-nav__link">
+                  {link.label}
+                </a>
+              ) : null
+            )}
+          </nav>
+
+          <div className="woc-nav__actions">
+            {navCtaLabel && (
+              <a href={navCtaLink} className="btn-primary woc-nav__cta">
+                {navCtaLabel}
+              </a>
+            )}
+            <button
+              className={`woc-nav__hamburger${mobileOpen ? ' is-open' : ''}`}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
             >
-                <div className="woc-container woc-nav__inner">
-                    <a href="/" className="woc-nav__logo" aria-label={siteName}>
-                        {settings?.logoImage ? (
-                            <img src={settings.logoImage} alt={siteName} className="woc-nav__logo-img" />
-                        ) : (
-                            <span className="woc-nav__logo-text">{logoText}</span>
-                        )}
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile drawer */}
+        <div
+          className={`woc-nav__mobile${mobileOpen ? ' is-visible' : ''}`}
+          aria-hidden={!mobileOpen}
+        >
+          {navLinks.map((link) =>
+            link ? (
+              <a
+                key={link.href}
+                href={link.href ?? '#'}
+                className="woc-nav__mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ) : null
+          )}
+          {navCtaLabel && (
+            <a href={navCtaLink} className="btn-primary" style={{ marginTop: '0.5rem' }}>
+              {navCtaLabel}
+            </a>
+          )}
+        </div>
+      </header>
+
+      {/* MAIN */}
+      <main id="main-content">{children}</main>
+
+      {/* FOOTER */}
+      <footer className="woc-footer" role="contentinfo">
+        <div className="woc-container woc-footer__inner">
+          {/* Brand column */}
+          <div className="woc-footer__brand">
+            <span className="woc-footer__logo">{logoText}</span>
+            {settings?.footerTagline && (
+              <p className="woc-footer__tagline">{settings.footerTagline}</p>
+            )}
+            {socialLinks.length > 0 && (
+              <div className="woc-footer__social">
+                {socialLinks.map((s, i) =>
+                  s ? (
+                    <a
+                      key={i}
+                      href={s.url ?? '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="woc-footer__social-link"
+                      aria-label={s.platform ?? ''}
+                    >
+                      {s.platform}
                     </a>
+                  ) : null
+                )}
+              </div>
+            )}
+          </div>
 
-                    {/* Desktop Nav */}
-                    <nav className="woc-nav__links" aria-label="Main navigation">
-                        {navLinks.map((link) =>
-                            link ? (
-                                <a key={link.href} href={link.href ?? '#'} className="woc-nav__link">
-                                    {link.label}
-                                </a>
-                            ) : null
-                        )}
-                    </nav>
+          {/* Links column */}
+          {footerLinks.length > 0 && (
+            <nav className="woc-footer__links" aria-label="Footer navigation">
+              <p className="woc-footer__col-heading">Navigation</p>
+              {footerLinks.map((link, i) =>
+                link ? (
+                  <a key={i} href={link.href ?? '#'} className="woc-footer__link">
+                    {link.label}
+                  </a>
+                ) : null
+              )}
+            </nav>
+          )}
+        </div>
 
-                    <div className="woc-nav__actions">
-                        {navCtaLabel && (
-                            <a href={navCtaLink} className="btn-primary woc-nav__cta">
-                                {navCtaLabel}
-                            </a>
-                        )}
-                        <button
-                            className={`woc-nav__hamburger${mobileOpen ? ' is-open' : ''}`}
-                            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-                            aria-expanded={mobileOpen}
-                            onClick={() => setMobileOpen((v) => !v)}
-                        >
-                            <span />
-                            <span />
-                            <span />
-                        </button>
-                    </div>
-                </div>
+        {/* Bottom bar */}
+        <div className="woc-footer__bottom">
+          <div className="woc-container woc-footer__bottom-inner">
+            <p>{copyrightText}</p>
+          </div>
+        </div>
+      </footer>
 
-                {/* Mobile drawer */}
-                <div
-                    className={`woc-nav__mobile${mobileOpen ? ' is-visible' : ''}`}
-                    aria-hidden={!mobileOpen}
-                >
-                    {navLinks.map((link) =>
-                        link ? (
-                            <a
-                                key={link.href}
-                                href={link.href ?? '#'}
-                                className="woc-nav__mobile-link"
-                                onClick={() => setMobileOpen(false)}
-                            >
-                                {link.label}
-                            </a>
-                        ) : null
-                    )}
-                    {navCtaLabel && (
-                        <a href={navCtaLink} className="btn-primary" style={{ marginTop: '0.5rem' }}>
-                            {navCtaLabel}
-                        </a>
-                    )}
-                </div>
-            </header>
-
-            {/* MAIN */}
-            <main id="main-content">{children}</main>
-
-            {/* FOOTER */}
-            <footer className="woc-footer" role="contentinfo">
-                <div className="woc-container woc-footer__inner">
-                    {/* Brand column */}
-                    <div className="woc-footer__brand">
-                        <span className="woc-footer__logo">{logoText}</span>
-                        {settings?.footerTagline && (
-                            <p className="woc-footer__tagline">{settings.footerTagline}</p>
-                        )}
-                        {socialLinks.length > 0 && (
-                            <div className="woc-footer__social">
-                                {socialLinks.map((s, i) =>
-                                    s ? (
-                                        <a
-                                            key={i}
-                                            href={s.url ?? '#'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="woc-footer__social-link"
-                                            aria-label={s.platform ?? ''}
-                                        >
-                                            {s.platform}
-                                        </a>
-                                    ) : null
-                                )}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Links column */}
-                    {footerLinks.length > 0 && (
-                        <nav className="woc-footer__links" aria-label="Footer navigation">
-                            <p className="woc-footer__col-heading">Navigation</p>
-                            {footerLinks.map((link, i) =>
-                                link ? (
-                                    <a key={i} href={link.href ?? '#'} className="woc-footer__link">
-                                        {link.label}
-                                    </a>
-                                ) : null
-                            )}
-                        </nav>
-                    )}
-                </div>
-
-                {/* Bottom bar */}
-                <div className="woc-footer__bottom">
-                    <div className="woc-container woc-footer__bottom-inner">
-                        <p>{copyrightText}</p>
-                    </div>
-                </div>
-            </footer>
-
-            <style>{`
+      <style>{`
         /* ========== NAV ========== */
         .woc-nav {
           position: sticky;
@@ -391,6 +391,6 @@ export default function BaseLayout({
           .woc-footer__bottom-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
       `}</style>
-        </>
-    );
+    </>
+  );
 }
