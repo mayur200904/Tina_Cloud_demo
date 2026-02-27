@@ -57,9 +57,26 @@ Add or remove pages based on the brief. A gym might need a `/classes` page. A la
 
 ---
 
+## Step 2.5: Design Interview
+
+**Before selecting a profile**, ask the builder these 5 questions (conversational — not a survey). Use the answers to override profile defaults in Step 3.
+
+Read `references/design-interview.md` for the full question set and how each answer maps to token choices.
+
+**Short version (5 questions, ask these verbatim):**
+1. **Tone** — "Bold & confident" / "Refined & minimal" / "Warm & approachable" / "Technical & precise"?
+2. **Color** — Any brand colors already in use? (logo, business card, existing materials)
+3. **Photography** — Does the client have strong photos, or will we use stock?
+4. **Typography feel** — Serif headings (heritage, authority) or all-sans (modern, clean)?
+5. **Edge treatment** — Sharp corners (corporate/industrial) or rounded (friendly/consumer)?
+
+Profile is the *starting point*. Design interview shapes the final token values.
+
+---
+
 ## Step 3: Select a Design Profile
 
-Read `references/niche-profiles.md`. Choose the closest profile and apply it by replacing values in the `@theme {}` block of `src/app/globals.css`.
+Read `references/niche-profiles.md`. Choose the closest profile and use the builder's design interview answers to refine it before applying to `src/app/globals.css`.
 
 **Modify only these variables:**
 ```css
@@ -72,6 +89,8 @@ Read `references/niche-profiles.md`. Choose the closest profile and apply it by 
 --color-surface
 --color-surface-border
 --color-muted
+--color-dark           /* footer + dark section background; set per brand */
+--color-dark-foreground
 --font-heading
 --font-sans
 --radius-global
@@ -354,8 +373,9 @@ Use different images for different pages — don't repeat the same URL. Be speci
 ```
 [ ] Read brief → extract all required fields
 [ ] Plan pages → decide which pages to build (minimum: Home, About, Services, Contact)
-[ ] Select niche profile from references/niche-profiles.md
-[ ] Update @theme block in src/app/globals.css
+[ ] Run Step 2.5 Design Interview (5 questions) → note answers
+[ ] Select niche profile from references/niche-profiles.md; refine with design interview answers
+[ ] Update @theme block in src/app/globals.css (include --color-dark and --color-dark-foreground)
 [ ] Write content/settings/global.json (nav uses page routes, not anchor links)
 [ ] Write content/pages/index.md
 [ ] Write content/pages/about.md

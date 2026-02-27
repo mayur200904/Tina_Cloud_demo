@@ -1,6 +1,8 @@
 # Niche Design Profiles
 
-Each profile defines: primary color, secondary color, Google Fonts URL, heading font, body font, and border-radius values.
+These are **starting points**, not final answers. Use the Design Interview (Step 2.5) answers to refine values before applying.
+
+Each profile defines: primary color, secondary, Google Fonts URL, heading font, body font, border-radius, and dark-section colors.
 
 ---
 
@@ -17,6 +19,8 @@ Each profile defines: primary color, secondary color, Google Fonts URL, heading 
 --color-surface: #F8F7F4;
 --color-surface-border: #E8E6E0;
 --color-muted: #6B7280;
+--color-dark: #0F2137;         /* deep navy, darker than primary */
+--color-dark-foreground: #F0EFE8;
 --font-heading: 'Playfair Display', serif;
 --font-sans: 'Inter', sans-serif;
 --radius-global: 2px;
@@ -43,6 +47,8 @@ Google Fonts URL: `https://fonts.googleapis.com/css2?family=Playfair+Display:wgh
 --color-surface: #F0EFEC;
 --color-surface-border: #E2E0DA;
 --color-muted: #737373;
+--color-dark: #1A2E26;         /* deep forest green */
+--color-dark-foreground: #F5F3EE;
 --font-heading: 'DM Serif Display', serif;
 --font-sans: 'Outfit', sans-serif;
 --radius-global: 12px;
@@ -57,7 +63,7 @@ Google Fonts URL: `https://fonts.googleapis.com/css2?family=DM+Serif+Display:ita
 ---
 
 ## 3. Industrial / Manufacturing
-**Target:** Engineering firms, factories, construction, logistics
+**Target:** Engineering firms, factories, construction, logistics, B2B distributors
 
 ```css
 --color-primary: #E85D26;      /* industrial orange */
@@ -69,6 +75,8 @@ Google Fonts URL: `https://fonts.googleapis.com/css2?family=DM+Serif+Display:ita
 --color-surface: #F3F4F6;
 --color-surface-border: #D1D5DB;
 --color-muted: #6B7280;
+--color-dark: #111827;         /* near-black charcoal */
+--color-dark-foreground: #F3F4F6;
 --font-heading: 'Barlow', sans-serif;
 --font-sans: 'Barlow', sans-serif;
 --radius-global: 0px;
@@ -96,6 +104,8 @@ Google Fonts URL: `https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;
 --color-surface: #18181B;
 --color-surface-border: #27272A;
 --color-muted: #A1A1AA;
+--color-dark: #050507;         /* depper near-black */
+--color-dark-foreground: #F4F4F5;
 --font-heading: 'Syne', sans-serif;
 --font-sans: 'DM Sans', sans-serif;
 --radius-global: 8px;
@@ -110,14 +120,48 @@ Google Fonts URL: `https://fonts.googleapis.com/css2?family=Syne:wght@600;700;80
 
 ---
 
+## 5. Premium Services
+**Target:** Architects, high-end consultants, boutique manufacturers, import/export, luxury B2B
+
+This profile occupies the space between Corporate and Industrial — authority without austerity, refined without being sterile. Works well when the client's audience is senior buyers, procurement heads, or C-suite.
+
+```css
+--color-primary: #2C2C2C;      /* near-black with warmth */
+--color-primary-foreground: #F8F4EF;
+--color-secondary: #A07850;    /* warm copper/bronze accent */
+--color-secondary-foreground: #FFFFFF;
+--color-background: #FDFCFA;
+--color-foreground: #1A1A1A;
+--color-surface: #F4F1EC;
+--color-surface-border: #E5DDD5;
+--color-muted: #7A7065;
+--color-dark: #1A1714;         /* warm near-black — not flat */
+--color-dark-foreground: #F0EBE3;
+--font-heading: 'Cormorant Garamond', serif;
+--font-sans: 'Inter', sans-serif;
+--radius-global: 2px;
+--radius-card: 4px;
+--radius-button: 2px;
+--nav-bg: #FDFCFA;
+--nav-text: #1A1A1A;
+--nav-border: #E5DDD5;
+```
+
+Google Fonts URL: `https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap`
+
+---
+
 ## Audience-to-Profile Mapping
 
 | Client Type | Profile |
 |---|---|
 | Lawyer, accountant, HR consultant, financial advisor | Corporate Professional |
 | Dentist, GP, physiotherapist, gym, salon, cafe, retailer | Friendly SMB |
-| Manufacturer, engineering firm, construction, logistics | Industrial |
+| Manufacturer, engineering firm, construction, logistics, B2B distributor | Industrial |
 | SaaS, tech startup, design agency, digital marketing | Modern Startup |
+| Architect, high-end consultant, boutique manufacturer, import/export, luxury B2B | Premium Services |
+
+**Remember:** Use the Design Interview (Step 2.5) answers to override profile defaults. Profiles are starting points.
 
 ---
 

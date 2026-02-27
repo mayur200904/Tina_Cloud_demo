@@ -35,6 +35,19 @@ A quick reference for builders conducting the coffee chat intake. Ask in a natur
 
 ---
 
+## Design Layer Questions
+
+Ask these in Step 2.5 **after** the client brief, with the **builder** (not the end client).
+See `references/design-interview.md` for how each answer maps to token choices.
+
+17. **Tone pick** — "Bold & confident" / "Refined & minimal" / "Warm & approachable" / "Technical & precise"?
+18. **Brand colors** — Any existing hex values, logo swatches, or Pantone references?
+19. **Photography quality** — Professional photos in hand, or stock only? (determines hero layout)
+20. **Typography feel** — Serif headings (authority) or all-sans (modern, clean)?
+21. **Edge treatment** — Sharp corners (corporate) or rounded (friendly)?
+
+---
+
 ## Technical / Handoff Questions
 
 17. **Do you own a domain?** If yes, what is it? If no, walk them through Namecheap/GoDaddy.
@@ -59,7 +72,12 @@ A quick reference for builders conducting the coffee chat intake. Ask in a natur
 ```
 Business Name: 
 Niche / Industry: 
-Profile Selected: [Corporate / SMB / Industrial / Startup]
+Profile Selected: [Corporate / SMB / Industrial / Startup / Premium Services]
+Tone Answer: 
+Brand Colors: 
+Photography: [owned / stock]
+Typography: [serif / all-sans]
+Edge Treatment: [sharp / rounded / neutral]
 Services (list):
   1. 
   2. 
