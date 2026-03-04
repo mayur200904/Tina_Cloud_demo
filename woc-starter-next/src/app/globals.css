@@ -32,6 +32,12 @@
   /* Muted text (subheadings, captions) */
   --color-muted: #737373;
 
+  /* Dark section — used by .woc-section--dark
+     Builder sets this to match their brand (deep navy, charcoal, etc.)
+     Defaults to near-black. */
+  --color-dark: #111111;
+  --color-dark-foreground: #f8f8f8;
+
   /* --- TYPOGRAPHY --- */
   /* Set by woc-builder. Import matching @font-face or Google Fonts link in layout. */
   --font-heading: 'Georgia', serif;
@@ -40,6 +46,10 @@
   /* --- SPACING --- */
   --section-padding-y: 5rem;
   /* vertical padding per section */
+  --section-padding-y-sm: 3rem;
+  /* tighter sections (logo cloud, divider-style) */
+  --section-padding-y-lg: 7rem;
+  /* hero-class breathing room */
   --container-max-width: 72rem;
   /* max content width */
   --container-padding-x: 1.5rem;
@@ -55,7 +65,7 @@
 
   /* --- SHADOWS --- */
   --shadow-card: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
-  --shadow-elevated: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+  --shadow-elevated: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
 
   /* --- NAV --- */
   --nav-bg: #ffffff;
@@ -92,7 +102,7 @@ body {
   padding-inline: var(--container-padding-x);
 }
 
-/* === SECTION UTILITY === */
+/* === SECTION UTILITIES === */
 .woc-section {
   padding-block: var(--section-padding-y);
 }
@@ -101,28 +111,93 @@ body {
   background-color: var(--color-surface);
 }
 
+/* Dark section — background switches to --color-dark
+   Set that token per brand (deep navy, charcoal, forest, etc.) */
+.woc-section--dark {
+  background-color: var(--color-dark);
+  color: var(--color-dark-foreground);
+}
+
+.woc-section--dark .woc-h1,
+.woc-section--dark .woc-h2,
+.woc-section--dark .woc-h3,
+.woc-section--dark .woc-lead {
+  color: var(--color-dark-foreground);
+}
+
+.woc-section--dark .woc-eyebrow {
+  color: color-mix(in srgb, var(--color-primary-foreground) 70%, transparent);
+}
+
+/* === ANIMATIONS === */
+@keyframes woc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes woc-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Opt-in reveal: add .woc-reveal to any element for a page-load fade-up.
+   Blocks apply this selectively — it is never forced globally. */
+.woc-reveal {
+  animation: woc-fade-up 0.7s ease both;
+}
+
+.woc-reveal--delay-1 {
+  animation-delay: 0.1s;
+}
+
+.woc-reveal--delay-2 {
+  animation-delay: 0.22s;
+}
+
+.woc-reveal--delay-3 {
+  animation-delay: 0.34s;
+}
+
+.woc-reveal--delay-4 {
+  animation-delay: 0.46s;
+}
+
 /* === BUTTON SYSTEM === */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
+  padding: 0.75rem 2rem;
   background-color: var(--color-primary);
   color: var(--color-primary-foreground);
   border-radius: var(--radius-button);
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.9375rem;
+  letter-spacing: 0.04em;
   text-decoration: none;
   border: 2px solid var(--color-primary);
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.15s ease;
+  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
   opacity: 0.88;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -130,13 +205,14 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
+  padding: 0.75rem 2rem;
   background-color: transparent;
   color: var(--color-primary);
   border-radius: var(--radius-button);
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.9375rem;
+  letter-spacing: 0.04em;
   text-decoration: none;
   border: 2px solid var(--color-primary);
   cursor: pointer;
@@ -146,11 +222,14 @@ body {
 .btn-secondary:hover {
   background-color: var(--color-primary);
   color: var(--color-primary-foreground);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* === TYPOGRAPHY SCALE === */
 .woc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -159,21 +238,33 @@ body {
   color: var(--color-primary);
 }
 
+/* Lined eyebrow: a short horizontal rule before the label.
+   Use .woc-eyebrow--lined on the <p> element for sections that
+   call for visual anchoring. Not forced — builder opts in via class. */
+.woc-eyebrow--lined::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
 .woc-h1 {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.75rem, 7vw, 5rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.02em;
   color: var(--color-foreground);
 }
 
 .woc-h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   color: var(--color-foreground);
 }
 
@@ -187,7 +278,7 @@ body {
 
 .woc-lead {
   font-size: clamp(1.0625rem, 2vw, 1.25rem);
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--color-muted);
 }
 
@@ -198,12 +289,13 @@ body {
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
   padding: 1.75rem;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
 }
 
 .woc-card:hover {
   box-shadow: var(--shadow-elevated);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-surface-border));
 }
 
 /* === DIVIDER === */

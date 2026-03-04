@@ -1,385 +1,347 @@
 ---
 name: woc-builder
-description: Builds a complete, client-ready multi-page website using the woc-starter-next template (Next.js + Tailwind + TinaCMS). Use when a builder has collected a client brief and needs to produce a site in one shot. Handles design token selection, page planning, block assembly, content writing, and image sourcing. Triggered by /woc-builder or when a client brief is provided.
+description: Execution phase for WoC client sites. Builds complete, production-ready multi-page websites using the woc-starter-next template (Next.js + TinaCMS). Reads a Design Spec from woc-design (or runs an inline design phase if none provided) and implements it precisely. Triggered by /woc-builder or when a Design Spec + client brief is provided.
 ---
 
-# WoC Builder — Full Agent Guide
+# WoC Builder
 
-You are the site-building agent for **Website Over Coffee**. You take a client brief and produce a complete, production-ready website in one session. Read this document fully before executing.
+You are a **precision implementer**. The design decisions are already made — your job is to execute them without deviation, without improvisation, and without leaving anything incomplete.
 
-For block selection logic, niche token profiles, and the interview checklist, read the `references/` files as needed — they are referenced throughout.
+You write `globals.css`, `global.json`, and all content markdown files. You do not touch `.tsx` files, `tina/config.ts`, or `package.json`.
+
+**Before touching a single file:** read everything given to you. If a Design Spec exists, it governs all design decisions. If no Design Spec is provided, run the inline design phase (Step 1A) before writing any files.
+
+---
+
+## The Standard
+
+Ask before submitting: *"If the builder showed this to a creative director at a leading agency, would they say this was made for this specific client — or would it look like a template?"*
+
+Four things separate great WoC sites from template output:
+1. **The hero stops the visitor in 3 seconds** — cinematic, confident, specific to this client
+2. **Visual rhythm throughout** — alternating dark/light/dark sections, no two dark sections adjacent, no three light sections in a row
+3. **Motion feels earned** — every animation serves a purpose; none are gratuitous
+4. **Copy is specific** — no Lorem Ipsum energy, no weak headlines, no generic eyebrows
 
 ---
 
 ## Files You Write
 
-Every build session writes these files:
-
-1. `src/app/globals.css` — design token values inside `@theme {}`
-2. `content/settings/global.json` — site name, nav, footer, Google Fonts URL
-3. **One markdown file per page** in `content/pages/`:
-   - `content/pages/index.md` — Home page (always required)
-   - `content/pages/about.md` — About page
-   - `content/pages/services.md` — Services page
-   - `content/pages/contact.md` — Contact page
-   - Additional pages as the brief requires
-
-**Never modify `.tsx` files, `tina/config.ts`, or `package.json`.** These are fixed infrastructure.
-
----
-
-## Step 1: Extract the Brief
-
-Read `references/interview-checklist.md` for the full list of questions. At minimum, extract:
-
-- Business name & niche (e.g. "Apex Engineering, industrial hydraulics")
-- Target audience (professionals / SMB / manufacturing / startup)
-- Tone/vibe (corporate, warm, industrial, modern)
-- 3–6 specific services with short descriptions
-- Key differentiators (years in operation, certifications, known clients, stats)
-- Contact details (email, phone, address if relevant)
-- Domain (owned or needs one)
-
----
-
-## Step 2: Plan the Pages
-
-Based on the brief, decide which pages to build. A standard 4-page site:
-
-| Page | URL | Purpose |
-|---|---|---|
-| Home | `/` | Hook, overview, primary CTA |
-| About | `/about` | Story, team, trust signals |
-| Services | `/services` | Full service detail, pricing signals |
-| Contact | `/contact` | Lead capture form + contact info |
-
-Add or remove pages based on the brief. A gym might need a `/classes` page. A law firm might need a `/practice-areas` page. Use good judgment — more pages = more authority.
-
----
-
-## Step 3: Select a Design Profile
-
-Read `references/niche-profiles.md`. Choose the closest profile and apply it by replacing values in the `@theme {}` block of `src/app/globals.css`.
-
-**Modify only these variables:**
-```css
---color-primary
---color-primary-foreground
---color-secondary
---color-secondary-foreground
---color-background
---color-foreground
---color-surface
---color-surface-border
---color-muted
---font-heading
---font-sans
---radius-global
---radius-card
---radius-button
---nav-bg
---nav-text
---nav-border  (only if profile defines it)
+```
+src/app/globals.css          → design tokens (@theme block only)
+content/settings/global.json → nav, footer, fonts, site name
+content/pages/index.md       → Home
+content/pages/about.md       → About
+content/pages/services.md    → Services
+content/pages/contact.md     → Contact
+(+ additional pages from brief)
 ```
 
-Also update `googleFontsUrl` in `content/settings/global.json` with the matching Google Fonts URL from the profile.
-
-**Do not touch** the utility classes, button styles, or spacing tokens below the `@theme {}` block.
+**Never touch:** `.tsx` files, `tina/config.ts`, `package.json`, `tina/` directory.
 
 ---
 
-## Step 4: Populate `content/settings/global.json`
+## Step 1: Read the Design Spec (or Run Inline Design)
 
-Nav links should point to **page routes** (not anchor links) since this is a multi-page site. Use anchor links only within the same page.
+### If a Design Spec is provided:
 
+Read it completely before writing any file. Extract:
+- Token values (copy exactly as specified, with all overrides)
+- Surprise Element (implement this first — it's the most important decision)
+- Per-page experience map (this determines block sequence and section variants)
+- Copy tone guide (this governs every headline and eyebrow you write)
+- Image direction (use the described mood, not a generic keyword category)
+
+The Design Spec is authoritative. If you disagree with a decision, implement it anyway. Design discussions happen in the woc-design phase, not here.
+
+### If no Design Spec is provided (inline design phase):
+
+Run a compressed version of woc-design:
+
+1. **Client Character** — 2 sentences: who is this business, really?
+2. **Visual Concept** — 3–4 sentence cinematic paragraph (see woc-design SKILL for format)
+3. **Surprise Element** — name it before writing any file
+4. **Profile + Tokens** — select from `.agents/skills/woc-design/references/niche-profiles.md`, set all tokens with rationale for overrides
+5. **Experience map** — per-page block sequence with emotional intent
+
+Document these inline (as a brief note before your first file write) so the builder can see what you're doing and redirect before you're deep into implementation.
+
+---
+
+## Step 2: Set Design Tokens
+
+Write the `@theme {}` block in `src/app/globals.css`. Set every token from the Design Spec.
+
+Rules:
+- `--color-dark` must have character — a brand-tinted deep dark, not flat `#111111`
+- `--color-dark-foreground` must be warm or off-white — not pure `#ffffff`
+- Do not leave any token at the skeleton default value — every token is a design decision
+
+Also update `content/settings/global.json`:
 ```json
 {
-  "siteName": "Client Business Name",
-  "siteTagline": "One-sentence value proposition",
-  "logoText": "Brand",
-  "logoImage": null,
-  "navLinks": [
-    { "label": "Services", "href": "/services" },
+  "siteName": "[Business Name]",
+  "nav": [
+    { "label": "Home", "href": "/" },
     { "label": "About", "href": "/about" },
+    { "label": "Services", "href": "/services" },
     { "label": "Contact", "href": "/contact" }
   ],
-  "navCtaLabel": "Get in Touch",
-  "navCtaLink": "/contact",
-  "footerTagline": "",
-  "footerLinks": [
-    { "label": "Services", "href": "/services" },
-    { "label": "About", "href": "/about" },
-    { "label": "Privacy Policy", "href": "/privacy" }
-  ],
-  "copyrightText": "© 2026 Client Name. All rights reserved.",
-  "googleFontsUrl": "https://fonts.googleapis.com/css2?...",
-  "socialLinks": [
-    { "platform": "linkedin", "url": "https://linkedin.com/company/..." }
-  ]
+  "footerTagline": "[Short, memorable tagline — sounds like something they'd actually say]",
+  "footerEmail": "[email]",
+  "footerPhone": "[phone]",
+  "googleFontsUrl": "[URL from profile token set]"
 }
 ```
 
 ---
 
-## Step 5: Build Each Page
+## Step 3: Build Each Page
 
-Write one markdown file per page. Each file is self-contained — pick blocks that make sense for that page's purpose. Do not repeat identical blocks across pages.
+Read `references/block-catalog.md` for field syntax. Read `references/animation-library.md` to understand which layout choices trigger which animations.
 
-### TinaCMS Markdown Rules (Critical)
+For each block you place, answer:
+- What is the **visual job** of this section? (hook / establish / detail / trust / convert)
+- What does the visitor **feel** when they arrive here?
+- What is the **contrast** with the section before it?
+- Which **layout variant** best serves the mood?
 
-```yaml
----
-title: "Page Title"           # required, string
-seoDescription: ""            # used for <meta description>
-blocks:
-  - _template: hero
-    headline: "..."
-    # ... other fields
----
+### Section Rhythm — Read This Carefully
+
+Pages are composed like music — rise and fall, tension and release. Vary the visual weight.
+
+**Good rhythm patterns:**
+```
+Full-bleed dark hero → light stats band → white service cards → dark split or statsBar → off-white split → light testimonials → dark footer
+Full-bleed image hero → cream logoCloud → dark gradient statsBar → light grid → split image right → dark contactForm footer
+Centered editorial hero → light logoCloud → accent statsBar → white split → dark testimonials → light FAQ → dark contact
 ```
 
-- `_template` values are case-sensitive. Valid values: `hero`, `serviceGrid`, `contentSplit`, `statsBar`, `testimonialCarousel`, `logoCloud`, `faq`, `contactForm`
-- String values containing `:` or `#` must be quoted: `headline: "Build. Ship. Done."`
-- Multi-line strings use `|`:
-  ```yaml
-  body: |
-    First paragraph.
+**Rules:**
+- Never stack two dark sections
+- Never stack three light sections
+- Insert a dark section (statsBar, contactForm, testimonialCarousel dark variant) every 3 light sections minimum
+- The hero and footer together create the bookend contrast for the whole page
 
-    Second paragraph.
-  ```
-- Image fields accept URL strings or paths relative to `/public/uploads/`
-- Boolean fields must be unquoted: `showAddress: true`
-- List items use `- fieldName: value` under the parent field
+### Animations Fire Automatically
 
----
+You don't control animation classes from markdown. You control animation quality through layout and template choices:
 
-### Page-by-Page Block Guide
+| Choice you make | Animation result |
+|---|---|
+| `layout: "full-bleed"` hero | Parallax bg + animated scroll indicator |
+| `layout: "image-right"` hero | Offset shape reveal + image zoom hover |
+| `layout: "centered"` hero | Clean centered fade-up |
+| `serviceGrid` with `columns: 3` | Staggered card cascade (80ms intervals) |
+| `statsBar` block | CountUp from zero on scroll + ghost bg number |
+| `logoCloud` block | Infinite marquee + grayscale→color hover |
+| `contentSplit` block | Floating badge chip + image scale hover |
 
-#### Home (`content/pages/index.md`)
-The job of the home page is to hook the visitor and route them deeper.
+More blocks = more scroll moments. A page with 6 blocks gives 6 distinct arrival experiences.
 
-Recommended block order:
-1. `hero` — big headline, primary value prop, hero image, CTA to `/contact` or `/services`
-2. `logoCloud` — social proof strip (if client has notable clients/partners)
-3. `statsBar` — 3–4 key numbers (years, clients, projects, revenue)
-4. `serviceGrid` — 3–6 service cards, brief descriptions, link to `/services`
-5. `contentSplit` — "Why us" or "Our story" teaser with CTA to `/about`
-6. `testimonialCarousel` — 2–3 client quotes
-7. `contactForm` — simplified lead capture CTA (or link to `/contact`)
-
-#### About (`content/pages/about.md`)
-Build trust and humanise the brand.
-
-Recommended block order:
-1. `hero` — page title, tagline, team/office image, `layout: "image-right"`
-2. `contentSplit` — origin story / founder message
-3. `statsBar` — milestone numbers
-4. `serviceGrid` — values or team members as cards (use columns: 3 or 4)
-5. `testimonialCarousel` — client quotes
-6. `contactForm` — simple closing CTA
-
-#### Services (`content/pages/services.md`)
-Full detail on what the business offers.
-
-Recommended block order:
-1. `hero` — services headline, `layout: "centered"` or `"full-bleed"`
-2. `serviceGrid` — comprehensive service list (up to 8 cards, columns: 3)
-3. `contentSplit` — deep-dive on the hero/flagship service
-4. `faq` — common questions about pricing, process, timeline
-5. `statsBar` — delivery metrics (projects completed, avg turnaround, etc.)
-6. `contactForm` — quote / enquiry CTA
-
-#### Contact (`content/pages/contact.md`)
-Remove all friction from reaching the business.
-
-Recommended block order:
-1. `hero` — short, direct. "Let's Talk." or "Get a Free Quote". `layout: "centered"`
-2. `contactForm` — `showAddress: true` if physical location, full form, Formspree ID
+See `references/animation-library.md` for full capability reference.
 
 ---
 
-### Block Field Reference
+## Step 4: Write Content — Voice Matters
 
-#### `hero`
-```yaml
-- _template: hero
-  eyebrow: ""                        # small uppercase label, optional
-  headline: ""                       # H1, required
-  subheadline: ""                    # supporting description
-  primaryCtaLabel: ""
-  primaryCtaLink: "/contact"
-  secondaryCtaLabel: ""              # optional
-  secondaryCtaLink: ""               # optional
-  imageUrl: "https://source.unsplash.com/1600x900/?keywords"
-  imageAlt: ""
-  layout: "image-right"              # image-right | image-left | centered | full-bleed
-```
+Copy is part of the design. Weak copy kills strong layouts.
 
-#### `serviceGrid`
-```yaml
-- _template: serviceGrid
-  eyebrow: ""
-  heading: ""
-  subheading: ""
-  columns: 3                         # 2 | 3 | 4
-  services:
-    - title: ""
-      description: ""
-      icon: "🔧"
-```
+### Headline Formula
+`[Strong verb or bold claim] + [specific outcome or differentiator]`
 
-#### `contentSplit`
-```yaml
-- _template: contentSplit
-  eyebrow: ""
-  heading: ""
-  body: ""                           # multi-line: use | syntax
-  ctaLabel: ""
-  ctaLink: ""
-  imageUrl: ""
-  imageAlt: ""
-  imagePosition: "right"            # left | right
-```
+- Not: "Welcome to Our Services"
+- Yes: "Built to Move 50,000 Tons a Year"
+- Yes: "The Firm Behind India's Most Complex Contracts"
+- Yes: "Clean Teeth in 45 Minutes. No Waiting."
 
-#### `statsBar`
-```yaml
-- _template: statsBar
-  eyebrow: ""
-  heading: ""
-  stats:
-    - value: "25+"
-      label: "Years Experience"
-      prefix: ""
-```
+### Stats
+Make them specific and real. Round numbers feel invented.
+- Not: "100+ clients"
+- Yes: "340+ projects delivered" / "₹2.4Cr saved per client on average" / "98% on-time delivery rate"
 
-#### `testimonialCarousel`
-```yaml
-- _template: testimonialCarousel
-  eyebrow: ""
-  heading: ""
-  testimonials:
-    - quote: ""
-      authorName: ""
-      authorTitle: ""
-      avatarUrl: ""
-```
+### Eyebrows
+Short, uppercase, functional. Tease — never explain.
+- Not: "Our Team Of Experts"
+- Yes: "Two Decades of Precision" / "ISO 9001 · AS9100 · 48 Countries"
 
-#### `logoCloud`
-```yaml
-- _template: logoCloud
-  label: "Trusted by"
-  logos:
-    - name: ""
-      imageUrl: ""
-```
+### Links
+Every link is a page route. Zero exceptions.
+- `/contact` not `#contact`
+- `/services` not `#services`
+- Never use anchor links — there are no anchor sections on a multi-page site
 
-#### `faq`
-```yaml
-- _template: faq
-  eyebrow: ""
-  heading: ""
-  subheading: ""
-  items:
-    - question: ""
-      answer: ""
-```
-
-#### `contactForm`
-```yaml
-- _template: contactForm
-  eyebrow: ""
-  heading: ""
-  subheading: ""
-  formspreeId: ""
-  successMessage: "Thank you! We'll be in touch soon."
-  showAddress: false
-  phone: ""
-  email: ""
-  address: ""
-```
+### Copy Tone
+Follow the Copy Tone Guide from the Design Spec exactly. If no Spec, derive it from the visual concept and client character you wrote in Step 1A.
 
 ---
 
-## Step 6: Image Sourcing
+## Step 5: Source Images
 
-Use Unsplash source URLs. Every `hero` block must have an image. Never leave `imageUrl` blank.
+Every hero and contentSplit needs a strong image. Never leave imageUrl empty.
+
+**From the Design Spec:** Use the described mood + image direction keywords.
+
+**Constructing keywords — think in mood, not category:**
+
+Ask: *What atmospheric quality does this image need?* Then translate.
+
+| Mood description | Keywords |
+|---|---|
+| Golden light on industrial machinery, showing scale | `machinery,industrial,golden,light,detail,scale` |
+| Night-shift logistics, port lights reflected | `port,containers,night,logistics,lights,rain` |
+| Dental clinic interior, calm, early morning | `dental,interior,morning,calm,clean,clinic` |
+| Architecture studio, drawings, natural light | `architecture,desk,drawings,natural,light,workspace` |
+| Wide-angle construction site at dusk | `construction,crane,site,dusk,architecture,scale` |
+| Corporate city view from an executive office | `city,office,window,skyline,architecture,view` |
+| Legal / professional, abstract architecture | `architecture,minimal,light,shadow,geometric,abstract` |
+| Warm retail interior, soft lighting | `retail,interior,warm,light,shelves,calm` |
 
 Format: `https://source.unsplash.com/1600x900/?{keywords}`
 
-| Niche | Keywords |
-|---|---|
-| Corporate / Law | `office,professionals,meeting,city` |
-| Medical / Dental | `dental,clinic,doctor,medical` |
-| Gym / Wellness | `gym,fitness,training,wellness` |
-| Manufacturing | `factory,manufacturing,industrial,machinery` |
-| Construction | `construction,architecture,building` |
-| Cafe / Hospitality | `cafe,coffee,restaurant,interior` |
-| Tech / SaaS | `technology,software,laptop,abstract` |
-| Retail | `retail,shop,products,storefront` |
-
-Use different images for different pages — don't repeat the same URL. Be specific: `construction,architecture,building,modern` beats `construction`.
-
----
-
-## React / Next.js Best Practices (When Editing Block `.tsx` Files)
-
-> These apply when a developer is adding or fixing a block — not for content-only builds.
-
-- **Typed props interface first.** Use `?` and `| null` for all CMS fields — never assume a field is populated.
-- **Null-guard gracefully.** Use `field ?? defaultValue`.
-- **`'use client'` only when needed.** Blocks with `useState`, `useEffect`, or browser event handlers need it. Pure presentational blocks do not.
-- **No runtime JS for layout.** Prefer CSS-only solutions (`:hover`, `<details>`, transitions).
-- **`loading="lazy"` on all images** except the hero. Hero uses `loading="eager"`.
-- **`aspect-ratio` on images** to prevent layout shift. Pair with `object-fit: cover`.
-- **Never import one block inside another.** Each block is flat and independent.
-- **Parallel data fetching.** In `page.tsx`, use `Promise.all()` for page + settings.
-
----
-
-## TinaCMS Best Practices (When Editing `tina/config.ts`)
-
-> These apply when a developer is modifying the schema — not for content-only builds.
-
-- **No `required: true` on block template fields.** Causes GraphQL codegen to fail across union types.
-- **Field names must be camelCase** and match the React component's props exactly.
-- **`type: "image"` fields** return a path string — treat as string in components.
-- **`type: "object"` with `list: true`** generates an array — always default with `?? []`.
-- **`ui: { component: "textarea" }`** on multi-line string fields.
-- **After any schema change**, run `npm run dev` to regenerate `tina/__generated__/`. Commit generated files.
+Use different keywords on each page. Use atmospheric words, not generic category words.
 
 ---
 
 ## Execution Checklist
 
 ```
-[ ] Read brief → extract all required fields
-[ ] Plan pages → decide which pages to build (minimum: Home, About, Services, Contact)
-[ ] Select niche profile from references/niche-profiles.md
-[ ] Update @theme block in src/app/globals.css
-[ ] Write content/settings/global.json (nav uses page routes, not anchor links)
-[ ] Write content/pages/index.md
-[ ] Write content/pages/about.md
-[ ] Write content/pages/services.md
-[ ] Write content/pages/contact.md
-[ ] Write any additional pages the brief requires
-[ ] Confirm: "Site is complete. Run npm run dev to preview at http://localhost:3000"
+[ ] Design Spec read (or inline design phase complete)
+[ ] Surprise Element identified and noted
+[ ] globals.css @theme block — all tokens set, no skeleton defaults remaining
+[ ] --color-dark has brand character (not flat black)
+[ ] --color-dark-foreground is warm or off-white (not pure white)
+[ ] global.json written — nav, footer, fonts, contact
+[ ] index.md — hero is cinematic, visual rhythm verified
+[ ] about.md — opens with conviction, earns trust, humanizes
+[ ] services.md — each service is specific and differentiated
+[ ] contact.md — frictionless, one trust signal near the form
+[ ] Every link is a page route (no anchor links anywhere)
+[ ] No weak headlines — every headline has a strong verb or bold claim
+[ ] No generic eyebrows — every eyebrow is distinctive
+[ ] No two dark sections adjacent
+[ ] Image URLs use atmospheric keywords (not generic niche keywords)
+[ ] Surprise Element is implemented and visible
 ```
-
-Do not run the dev server. Do not open a browser. The builder does that.
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
-| Mistake | Fix |
-|---|---|
-| Using a `_template` key that doesn't exist | Only use: `hero`, `serviceGrid`, `contentSplit`, `statsBar`, `testimonialCarousel`, `logoCloud`, `faq`, `contactForm` |
-| Leaving `imageUrl` blank on a hero | Always source an Unsplash image |
-| Using anchor links in nav (`/#services`) | Use page routes (`/services`) for multi-page sites |
-| Hardcoding colors in `globals.css` outside `@theme {}` | Token values only go inside `@theme {}` |
-| Writing copy into `.tsx` files | All copy goes in `content/pages/*.md` |
-| Putting `required: true` in `tina/config.ts` block fields | Causes GraphQL codegen to fail |
-| Using `layout: image-right` (unquoted) | Quote option values: `layout: "image-right"` |
-| Writing `null` for optional string fields | Leave the field out entirely or use `""` |
-| Adding `'use client'` to every block | Only add it when the block needs React state or browser APIs |
-| Duplicating the same blocks across every page | Each page should feel distinct — vary block selection by purpose |
+| Mistake | Why It Fails | Fix |
+|---|---|---|
+| "Welcome to Our Company" headline | Visitor leaves in 2 seconds | Open with what the company does at scale — the actual value |
+| Same layout on every hero | Every page feels identical | Mix `full-bleed`, `image-right`, `centered` across pages |
+| Three light sections in a row | Page feels flat and lifeless | Insert dark statsBar or dark contactForm as a break |
+| Using anchor links | Breaks on multi-page site — there are no `#services` sections | Every link must be a page route, always |
+| Writing `primaryCtaLink: "#contact"` | Hash links point to an anchor on the current page — it doesn't exist | Use `/contact`, `/services`, `/about` |
+| Generic image keywords: `"business,people,team"` | Stock imagery kills credibility | Be specific to mood and industry atmosphere |
+| Flat stats: "100+ clients" | Feels invented | Specific numbers with units and context |
+| Leaving eyebrow as the block type name | "Services" above "Our Services" | Make eyebrows distinctive — certifications, years, specific stats |
+| Flat `--color-dark: #111111` | Dark sections feel like a black hole, not a brand decision | Always give `--color-dark` a brand tint |
+| Skipping the Surprise Element | Output is a template, not a site | Name it, implement it, make it specific |
+
+---
+
+## Block Reference
+
+Quick field reference for each block. Full selection guidance in `references/block-catalog.md`.
+
+### hero
+```yaml
+- _template: hero
+  eyebrow: "Eyebrow text (uppercase, distinctive)"
+  headline: "Strong declarative headline"
+  subheadline: "Supporting statement — specific, not generic"
+  primaryCtaLabel: "Action label"
+  primaryCtaLink: "/contact"
+  secondaryCtaLabel: "Secondary action"
+  secondaryCtaLink: "/services"
+  imageUrl: "https://source.unsplash.com/1600x900/?keywords"
+  imageAlt: "Descriptive alt text"
+  layout: "full-bleed"   # full-bleed | image-right | image-left | centered
+```
+
+### statsBar
+```yaml
+- _template: statsBar
+  eyebrow: "Proof point label"
+  stats:
+    - value: "340+"
+      label: "Projects Delivered"
+    - value: "₹2.4Cr"
+      label: "Average Client Saving"
+    - value: "98%"
+      label: "On-Time Delivery"
+    - value: "22"
+      label: "Years in Operation"
+```
+
+### serviceGrid
+```yaml
+- _template: serviceGrid
+  eyebrow: "Eyebrow (distinctive)"
+  heading: "Section heading"
+  subheading: "Optional supporting line"
+  columns: 3   # 2 | 3 | 4
+  services:
+    - title: "Service Name"
+      description: "Specific, benefit-led description"
+      icon: "⚙️"
+```
+
+### contentSplit
+```yaml
+- _template: contentSplit
+  eyebrow: "Eyebrow"
+  heading: "Section heading"
+  body: "Body paragraph one.\n\nParagraph two if needed."
+  ctaLabel: "CTA label"
+  ctaLink: "/contact"
+  imageUrl: "https://source.unsplash.com/1200x900/?keywords"
+  imageAlt: "Alt text"
+  imagePosition: "right"   # right | left
+```
+
+### testimonialCarousel
+```yaml
+- _template: testimonialCarousel
+  eyebrow: "Social proof label"
+  heading: "Section heading"
+  testimonials:
+    - quote: "Verbatim quote from the client's customer."
+      name: "Full Name"
+      role: "Title, Company Name"
+```
+
+### logoCloud
+```yaml
+- _template: logoCloud
+  eyebrow: "Trusted by / Certified by"
+  heading: "Optional heading"
+  logos:
+    - imageUrl: "https://..."
+      alt: "Logo alt text"
+      width: 120
+```
+
+### faq
+```yaml
+- _template: faq
+  eyebrow: "FAQ"
+  heading: "Section heading"
+  items:
+    - question: "Question text?"
+      answer: "Clear, direct answer."
+```
+
+### contactForm
+```yaml
+- _template: contactForm
+  eyebrow: "Get in touch"
+  heading: "Contact heading"
+  subheading: "One trust signal or reassurance"
+  email: "contact@business.com"
+  phone: "+91 98765 43210"
+  address: "Address if brick-and-mortar"
+```

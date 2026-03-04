@@ -5,7 +5,7 @@
 - `serviceGrid` — every site (3–6 services)
 - `contentSplit` — every site (About / Story section)
 - `testimonialCarousel` — every site (3 quotes minimum)
-- `contactForm` — every site (last section, anchor `#contact`)
+- `contactForm` — every site (last section on each page, or its own `/contact` page)
 
 ## Conditional Blocks
 
