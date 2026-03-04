@@ -328,3 +328,70 @@ A tech-enabled professional services company — has the energy of a startup but
 | Manufacturer, engineering, construction, logistics, B2B distributor | Industrial | Does the brand color match? Orange is a strong override point. |
 | SaaS, startup, digital agency, AI product, developer tool | Modern Startup | Not all tech is dark-native — check if they need to signal trust over speed |
 | Architect, boutique consultant, luxury B2B, premium materials | Premium Services | Restraint is the hardest profile to execute; less is more |
+
+---
+
+## Block & Variant Recommendations by Profile
+
+### Hero Layout
+| Profile | Recommended | Notes |
+|---|---|---|
+| Corporate Professional | `centered` or `full-bleed` | `centered` when copy > photography; `full-bleed` when architectural photography is strong |
+| Friendly SMB | `image-right` or `full-bleed` | `full-bleed` for cafes/restaurants with strong lifestyle photography |
+| Industrial | `full-bleed` | Photography of real sites, machinery; never `centered` (too soft) |
+| Modern Startup | `type-only` or `centered` | `type-only` for bold product statements; dark background suits this profile |
+| Premium Services | `type-only` or `centered` | `type-only` is premium's strongest hero — words over imagery; restraint signals confidence |
+
+### ServiceGrid Variant
+| Profile | Recommended | Notes |
+|---|---|---|
+| Corporate Professional | `grid` (3 cols) | Standard; clean scannable list of service areas |
+| Friendly SMB | `grid` (2–3 cols) | Rounded cards; keep descriptions short and benefit-led |
+| Industrial | `alternating` or `grid` | `alternating` when services have strong photography (plant, equipment); powerful at scale |
+| Modern Startup | `grid` (3 cols) | Feature-list feel; dark cards on dark background |
+| Premium Services | `alternating` (2–3 items) or `grid` (2 cols) | `alternating` creates a premium per-service story; never more than 4 items |
+
+### Testimonial Variant
+| Profile | Recommended | Notes |
+|---|---|---|
+| Corporate Professional | `featured` | One powerful quote from a recognizable client; credibility over quantity |
+| Friendly SMB | `carousel` | Multiple quotes; rotating; real faces build community trust |
+| Industrial | `carousel` or `featured` | `featured` if one quote references a major client/project milestone |
+| Modern Startup | `carousel` | Product testimonials work in volume; multiple voices = social proof |
+| Premium Services | `featured` | One extraordinary quote at full scale; dark background creates a cinematic pause |
+
+### processBlock
+| Profile | Recommended variant | Notes |
+|---|---|---|
+| Corporate Professional | `timeline` | Sequential, descriptive; signals methodology and rigour |
+| Friendly SMB | `steps` | Simple, visual, fast to read |
+| Industrial | `steps` | Order → Engineering → Production → Delivery; 4 steps max |
+| Modern Startup | `steps` | Onboarding flow or product journey |
+| Premium Services | `timeline` | Deliberate, unhurried; reinforces that the process is crafted |
+
+### teamBlock
+| Profile | Recommended columns | Notes |
+|---|---|---|
+| Corporate Professional | 2–3 | Fewer, larger profiles; names and credentials matter |
+| Friendly SMB | 3 | Faces humanize; keep bios short and personal |
+| Industrial | — | Skip unless team expertise is a differentiator |
+| Modern Startup | 3–4 | Founders / leadership only; diverse > numerous |
+| Premium Services | 2 | Solo or small teams; portrait photography quality matters |
+
+### pullQuoteBlock
+| Profile | Recommended | Notes |
+|---|---|---|
+| Corporate Professional | `dark: true`, `size: normal` | Leadership or founding statement; disciplined, authoritative |
+| Friendly SMB | `dark: false`, `size: normal` | Community statement or tagline; keep it warm and real |
+| Industrial | `dark: true`, `size: large` | Bold capability statement; numbers or superlatives work well |
+| Modern Startup | `dark: false` (on dark bg, no change needed) | Product manifesto line; terse, confident |
+| Premium Services | `dark: false`, `size: large` | Philosophy or belief statement; Cormorant Garamond at large sizes is the profile at its best |
+
+### fullWidthImageBlock
+| Profile | Recommended height | Notes |
+|---|---|---|
+| Corporate Professional | `medium` | Architectural or city photography; between service grid and testimonials |
+| Friendly SMB | `medium` | Lifestyle / in-environment photography; after serviceGrid |
+| Industrial | `tall` | Site or machinery at scale; can run the page |
+| Modern Startup | — | Skip on dark-native sites (photo contrast is difficult); use pullQuote instead |
+| Premium Services | `tall` | Material, texture, craft photography; one per page maximum |
