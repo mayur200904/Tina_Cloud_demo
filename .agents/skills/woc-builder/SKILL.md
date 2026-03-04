@@ -259,7 +259,8 @@ Quick field reference for each block. Full selection guidance in `references/blo
   secondaryCtaLink: "/services"
   imageUrl: "https://source.unsplash.com/1600x900/?keywords"
   imageAlt: "Descriptive alt text"
-  layout: "full-bleed"   # full-bleed | image-right | image-left | centered
+  layout: "full-bleed"   # full-bleed | image-right | image-left | centered | type-only
+  # type-only: no image; dark background; massive typography; no imageUrl needed
 ```
 
 ### statsBar
@@ -283,11 +284,14 @@ Quick field reference for each block. Full selection guidance in `references/blo
   eyebrow: "Eyebrow (distinctive)"
   heading: "Section heading"
   subheading: "Optional supporting line"
-  columns: 3   # 2 | 3 | 4
+  variant: "grid"   # grid | alternating
+  columns: 3   # 2 | 3 | 4 — grid variant only
   services:
     - title: "Service Name"
       description: "Specific, benefit-led description"
       icon: "⚙️"
+      imageUrl: "https://source.unsplash.com/1200x900/?keywords"  # alternating only
+      imageAlt: "Descriptive alt text"
 ```
 
 ### contentSplit
@@ -308,10 +312,13 @@ Quick field reference for each block. Full selection guidance in `references/blo
 - _template: testimonialCarousel
   eyebrow: "Social proof label"
   heading: "Section heading"
+  variant: "carousel"   # carousel | featured
+  # featured: one large quote, dark background, magazine editorial style
   testimonials:
     - quote: "Verbatim quote from the client's customer."
-      name: "Full Name"
-      role: "Title, Company Name"
+      authorName: "Full Name"
+      authorTitle: "Title, Company Name"
+      avatarUrl: ""  # optional
 ```
 
 ### logoCloud
@@ -333,6 +340,53 @@ Quick field reference for each block. Full selection guidance in `references/blo
   items:
     - question: "Question text?"
       answer: "Clear, direct answer."
+```
+
+### processBlock
+```yaml
+- _template: process
+  eyebrow: "How It Works"
+  heading: "Our Process"
+  subheading: "Optional supporting line"
+  variant: "steps"   # steps (horizontal) | timeline (vertical with connecting line)
+  steps:
+    - number: "01"   # optional — auto-numbered if omitted
+      title: "Step Title"
+      description: "Clear explanation of what happens at this stage."
+      icon: "🔍"   # optional emoji — replaces number if set
+```
+
+### teamBlock
+```yaml
+- _template: team
+  eyebrow: "The Team"
+  heading: "Meet the People Behind the Work"
+  columns: 3   # 2 | 3 | 4
+  members:
+    - name: "Full Name"
+      role: "Title / Position"
+      bio: "Short bio sentence or two."
+      imageUrl: "https://source.unsplash.com/800x600/?portrait,professional"
+      imageAlt: "Name, role"
+```
+
+### fullWidthImage
+```yaml
+- _template: fullWidthImage
+  imageUrl: "https://source.unsplash.com/1600x900/?keywords"
+  imageAlt: "Descriptive alt text"
+  overlayText: "Optional dramatic line displayed over the image"
+  overlayPosition: "center"   # center | left | bottom-left
+  height: "medium"   # short | medium | tall
+```
+
+### pullQuote
+```yaml
+- _template: pullQuote
+  quote: "The statement, belief, or manifesto line — make it count."
+  attribution: "Name, Role or Company"   # optional
+  dark: false   # true = dark background (counts as dark section for rhythm)
+  size: "normal"   # normal | large
 ```
 
 ### contactForm

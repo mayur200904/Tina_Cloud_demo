@@ -95,7 +95,7 @@ export default defineConfig({
                                         name: "layout",
                                         label: "Layout Variant",
                                         type: "string",
-                                        options: ["image-right", "image-left", "centered", "full-bleed"],
+                                        options: ["image-right", "image-left", "centered", "full-bleed", "type-only"],
                                         ui: { defaultValue: "image-right" },
                                     },
                                 ],
@@ -110,6 +110,13 @@ export default defineConfig({
                                     { name: "heading", label: "Section Heading", type: "string" },
                                     { name: "subheading", label: "Section Subheading", type: "string" },
                                     {
+                                        name: "variant",
+                                        label: "Layout Variant",
+                                        type: "string",
+                                        options: ["grid", "alternating"],
+                                        ui: { defaultValue: "grid" },
+                                    },
+                                    {
                                         name: "services",
                                         label: "Services",
                                         type: "object",
@@ -118,11 +125,13 @@ export default defineConfig({
                                             { name: "title", label: "Service Title", type: "string" },
                                             { name: "description", label: "Service Description", type: "string", ui: { component: "textarea" } },
                                             { name: "icon", label: "Icon (emoji or SVG path)", type: "string" },
+                                            { name: "imageUrl", label: "Service Image (alternating variant only)", type: "image" },
+                                            { name: "imageAlt", label: "Image Alt Text", type: "string" },
                                         ],
                                     },
                                     {
                                         name: "columns",
-                                        label: "Columns (2, 3, or 4)",
+                                        label: "Columns (2, 3, or 4) — grid variant only",
                                         type: "number",
                                         ui: { defaultValue: 3 },
                                     },
@@ -180,6 +189,13 @@ export default defineConfig({
                                     { name: "eyebrow", label: "Eyebrow Text", type: "string" },
                                     { name: "heading", label: "Section Heading", type: "string" },
                                     {
+                                        name: "variant",
+                                        label: "Layout Variant",
+                                        type: "string",
+                                        options: ["carousel", "featured"],
+                                        ui: { defaultValue: "carousel" },
+                                    },
+                                    {
                                         name: "testimonials",
                                         label: "Testimonials",
                                         type: "object",
@@ -230,6 +246,108 @@ export default defineConfig({
                                             { name: "question", label: "Question", type: "string" },
                                             { name: "answer", label: "Answer", type: "string", ui: { component: "textarea" } },
                                         ],
+                                    },
+                                ],
+                            },
+
+                            // 9. PROCESS BLOCK
+                            {
+                                name: "process",
+                                label: "Process — Numbered Steps / Workflow",
+                                fields: [
+                                    { name: "eyebrow", label: "Eyebrow Text", type: "string" },
+                                    { name: "heading", label: "Section Heading", type: "string" },
+                                    { name: "subheading", label: "Section Subheading (optional)", type: "string" },
+                                    {
+                                        name: "variant",
+                                        label: "Layout Variant",
+                                        type: "string",
+                                        options: ["steps", "timeline"],
+                                        ui: { defaultValue: "steps" },
+                                    },
+                                    {
+                                        name: "steps",
+                                        label: "Steps",
+                                        type: "object",
+                                        list: true,
+                                        fields: [
+                                            { name: "number", label: "Step Number (optional override, e.g. '01')", type: "string" },
+                                            { name: "title", label: "Step Title", type: "string" },
+                                            { name: "description", label: "Step Description", type: "string", ui: { component: "textarea" } },
+                                            { name: "icon", label: "Icon (emoji, replaces number if set)", type: "string" },
+                                        ],
+                                    },
+                                ],
+                            },
+
+                            // 10. TEAM BLOCK
+                            {
+                                name: "team",
+                                label: "Team — Member Grid",
+                                fields: [
+                                    { name: "eyebrow", label: "Eyebrow Text", type: "string" },
+                                    { name: "heading", label: "Section Heading", type: "string" },
+                                    {
+                                        name: "columns",
+                                        label: "Columns (2, 3, or 4)",
+                                        type: "number",
+                                        ui: { defaultValue: 3 },
+                                    },
+                                    {
+                                        name: "members",
+                                        label: "Team Members",
+                                        type: "object",
+                                        list: true,
+                                        fields: [
+                                            { name: "name", label: "Full Name", type: "string" },
+                                            { name: "role", label: "Role / Title", type: "string" },
+                                            { name: "bio", label: "Short Bio (optional)", type: "string", ui: { component: "textarea" } },
+                                            { name: "imageUrl", label: "Photo", type: "image" },
+                                            { name: "imageAlt", label: "Photo Alt Text", type: "string" },
+                                        ],
+                                    },
+                                ],
+                            },
+
+                            // 11. FULL-WIDTH IMAGE BLOCK
+                            {
+                                name: "fullWidthImage",
+                                label: "Full-Width Image — Atmospheric Divider",
+                                fields: [
+                                    { name: "imageUrl", label: "Image", type: "image" },
+                                    { name: "imageAlt", label: "Image Alt Text", type: "string" },
+                                    { name: "overlayText", label: "Overlay Text (optional)", type: "string", ui: { component: "textarea" } },
+                                    {
+                                        name: "overlayPosition",
+                                        label: "Text Position",
+                                        type: "string",
+                                        options: ["center", "left", "bottom-left"],
+                                        ui: { defaultValue: "center" },
+                                    },
+                                    {
+                                        name: "height",
+                                        label: "Image Height",
+                                        type: "string",
+                                        options: ["short", "medium", "tall"],
+                                        ui: { defaultValue: "medium" },
+                                    },
+                                ],
+                            },
+
+                            // 12. PULL QUOTE BLOCK
+                            {
+                                name: "pullQuote",
+                                label: "Pull Quote — Typographic Statement",
+                                fields: [
+                                    { name: "quote", label: "Quote / Statement", type: "string", ui: { component: "textarea" } },
+                                    { name: "attribution", label: "Attribution (optional, e.g. 'Founder, Acme Co')", type: "string" },
+                                    { name: "dark", label: "Dark Background", type: "boolean" },
+                                    {
+                                        name: "size",
+                                        label: "Text Size",
+                                        type: "string",
+                                        options: ["normal", "large"],
+                                        ui: { defaultValue: "normal" },
                                     },
                                 ],
                             },

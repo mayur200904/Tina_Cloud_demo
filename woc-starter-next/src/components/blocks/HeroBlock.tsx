@@ -37,6 +37,7 @@ export default function HeroBlock({
   const isFullBleed = layout === 'full-bleed';
   const isCentered = layout === 'centered';
   const isImageLeft = layout === 'image-left';
+  const isTypeOnly = layout === 'type-only';
 
   // Parallax: shift background up as user scrolls through the hero
   useEffect(() => {
@@ -53,6 +54,115 @@ export default function HeroBlock({
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [isFullBleed]);
+
+  // Type-only variant: no image, dark background, massive typography
+  if (isTypeOnly) {
+    return (
+      <section className="woc-hero woc-hero--type-only" aria-label="Hero section">
+        {/* Subtle CSS texture — geometric gradient pattern */}
+        <div className="woc-hero__type-texture" aria-hidden="true" />
+
+        {/* Ghost letter — oversized background typographic element */}
+        {headline && (
+          <span className="woc-hero__type-ghost" aria-hidden="true">
+            {headline.charAt(0)}
+          </span>
+        )}
+
+        <div className="woc-container woc-hero__inner woc-hero__inner--centered">
+          <div className="woc-hero__content">
+            {eyebrow && (
+              <p className="woc-eyebrow woc-eyebrow--lined woc-hero__eyebrow">
+                {eyebrow}
+              </p>
+            )}
+            <h1 className="woc-h1 woc-hero__headline woc-hero__headline--type">
+              {headline}
+            </h1>
+            {subheadline && (
+              <p className="woc-lead woc-hero__sub">{subheadline}</p>
+            )}
+            {(primaryCtaLabel || secondaryCtaLabel) && (
+              <div className="woc-hero__ctas">
+                {primaryCtaLabel && (
+                  <a href={primaryCtaLink ?? '/contact'} className="btn-primary">
+                    {primaryCtaLabel}
+                    <span className="woc-hero__cta-arrow" aria-hidden="true">→</span>
+                  </a>
+                )}
+                {secondaryCtaLabel && (
+                  <a href={secondaryCtaLink ?? '#'} className="btn-secondary">
+                    {secondaryCtaLabel}
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <style>{`
+          .woc-hero--type-only {
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            background-color: var(--color-dark);
+            color: var(--color-dark-foreground, #f5f5f0);
+            padding-block: 0;
+            position: relative;
+            overflow: hidden;
+          }
+          /* Geometric gradient texture */
+          .woc-hero__type-texture {
+            position: absolute;
+            inset: 0;
+            background:
+              radial-gradient(ellipse 80% 60% at 70% 50%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent),
+              radial-gradient(ellipse 40% 40% at 10% 80%, color-mix(in srgb, var(--color-primary) 6%, transparent), transparent);
+            z-index: 0;
+            pointer-events: none;
+          }
+          /* Ghost first letter — purely atmospheric */
+          .woc-hero__type-ghost {
+            position: absolute;
+            right: -0.1em;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-heading);
+            font-size: clamp(18rem, 35vw, 32rem);
+            font-weight: 900;
+            line-height: 0.85;
+            color: var(--color-primary);
+            opacity: 0.04;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+          }
+          .woc-hero--type-only .woc-hero__inner { position: relative; z-index: 1; }
+          .woc-hero--type-only .woc-h1,
+          .woc-hero--type-only .woc-lead,
+          .woc-hero--type-only .woc-eyebrow { color: var(--color-dark-foreground, #f5f5f0); }
+          .woc-hero--type-only .woc-eyebrow--lined::before { background-color: var(--color-primary); }
+          .woc-hero--type-only .btn-secondary {
+            border-color: rgba(255,255,255,0.35);
+            color: var(--color-dark-foreground, #f5f5f0);
+          }
+          .woc-hero--type-only .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.08);
+          }
+          /* Break headline across 2 lines intentionally */
+          .woc-hero__headline--type {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            line-height: 1.1;
+            max-width: 14ch;
+          }
+          @media (max-width: 768px) {
+            .woc-hero__type-ghost { display: none; }
+            .woc-hero__headline--type { font-size: clamp(2rem, 10vw, 3.5rem); }
+          }
+        `}</style>
+      </section>
+    );
+  }
 
   return (
     <section

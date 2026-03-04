@@ -13,12 +13,14 @@ interface TestimonialCarouselBlockProps {
     eyebrow?: string | null;
     heading?: string | null;
     testimonials?: (Testimonial | null)[] | null;
+    variant?: string | null; // "carousel" | "featured"
 }
 
 export default function TestimonialCarouselBlock({
     eyebrow,
     heading,
     testimonials = [],
+    variant = 'carousel',
 }: TestimonialCarouselBlockProps) {
     const items = (testimonials ?? []).filter(Boolean) as Testimonial[];
     const [current, setCurrent] = useState(0);
@@ -42,6 +44,121 @@ export default function TestimonialCarouselBlock({
     }, [items.length, startTimer, stopTimer]);
 
     if (items.length === 0) return null;
+
+    // --- Featured variant: one large quote, dark background, editorial ---
+    if (variant === 'featured') {
+        const featured = items[0];
+        return (
+            <section className="woc-section woc-testimonial-featured">
+                {/* Oversized decorative quote mark */}
+                <span className="woc-tf__decor" aria-hidden="true">&ldquo;</span>
+
+                <div className="woc-container woc-tf__inner">
+                    <div className="woc-tf__header">
+                        {eyebrow && <p className="woc-eyebrow woc-eyebrow--lined woc-tf__eyebrow">{eyebrow}</p>}
+                        {heading && <h2 className="woc-h2 woc-tf__heading">{heading}</h2>}
+                    </div>
+
+                    <blockquote className="woc-tf__quote">{featured.quote}</blockquote>
+
+                    <footer className="woc-tf__author">
+                        {featured.avatarUrl && (
+                            <img
+                                src={featured.avatarUrl}
+                                alt={featured.authorName ?? ''}
+                                className="woc-tf__avatar"
+                                loading="lazy"
+                                decoding="async"
+                                width={56}
+                                height={56}
+                            />
+                        )}
+                        <div>
+                            <strong className="woc-tf__name">{featured.authorName}</strong>
+                            {featured.authorTitle && (
+                                <p className="woc-tf__title">{featured.authorTitle}</p>
+                            )}
+                        </div>
+                    </footer>
+                </div>
+
+                <style>{`
+          .woc-testimonial-featured {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--color-dark);
+          }
+          .woc-tf__decor {
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            font-family: var(--font-heading);
+            font-size: clamp(12rem, 22vw, 20rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--color-primary);
+            opacity: 0.08;
+            user-select: none;
+            pointer-events: none;
+            display: block;
+          }
+          .woc-tf__inner {
+            position: relative;
+            z-index: 1;
+            max-width: 52rem;
+          }
+          .woc-tf__eyebrow { color: var(--color-primary) !important; }
+          .woc-tf__eyebrow::before { background-color: var(--color-primary) !important; }
+          .woc-tf__heading {
+            color: var(--color-dark-foreground, #f5f5f0);
+            margin-top: 0.75rem;
+            margin-bottom: 2.5rem;
+          }
+          .woc-tf__quote {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--color-dark-foreground, #f5f5f0);
+            font-style: italic;
+            position: relative;
+          }
+          .woc-tf__author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.12);
+          }
+          .woc-tf__avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+          }
+          .woc-tf__name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-dark-foreground, #f5f5f0);
+            display: block;
+          }
+          .woc-tf__title {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.125rem;
+          }
+          @media (max-width: 768px) {
+            .woc-tf__decor { display: none; }
+            .woc-tf__quote { font-size: 1.375rem; }
+          }
+        `}</style>
+            </section>
+        );
+    }
 
     return (
         <section className="woc-section">

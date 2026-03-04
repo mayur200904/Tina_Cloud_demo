@@ -37,6 +37,28 @@ blocks:
     heading: What Our Clients Say
     testimonials: []
     _template: testimonialCarousel
+  - eyebrow: How We Work
+    heading: Our Process
+    subheading: ''
+    variant: steps
+    steps: []
+    _template: process
+  - eyebrow: Our Team
+    heading: Meet the People Behind the Work
+    columns: 3
+    members: []
+    _template: team
+  - imageUrl: ''
+    imageAlt: ''
+    overlayText: ''
+    overlayPosition: center
+    height: medium
+    _template: fullWidthImage
+  - quote: ''
+    attribution: ''
+    dark: false
+    size: normal
+    _template: pullQuote
   - eyebrow: Common Questions
     heading: Frequently Asked Questions
     items: []
