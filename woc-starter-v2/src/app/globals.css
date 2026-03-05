@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+/* =====================================================
+   WOC STARTER V2 — DESIGN TOKEN SYSTEM
+   =====================================================
+   Agent sets these tokens per client in globals.css.
+   All components and page sections consume these vars.
+
+   HOW TO USE:
+   - Set by the AI agent via woc-builder skill
+   - Covers: color, typography, spacing, radius, shadow
+   - Never add inline styles — always reference a token
+   ===================================================== */
+
+@theme {
+  /* --- COLOR --- */
+  /* Primary brand color (buttons, links, accents) */
+  --color-primary: #1a1a1a;
+  /* Contrast text on primary (usually white or near-white) */
+  --color-primary-foreground: #ffffff;
+
+  /* Secondary / supporting accent */
+  --color-secondary: #444444;
+  --color-secondary-foreground: #ffffff;
+
+  /* Surface colors */
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-surface: #f5f5f5;
+  /* card backgrounds, alternating sections */
+  --color-surface-border: #e5e5e5;
+
+  /* Muted text (subheadings, captions) */
+  --color-muted: #737373;
+
+  /* Dark section — used with .woc-section--dark
+     Agent sets this to match brand (deep navy, charcoal, etc.)
+     Must be brand-tinted — never flat #111111. */
+  --color-dark: #111111;
+  --color-dark-foreground: #f8f8f8;
+
+  /* --- TYPOGRAPHY --- */
+  /* Agent sets these. Google Fonts URL goes in global.json. */
+  --font-heading: 'Georgia', serif;
+  --font-sans: system-ui, sans-serif;
+
+  /* --- SPACING --- */
+  --section-padding-y: 5rem;
+  --section-padding-y-sm: 3rem;
+  --section-padding-y-lg: 7rem;
+  --container-max-width: 72rem;
+  --container-padding-x: 1.5rem;
+
+  /* --- SHAPE --- */
+  /* 0px = sharp corporate, 8px = soft SMB, 16px = rounded consumer */
+  --radius-global: 6px;
+  --radius-card: 6px;
+  --radius-button: 6px;
+
+  /* --- SHADOWS --- */
+  --shadow-card: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
+  --shadow-elevated: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
+
+  /* --- NAV --- */
+  --nav-bg: #ffffff;
+  --nav-text: #111111;
+  --nav-border: #e5e5e5;
+  --nav-height: 4rem;
+}
+
+/* === BASE RESETS === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.6;
+}
+
+/* === CONTAINER UTILITY === */
+.woc-container {
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+/* === SECTION UTILITIES === */
+.woc-section {
+  padding-block: var(--section-padding-y);
+}
+
+.woc-section--sm {
+  padding-block: var(--section-padding-y-sm);
+}
+
+.woc-section--lg {
+  padding-block: var(--section-padding-y-lg);
+}
+
+.woc-section--surface {
+  background-color: var(--color-surface);
+}
+
+/* Dark section — agent sets --color-dark per brand */
+.woc-section--dark {
+  background-color: var(--color-dark);
+  color: var(--color-dark-foreground);
+}
+
+.woc-section--dark .woc-h1,
+.woc-section--dark .woc-h2,
+.woc-section--dark .woc-h3,
+.woc-section--dark .woc-lead {
+  color: var(--color-dark-foreground);
+}
+
+.woc-section--dark .woc-eyebrow {
+  color: color-mix(in srgb, var(--color-primary-foreground) 70%, transparent);
+}
+
+/* === BUTTON SYSTEM === */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-radius: var(--radius-button);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  border-radius: var(--radius-button);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  transform: translateY(-2px);
+}
+
+/* === TYPOGRAPHY SCALE === */
+.woc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.woc-eyebrow--lined::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.woc-h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+}
+
+.woc-h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-foreground);
+}
+
+.woc-h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-foreground);
+}
+
+.woc-lead {
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
+/* === CARD === */
+.woc-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-surface-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.75rem;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.woc-card:hover {
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-surface-border));
+}
+
+/* === DIVIDER === */
+.woc-divider {
+  width: 3rem;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  margin-block: 1rem;
+}

@@ -1,0 +1,22 @@
+{
+  "siteName": "Client Site Name",
+  "siteTagline": "",
+  "logoText": "Brand",
+  "logoImage": null,
+  "navLinks": [
+    { "label": "Services", "href": "/services" },
+    { "label": "About", "href": "/about" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "navCtaLabel": "Get in Touch",
+  "navCtaLink": "/contact",
+  "footerTagline": "",
+  "footerLinks": [
+    { "label": "Services", "href": "/services" },
+    { "label": "About", "href": "/about" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "copyrightText": "",
+  "googleFontsUrl": "",
+  "socialLinks": []
+}
