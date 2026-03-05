@@ -159,34 +159,66 @@ For each page, answer three questions:
 2. **What do they feel in the first 3 seconds?**
 3. **What is the one thing this page must make them believe?**
 
-Then plan the section sequence as an *emotional arc*, not a block checklist:
+Then plan the section sequence as **section intents** — describe what each section must achieve, not which block to use. The builder interprets these intents into custom TSX sections.
+
+**Section intent format:**
+```
+1. [Intent label] — visitor should feel [X]. [One sentence on visual character — what you see, not which block.]
+2. [Intent label] — establish [specific proof point]. [Visual: describe atmosphere, not layout.]
+3. ...
+```
+
+**Examples per page:**
 
 ```
 Home — First impression. Complete stranger.
-  → Hook (hero): What stops them scrolling past?
-  → Establish (logoCloud / statsBar): What makes it feel real and credible?
-  → Show capability (serviceGrid): What makes them think "this could work for me"?
-  → Make it human (contentSplit): What makes them feel the people behind this?
-  → Convert (contactForm / CTA): What makes it feel easy and inevitable?
+
+Section sequence:
+1. First impression — visitor should feel the scale and authority of this firm immediately.
+   Full-bleed site photography, dark overlay, single declarative headline — no welcome message.
+2. Credibility moment — the numbers make it real without a word of explanation.
+   Dark band, 4 stats in a row, counting up. No preamble.
+3. Offer clarity — services as specific disciplines, not service-menu labels.
+   Light ground, card grid; each card earns its place with a specific differentiator.
+4. The people — a brief human moment before the pitch closes.
+   Image left, text right: founder story or team photo — candid, not posed.
+5. Action — low-friction. The visitor has already decided.
+   Warm surface, clear form, phone and email visible without hunting.
 
 About — Curious visitor. Checking if this business is real.
-  → Open with conviction, not history
-  → Earn trust: specific facts, not generic claims
-  → Humanize: the people, the founding moment, the way of working
-  → Bridge to services
+
+Section sequence:
+1. Open with conviction — a bold declaration, not a history lesson.
+   Dark hero with a single manifesto-style headline. No "About Us" headline.
+2. The numbers — specific facts, not generic claims.
+   Surface section with 3–4 proof points.
+3. The founding story — what makes this business specifically them.
+   Content split: real photo, first-person voice, no corporate speak.
+4. Bridge — point to services naturally, without a hard sell.
+   Light CTA section or inline link.
 
 Services — Evaluating visitor. Comparing options.
-  → Lead with what makes each service different — not just what it is
-  → Use specific language from the niche, not generic service descriptions
-  → Make it easy to find the right service and take the next step
+
+Section sequence:
+1. Lead — what makes this service offering different from the generic competitor.
+   Image hero with a tight, specific subheadline.
+2. Service list — each service as a specific discipline with a real differentiator.
+   Card or alternating layout; description earns trust, not just labels.
+3. Process — how they work, not just what they do.
+   Numbered or timeline; make the client feel in control.
+4. Next step — specific CTA for this service context.
 
 Contact — Decided visitor. They've made their decision.
-  → Remove friction: clear phone, email, form
-  → Reinforce the decision: one short trust signal near the form
-  → Make the CTA specific to the business (not "Submit" — "Request a Quote" / "Book a Consultation")
+
+Section sequence:
+1. Remove friction — form visible immediately, no scroll needed to find it.
+   Light or surface background; heading answers "yes, you're in the right place."
+2. Reinforce the decision — one trust signal near the form.
+   A brief quote, a stat, or a reassurance line. Not a full testimonial section.
+3. Contact details — phone, email, address. Real and prominent.
 ```
 
-Note which blocks serve each beat, but choose blocks based on what the experience needs — not to fill a required inventory.
+Do not describe which React component or block type to use. Describe what the visitor experiences. The builder translates intent into custom sections.
 
 ---
 
@@ -248,16 +280,40 @@ Write the spec in this format, clearly labeled. This is what `woc-builder` reads
 Visitor: [stranger]
 First 3 seconds: [description]
 Must believe: [one thing]
-Section sequence: hero → [list with emotional purpose per section]
+
+Section sequence:
+1. [Intent label] — visitor should feel [X]. [Visual character — what you see, not which component.]
+2. [Intent label] — [what this section must establish]. [Visual: describe atmosphere.]
+3. [Intent label] — [emotional purpose]. [Visual character.]
+4. [Intent label] — [what happens here]. [Visual character.]
+5. [Intent label] — [conversion moment]. [Visual: low friction or specific CTA.]
 
 ### About
-...
+Visitor: [curious — checking if this is real]
+First 3 seconds: [description]
+Must believe: [one thing]
+
+Section sequence:
+1. ...
+2. ...
 
 ### Services
-...
+Visitor: [evaluating — comparing options]
+First 3 seconds: [description]
+Must believe: [one thing]
+
+Section sequence:
+1. ...
+2. ...
 
 ### Contact
-...
+Visitor: [decided — ready to act]
+First 3 seconds: [description]
+Must believe: [one thing — they're in the right place]
+
+Section sequence:
+1. ...
+2. ...
 
 ## Copy Tone Guide
 [3–5 sentences on voice: register, what to avoid, what the best line in the copy sounds like]

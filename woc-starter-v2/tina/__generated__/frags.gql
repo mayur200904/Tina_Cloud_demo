@@ -1,0 +1,27 @@
+fragment SettingsParts on Settings {
+  __typename
+  siteName
+  siteTagline
+  logoText
+  logoImage
+  navLinks {
+    __typename
+    label
+    href
+  }
+  navCtaLabel
+  navCtaLink
+  footerTagline
+  footerLinks {
+    __typename
+    label
+    href
+  }
+  copyrightText
+  googleFontsUrl
+  socialLinks {
+    __typename
+    platform
+    url
+  }
+}
