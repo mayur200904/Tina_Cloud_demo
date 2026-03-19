@@ -1,22 +1,30 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import type { SettingsQuery } from '../../tina/__generated__/types';
 
 type Settings = SettingsQuery['settings'] | null;
+type SettingsNavLink = { label: string; href: string };
+type SettingsSocialLink = { platform: string | null | undefined; url: string };
+
+function isValidNavLink(link: { label?: string | null; href?: string | null } | null): link is SettingsNavLink {
+  return typeof link?.label === 'string' && typeof link?.href === 'string';
+}
+
+function isValidSocialLink(
+  link: { platform?: string | null; url?: string | null } | null
+): link is SettingsSocialLink {
+  return typeof link?.url === 'string';
+}
 
 interface BaseLayoutProps {
   settings: Settings;
-  title?: string;
-  description?: string;
-  googleFontsUrl?: string;
   children: React.ReactNode;
 }
 
 export default function BaseLayout({
   settings,
-  title,
-  description,
   children,
 }: BaseLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,15 +38,14 @@ export default function BaseLayout({
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const siteName = settings?.siteName ?? 'Site';
+  const siteName = settings?.siteName ?? '';
   const logoText = settings?.logoText ?? siteName;
-  const navLinks = settings?.navLinks ?? [];
+  const navLinks = (settings?.navLinks ?? []).filter(isValidNavLink);
   const navCtaLabel = settings?.navCtaLabel ?? '';
   const navCtaLink = settings?.navCtaLink ?? '/contact';
-  const footerLinks = settings?.footerLinks ?? [];
-  const copyrightText =
-    settings?.copyrightText ?? `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`;
-  const socialLinks = settings?.socialLinks ?? [];
+  const footerLinks = (settings?.footerLinks ?? []).filter(isValidNavLink);
+  const copyrightText = settings?.copyrightText ?? '';
+  const socialLinks = (settings?.socialLinks ?? []).filter(isValidSocialLink);
 
   return (
     <>
@@ -48,30 +55,30 @@ export default function BaseLayout({
         role="banner"
       >
         <div className="woc-container woc-nav__inner">
-          <a href="/" className="woc-nav__logo" aria-label={siteName}>
+          <Link href="/" className="woc-nav__logo" aria-label={siteName || 'Home'}>
             {settings?.logoImage ? (
               <img src={settings.logoImage} alt={siteName} className="woc-nav__logo-img" />
             ) : (
               <span className="woc-nav__logo-text">{logoText}</span>
             )}
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="woc-nav__links" aria-label="Main navigation">
             {navLinks.map((link) =>
               link ? (
-                <a key={link.href} href={link.href ?? '#'} className="woc-nav__link">
+                <Link key={`${link.label}-${link.href}`} href={link.href} className="woc-nav__link">
                   {link.label}
-                </a>
+                </Link>
               ) : null
             )}
           </nav>
 
           <div className="woc-nav__actions">
             {navCtaLabel && (
-              <a href={navCtaLink} className="btn-primary woc-nav__cta">
+              <Link href={navCtaLink} className="btn-primary woc-nav__cta">
                 {navCtaLabel}
-              </a>
+              </Link>
             )}
             <button
               className={`woc-nav__hamburger${mobileOpen ? ' is-open' : ''}`}
@@ -93,20 +100,20 @@ export default function BaseLayout({
         >
           {navLinks.map((link) =>
             link ? (
-              <a
-                key={link.href}
-                href={link.href ?? '#'}
+              <Link
+                key={`${link.label}-${link.href}`}
+                href={link.href}
                 className="woc-nav__mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ) : null
           )}
           {navCtaLabel && (
-            <a href={navCtaLink} className="btn-primary" style={{ marginTop: '0.5rem' }}>
+            <Link href={navCtaLink} className="btn-primary woc-nav__mobile-cta" onClick={() => setMobileOpen(false)}>
               {navCtaLabel}
-            </a>
+            </Link>
           )}
         </div>
       </header>
@@ -149,9 +156,9 @@ export default function BaseLayout({
               <p className="woc-footer__col-heading">Navigation</p>
               {footerLinks.map((link, i) =>
                 link ? (
-                  <a key={i} href={link.href ?? '#'} className="woc-footer__link">
+                  <Link key={`${link.label}-${link.href}`} href={link.href as string} className="woc-footer__link">
                     {link.label}
-                  </a>
+                  </Link>
                 ) : null
               )}
             </nav>
@@ -300,6 +307,7 @@ export default function BaseLayout({
           transition: opacity 0.15s;
         }
         .woc-nav__mobile-link:hover { opacity: 1; }
+        .woc-nav__mobile-cta { margin-top: 0.5rem; }
 
         @media (max-width: 768px) {
           .woc-nav__links { display: none; }

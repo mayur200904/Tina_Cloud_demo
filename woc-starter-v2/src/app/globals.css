@@ -259,3 +259,13 @@ body {
   border-radius: 2px;
   margin-block: 1rem;
 }
+
+/* === STARTER SHELL === */
+.woc-starter-shell {
+  min-height: 42vh;
+}
+
+.woc-starter-shell__copy {
+  color: var(--color-muted);
+  text-align: center;
+}
