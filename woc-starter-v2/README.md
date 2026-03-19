@@ -41,12 +41,36 @@ npm run mode:check
 
 These commands update/check `.env.local` flags so agents can switch auth strategy safely.
 
+## TinaCloud Monorepo Setup (Important)
+
+This repository hosts the app in `woc-starter-v2/`, so in TinaCloud project configuration:
+
+- Set **Path To Tina** to `woc-starter-v2`.
+- If branch indexing still fails, try `woc-starter-v2/tina` as fallback.
+- Use **Refresh Webhooks** and **Refresh Branches / Reindex** after changing repository/path.
+
+If this is misconfigured, Tina build will fail with branch/index errors even when credentials are correct.
+
 ### Default (TinaCloud hosted mode)
 
 - `TINA_CLIENT_ID`
 - `TINA_TOKEN`
 
 Use this mode for most projects in this repo.
+
+Hosted validation command:
+
+```bash
+set -a && source .env && set +a && GITHUB_BRANCH=main npx tinacms build
+```
+
+One-command hosted readiness check:
+
+```bash
+npm run verify:hosted
+```
+
+This runs `mode:check`, `tinacms build`, and `next build` with values loaded from `.env`.
 
 ### Advanced (self-hosted content API + TinaCloud auth provider)
 

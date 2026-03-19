@@ -12,7 +12,7 @@ async function getTinaHandler(): Promise<NextApiHandler> {
     return cachedHandler;
   }
 
-  const databaseClientImportPath = '../../../../tina/__generated__/databaseClient';
+  const databaseClientImportPath = '../../../../../tina/__generated__/databaseClient';
   const databaseClientModule = await import(databaseClientImportPath);
   const databaseClient = databaseClientModule.default;
 
