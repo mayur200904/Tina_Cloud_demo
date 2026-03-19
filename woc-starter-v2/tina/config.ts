@@ -20,11 +20,14 @@ const branch =
   process.env.HEAD ||
   "main";
 
+const isSelfHostedTinaAuth = process.env.TINA_SELF_HOSTED_AUTH === "true";
+const tinaClientId = process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? process.env.TINA_CLIENT_ID ?? "";
+
 // ---------------------------------------------------------------------------
 // SETTINGS COLLECTION — global.json (nav, footer, fonts, contact)
 // This collection is fixed — agent never modifies it, only writes the JSON.
 // ---------------------------------------------------------------------------
-const settingsCollection = {
+const settingsCollection: any = {
   name: "settings",
   label: "Site Settings",
   path: "content/settings",
@@ -80,7 +83,7 @@ const settingsCollection = {
       ],
     },
   ],
-} as const;
+};
 
 // ---------------------------------------------------------------------------
 // AGENT: Append your page collection below this comment.
@@ -108,8 +111,17 @@ const settingsCollection = {
 
 export default defineConfig({
   branch,
-  clientId: process.env.TINA_CLIENT_ID ?? "",
+  clientId: tinaClientId,
   token: process.env.TINA_TOKEN ?? "",
+  contentApiUrlOverride: isSelfHostedTinaAuth ? "/api/tina/gql" : undefined,
+
+  admin: isSelfHostedTinaAuth
+    ? ({
+        auth: {
+          useLocalAuth: process.env.TINA_PUBLIC_IS_LOCAL === "true",
+        },
+      } as any)
+    : undefined,
 
   build: {
     outputFolder: "admin",

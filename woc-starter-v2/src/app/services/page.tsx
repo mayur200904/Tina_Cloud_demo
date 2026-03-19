@@ -3,6 +3,7 @@
 
 import client from "../../../tina/__generated__/client";
 import BaseLayout from "@/components/BaseLayout";
+import StarterPageShell from "@/components/StarterPageShell";
 
 export default async function ServicesPage() {
   const settingsRes = await client.queries.settings({
@@ -11,11 +12,7 @@ export default async function ServicesPage() {
 
   return (
     <BaseLayout settings={settingsRes.data.settings}>
-      <main>
-        <div style={{ padding: "8rem 2rem", textAlign: "center", color: "#999" }}>
-          <p>Services page — agent will write this</p>
-        </div>
-      </main>
+      <StarterPageShell pageName="Services" />
     </BaseLayout>
   );
 }

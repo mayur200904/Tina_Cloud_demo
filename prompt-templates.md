@@ -4,6 +4,43 @@ Templates for the human builder to invoke the agent workflow. Three tiers of con
 
 ---
 
+## Template 0 — Tina CMS Rapid Build (Minutes)
+
+Use when speed matters and you want a full Tina-editable site from one prompt.
+
+```
+/woc-builder
+
+Build in: woc-starter-v2/
+
+Website brief:
+- Business name: [name]
+- Website type: [e.g., dental clinic / law firm / manufacturer]
+- What we do: [2-5 lines]
+- Target customer: [who exactly]
+- Services/offers:
+  1) [service]
+  2) [service]
+  3) [service]
+- Differentiators: [years, certifications, strong proof]
+- CTA: [book call / request quote / whatsapp]
+- Contact details: [email, phone, address]
+
+CMS/Auth mode:
+- Tina mode: [hosted | self-hosted-tinacloud-auth]
+- If hosted: use TINA_CLIENT_ID + TINA_TOKEN
+- If self-hosted-tinacloud-auth: use NEXT_PUBLIC_TINA_CLIENT_ID + TINA_PUBLIC_IS_LOCAL + backend route wiring
+
+Output requirements:
+- Create/Update Tina schema first, then TSX, then markdown content.
+- Ensure every displayed value is editable in Tina.
+- Ensure /admin/index.html is functional.
+- Do not edit tina/__generated__ manually.
+- Run build-safe implementation only.
+```
+
+---
+
 ## Template A — Full Workflow (Best Quality)
 
 Use when you have time for both design and build phases. Maximum quality, maximum steerability.

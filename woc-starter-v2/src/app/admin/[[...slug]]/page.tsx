@@ -1,12 +1,5 @@
-"use client";
+import { redirect } from 'next/navigation';
 
-import { TinaProvider, TinaCMS } from "tinacms";
-
-// TinaCMS admin route — do not modify
 export default function TinaAdminPage() {
-  return (
-    <div>
-      <script src="/admin/index.js" />
-    </div>
-  );
+  redirect('/admin/index.html');
 }
