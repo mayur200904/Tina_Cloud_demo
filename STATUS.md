@@ -3,135 +3,63 @@
 Date: 2026-03-19
 Project focus: `woc-starter-v2` (primary), `woc-starter-v1` (legacy reference)
 
-## 1) What was the initial status (before this work)
+## 1) Intent (locked)
 
-- `woc-starter-v2` had starter placeholder pages with repeated inline placeholder blocks.
-- Tina setup was mostly hosted-only in `woc-starter-v2/tina/config.ts`.
-- No toggleable self-hosted Tina backend route existed.
-- Admin route implementation used script injection pattern instead of redirect.
-- `woc-starter-v2/next.config.ts` had static export mode, which blocks API routes needed for self-hosted Tina backend.
-- No explicit testing playbook and no auth mode switch automation scripts.
+Build an autonomous website generation system that can produce client-ready websites in minutes with:
+- schema-first TinaCMS modeling,
+- editable page content + settings in Tina admin,
+- TinaCloud hosted authentication by default,
+- optional self-hosted backend mode,
+- predictable build-safe engineering defaults.
 
-## 2) What has been done so far (file-wise)
+## 2) What is implemented
 
-### Root-level governance and operator docs
+### Governance + operator docs
+- `AGENTS.md` added
+- `SKILLS.md` added
+- `prompt-templates.md` extended with rapid Tina build template
 
-- Added `AGENTS.md`
-  - Defines autonomous operating manual, Tina non-negotiables, auth modes, execution pipeline, and file boundaries.
-- Added `SKILLS.md`
-  - Defines skill routing (`brief-intake`, `woc-design`, `woc-builder`, `tina-auth-integrator`, `quality-gate`).
-- Updated `prompt-templates.md`
-  - Added rapid "Template 0 — Tina CMS Rapid Build (Minutes)" for fast autonomous generation.
+### Tina/runtime hardening in `woc-starter-v2`
+- `tina/config.ts` supports hosted and self-hosted toggle paths
+- `.env.example` and mode scripts support deterministic auth-mode operations
+- `next.config.ts` no longer uses static export mode
+- Tina API route scaffold is now served from `src/pages/api/tina/[...routes].ts`
 
-### `woc-starter-v2` auth/runtime hardening
+### App cleanup
+- Admin route redirects to `/admin/index.html`
+- Shared starter shell component replaces repeated placeholders
+- Base layout link handling hardened
 
-- Updated `woc-starter-v2/tina/config.ts`
-  - Added mode switches for hosted vs self-hosted behavior.
-  - Added `contentApiUrlOverride` when self-hosted mode is enabled.
-  - Added admin auth toggle support via env flags.
-- Added `woc-starter-v2/pages/api/tina/[...routes].ts`
-  - Introduced self-hosted Tina backend scaffold.
-  - Includes guarded behavior for disabled mode and missing generated database client.
-- Updated `woc-starter-v2/next.config.ts`
-  - Removed static export mode to enable API route support.
-- Updated `woc-starter-v2/.env.example`
-  - Added env vars for mode switching and public client id.
-- Updated `woc-starter-v2/package.json` and `woc-starter-v2/package-lock.json`
-  - Added `@tinacms/auth` and `@tinacms/datalayer`.
-  - Added mode scripts: `mode:status`, `mode:hosted`, `mode:self-hosted`, `mode:check`.
-- Added `woc-starter-v2/scripts/tina-mode.mjs`
-  - Implements mode status/switch/check behavior.
+### Process + validation assets
+- `woc-starter-v2/README.md` and `woc-starter-v2/TESTING.md` added
+- `.env.local` ignored to avoid local secret/state churn in git
 
-### `woc-starter-v2` app cleanup and placeholder de-duplication
+## 3) Latest resolved blockers
 
-- Updated `woc-starter-v2/src/app/admin/[[...slug]]/page.tsx`
-  - Replaced script injection with redirect to `/admin/index.html`.
-- Updated `woc-starter-v2/src/components/BaseLayout.tsx`
-  - Safer nav/footer link handling.
-  - Cleaner defaults; reduced fragile hardcoded behavior.
-- Added `woc-starter-v2/src/components/StarterPageShell.tsx`
-  - Shared starter shell to replace repeated placeholder blocks.
-- Updated pages to use shared shell:
-  - `woc-starter-v2/src/app/page.tsx`
-  - `woc-starter-v2/src/app/about/page.tsx`
-  - `woc-starter-v2/src/app/services/page.tsx`
-  - `woc-starter-v2/src/app/contact/page.tsx`
-- Updated `woc-starter-v2/src/app/globals.css`
-  - Added starter-shell utility classes.
+1. **TinaCloud indexing not seeing branches**
+   - Root cause: TinaCloud project path/branch indexing configuration in a monorepo-style repo.
+   - Resolution: project/branch settings corrected in TinaCloud; branch checks now pass.
 
-### `woc-starter-v2` process docs and repo hygiene
+2. **Build failure from mixed route roots (`src/app` + root `pages`)**
+   - Root cause: duplicate route trees caused `.next/types/validator.ts` import path errors.
+   - Resolution: API route moved to `src/pages/api/...` and root `pages/api/...` removed.
 
-- Added `woc-starter-v2/README.md`
-  - Setup, auth mode behavior, and mode scripts usage.
-- Added `woc-starter-v2/TESTING.md`
-  - Task list and best-practice validation flow.
-- Updated `woc-starter-v2/.gitignore`
-  - Added `.env.local` ignore entry to prevent local env artifacts from polluting changes.
+## 4) Current validation status
 
-## 3) Current status (right now)
+- `npm run mode:check` ✅
+- `npx tinacms build` ✅ (client, token, branch, indexing, schema checks pass)
+- `npm run build` ✅
+- `npx tsc --noEmit` ✅
 
-### Working tree summary
+## 5) Current work-in-progress git delta
 
-Current changed files are expected for this implementation pass and include:
-- root docs (`AGENTS.md`, `SKILLS.md`, `prompt-templates.md`, this `STATUS.md`)
-- v2 auth/config/runtime/docs/page updates listed above.
+Expected finalization set includes:
+- delete `woc-starter-v2/pages/api/tina/[...routes].ts`
+- add `woc-starter-v2/src/pages/api/tina/[...routes].ts`
+- refresh Tina generated files under `woc-starter-v2/tina/__generated__/`
 
-### Validation state
+## 6) Next execution focus
 
-- TypeScript check passes:
-  - `npx tsc --noEmit` ✅
-- Auth mode status currently reports:
-  - mode: `hosted`
-  - `Client ID configured: no`
-  - `TINA_TOKEN configured: no`
-
-### Main blocker to full completion
-
-- Credential-backed E2E validation is still pending due to missing real Tina environment variables.
-
-## 4) What we are actually doing
-
-We are turning this repository into a reliable autonomous website generation system that can:
-- produce a client website in minutes from a brief,
-- keep all displayed content Tina-editable,
-- support TinaCloud hosted mode by default,
-- optionally switch to self-hosted Tina backend mode safely,
-- avoid schema/content/query mismatches and brittle hardcoding.
-
-## 5) Execution plan (next steps)
-
-1. Populate real env credentials in local env for hosted mode:
-   - `TINA_CLIENT_ID`
-   - `TINA_TOKEN`
-2. Run strict hosted checks:
-   - `npm run mode:hosted`
-   - `npm run mode:check`
-   - `npm run dev` and verify `/admin/index.html`
-   - `npm run build`
-3. If self-hosted mode is required, run:
-   - set `TINA_SELF_HOSTED_AUTH=true`
-   - set `NEXT_PUBLIC_TINA_CLIENT_ID` + `TINA_TOKEN`
-   - run `npm run mode:check`
-   - verify `/api/tina/gql` and admin edit/save flow
-4. Fix only blockers found during E2E and close with release gate from `woc-starter-v2/TESTING.md`.
-
-## 6) Quick command sequence for next run
-
-From `woc-starter-v2/`:
-
-```bash
-npm run mode:status
-npm run mode:hosted
-npm run mode:check
-npm run dev
-npm run build
-```
-
-If self-hosted is needed after hosted validation:
-
-```bash
-npm run mode:self-hosted
-npm run mode:check
-npm run dev
-npm run build
-```
+1. Commit and push the validated route-structure fix + generated artifacts.
+2. Verify Tina checklist steps 3/4 by logging in at `/admin/index.html` and saving an edit.
+3. Start first true “minutes build” run from a real brief using the rapid template.

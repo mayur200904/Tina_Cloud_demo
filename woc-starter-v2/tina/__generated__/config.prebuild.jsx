@@ -1,6 +1,8 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
 var branch = process.env.GITHUB_BRANCH || process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main";
+var isSelfHostedTinaAuth = process.env.TINA_SELF_HOSTED_AUTH === "true";
+var tinaClientId = process.env.NEXT_PUBLIC_TINA_CLIENT_ID?.trim() || process.env.TINA_CLIENT_ID?.trim() || "";
 var settingsCollection = {
   name: "settings",
   label: "Site Settings",
@@ -60,8 +62,14 @@ var settingsCollection = {
 };
 var config_default = defineConfig({
   branch,
-  clientId: process.env.TINA_CLIENT_ID ?? "",
+  clientId: tinaClientId,
   token: process.env.TINA_TOKEN ?? "",
+  contentApiUrlOverride: isSelfHostedTinaAuth ? "/api/tina/gql" : void 0,
+  admin: isSelfHostedTinaAuth ? {
+    auth: {
+      useLocalAuth: process.env.TINA_PUBLIC_IS_LOCAL === "true"
+    }
+  } : void 0,
   build: {
     outputFolder: "admin",
     publicFolder: "public"

@@ -5,6 +5,36 @@ Newest entries are always at the top.
 
 ---
 
+## [1.0.2] — 2026-03-19
+
+### TinaCloud + monorepo reliability update (`woc-starter-v2`)
+
+#### Hosted TinaCloud integration stabilized
+- Validated full hosted flow on `main` (`mode:check`, `tinacms build`, `npm run build`).
+- Confirmed branch/index/schema checks pass when TinaCloud project configuration is aligned.
+
+#### Route-structure fix for Next.js type/build stability
+- Moved self-hosted API route from `pages/api/tina/[...routes].ts` to `src/pages/api/tina/[...routes].ts`.
+- Removed root `pages/` API route to avoid mixed root/src routing conflicts.
+- Eliminated `.next/types/validator.ts` errors caused by duplicate route-root inference.
+
+#### Faster operator validation
+- Added `npm run verify:hosted` to run hosted mode checks in one command:
+	- `mode:check`
+	- `tinacms build`
+	- `next build`
+
+#### Operational lessons captured
+- In monorepo-style repository layouts, configure TinaCloud project path correctly (Path To Tina) and refresh branch indexing/webhooks when branches are not detected.
+- Avoid rerunning `npx @tinacms/cli init` at repository root when project already exists in a subdirectory.
+
+#### Validation outcomes
+- `npx tsc --noEmit` ✅
+- `npx tinacms build` ✅
+- `npm run build` ✅
+
+---
+
 ## [1.0.1] — 2026-02-20
 
 ### Netlify / static-export hardening

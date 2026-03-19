@@ -10,7 +10,8 @@
     "mode:status": "node scripts/tina-mode.mjs status",
     "mode:hosted": "node scripts/tina-mode.mjs hosted",
     "mode:self-hosted": "node scripts/tina-mode.mjs self-hosted",
-    "mode:check": "node scripts/tina-mode.mjs check"
+    "mode:check": "node scripts/tina-mode.mjs check",
+    "verify:hosted": "node scripts/verify-hosted.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",
