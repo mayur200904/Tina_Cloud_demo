@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const rootDir = process.cwd();
+const envPath = path.join(rootDir, '.env');
 const envLocalPath = path.join(rootDir, '.env.local');
 
 function parseEnvFile(fileContent) {
@@ -33,6 +34,15 @@ function loadEnvLocal() {
   }
 
   const content = fs.readFileSync(envLocalPath, 'utf8');
+  return parseEnvFile(content);
+}
+
+function loadEnv() {
+  if (!fs.existsSync(envPath)) {
+    return { values: {}, order: [] };
+  }
+
+  const content = fs.readFileSync(envPath, 'utf8');
   return parseEnvFile(content);
 }
 
@@ -93,7 +103,9 @@ function ensureKeyInOrder(order, key) {
 
 function setHosted(values, order) {
   values.TINA_SELF_HOSTED_AUTH = 'false';
+  values.TINA_PUBLIC_IS_LOCAL = 'false';
   ensureKeyInOrder(order, 'TINA_SELF_HOSTED_AUTH');
+  ensureKeyInOrder(order, 'TINA_PUBLIC_IS_LOCAL');
   ensureKeyInOrder(order, 'TINA_CLIENT_ID');
   ensureKeyInOrder(order, 'TINA_TOKEN');
 }
@@ -115,8 +127,10 @@ function setSelfHosted(values, order) {
 
 function main() {
   const action = process.argv[2] || 'status';
+  const env = loadEnv();
   const envLocal = loadEnvLocal();
-  const { values, order } = envLocal;
+  const values = { ...env.values, ...envLocal.values };
+  const order = [...env.order, ...envLocal.order];
 
   if (action === 'hosted') {
     setHosted(values, order);
