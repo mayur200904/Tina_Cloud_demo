@@ -21,7 +21,10 @@ const branch =
   "main";
 
 const isSelfHostedTinaAuth = process.env.TINA_SELF_HOSTED_AUTH === "true";
-const tinaClientId = process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? process.env.TINA_CLIENT_ID ?? "";
+const tinaClientId =
+  process.env.NEXT_PUBLIC_TINA_CLIENT_ID?.trim() ||
+  process.env.TINA_CLIENT_ID?.trim() ||
+  "";
 
 // ---------------------------------------------------------------------------
 // SETTINGS COLLECTION — global.json (nav, footer, fonts, contact)
