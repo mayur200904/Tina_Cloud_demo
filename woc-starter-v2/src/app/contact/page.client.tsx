@@ -32,8 +32,8 @@ export default function ContactPageClient(props: ContactPageClientProps) {
     query: props.query,
     variables: props.variables,
     data: props.data,
-    experimental___selectFormByFormId(formId) {
-      return formId === `content/pages/${props.variables.relativePath}`;
+    experimental___selectFormByFormId() {
+      return props.variables.relativePath ? `content/pages/${props.variables.relativePath}` : false;
     },
   });
   const page = data.contact;
