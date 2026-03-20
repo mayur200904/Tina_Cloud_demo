@@ -2,6 +2,11 @@
 
 This file is the source of truth for all autonomous agents working in this repository.
 
+Mandatory companion policy:
+- `RULEBOOK.md` is required reading and enforcement for every run.
+- If any `RULEBOOK.md` hard gate fails, task closure is not allowed.
+- `RULEBOOK-COMPLIANCE-REPORT.md` must be used for final handoff evidence.
+
 ## Mission
 
 Generate high-quality client websites in minutes from a short brief, with:
@@ -9,6 +14,21 @@ Generate high-quality client websites in minutes from a short brief, with:
 - Tina visual editing compatibility
 - TinaCloud authentication for admin editing
 - zero broken schema/query contracts
+- premium, client-specific visual quality (non-template output)
+
+## Mandatory Skill Stack (Load Before Design/Build)
+
+For any website generation or redesign task, agents must load and apply:
+- `high-end-woc-infrastructure`
+- `woc-design`
+- `woc-builder`
+- `frontend-design`
+- `vercel-react-best-practices`
+
+Optional but recommended for final QA:
+- `web-design-guidelines`
+
+If these skills are not loaded, the task is not ready for implementation.
 
 ## North-star Gate (Mandatory Before Task Closure)
 
@@ -31,8 +51,7 @@ If any answer is "no", the task remains open.
 ## Canonical Build Target
 
 - Build target is `woc-starter-v2/`.
-- `woc-starter-v1/` is legacy reference material only.
-- Never mix implementation styles between v1 and v2 in the same client run.
+- This repository now standardizes on a single implementation path (`woc-starter-v2/`).
 
 ## TinaCMS Non-Negotiables
 
@@ -46,8 +65,13 @@ If any answer is "no", the task remains open.
 4. Visual editing requires server + client split when editing page content:
    - server fetch: `query`, `variables`, `data`
    - client re-hydration: `useTina({ query, variables, data })`
+   - runtime render must read from `useTina` returned `data` (not stale server object)
+   - if multiple Tina queries/hooks are present on a page, provide
+     `experimental___selectFormByFormId()` and select the page document form ID
+     (ex: `content/pages/${variables.relativePath}`)
 5. Collections must use explicit `match.include` for each page file.
 6. Any route with editor forms must not break if a page is missing; return `notFound()` safely.
+7. Empty Tina sidebar means visual-editing contract failure; do not close task until fields appear.
 
 ## Authentication Modes (TinaCloud)
 
@@ -90,6 +114,19 @@ Collect:
 
 - Run `woc-design` (or inline equivalent) and produce a Design Spec.
 - Identify one explicit Surprise Element.
+- Apply `frontend-design` standards while shaping concept, typography, layout rhythm, and motion intent.
+
+### Step 2.5 — High-End Design & UX Gate (Mandatory)
+
+Before coding, confirm:
+- visual concept is specific to this client (not profile-default language)
+- hero creates a strong first-3-second impression
+- page rhythm alternates visual weight (no monotone stacking)
+- typography has clear hierarchy and brand character
+- motion is purposeful and restrained (no decorative-only animation)
+- mobile readability and CTA clarity are preserved
+
+If any item fails, redesign before implementation.
 
 ### Step 3 — Schema-First Build
 
@@ -105,6 +142,8 @@ Always keep `content/settings/global.json` aligned with `BaseLayout` requirement
 For page rendering patterns that need visual editing:
 - server component fetches Tina query
 - client component uses `useTina`
+- if multiple forms are possible, explicitly select page form with
+   `experimental___selectFormByFormId()`
 
 For static shell pages, ensure upgrade path to visual editing remains clear and non-breaking.
 
@@ -112,12 +151,25 @@ For static shell pages, ensure upgrade path to visual editing remains clear and 
 
 Run:
 - `npm run dev` (admin reachable)
+- `npm run verify:visual-editing` (fails if editable routes miss server/client `useTina` contract)
 - `npm run build` (schema/codegen/build clean)
+
+Also enforce:
+- high-end design rubric score `>= 22/30` (brand specificity, hierarchy, typography, rhythm, conversion clarity, motion restraint)
+- Next.js/React best-practice checks from `vercel-react-best-practices` (especially async waterfalls, bundle size, and client/server boundaries)
+- no regressions against Tina editability or `useTina` runtime contract
+
+CI requirement:
+- `verify:visual-editing` is a required pre-build gate in CI.
+- If it fails, do not proceed to merge or deploy.
 
 Definition of done:
 - no schema/key mismatch
 - all page links are route links (no orphan anchors)
 - no missing image/content keys that crash rendering
+- Tina visual editing sidebar shows correct form fields on each editable page
+- mandatory skill stack usage is evidenced in handoff report
+- design rubric and React/Next best-practice evidence are documented in handoff report
 
 ## File Boundaries for Agents
 
@@ -145,4 +197,6 @@ Definition of done:
 
 - Fast first draft (minutes), but schema-safe.
 - Production-safe defaults over flashy one-offs.
+- High-end, client-specific visual direction over generic component assembly.
+- Best-practice React/Next.js implementation quality must hold alongside design quality.
 - Every generated site remains editable by non-technical users in Tina admin.

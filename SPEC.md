@@ -82,6 +82,11 @@ Mark a block `'use client'` only when it genuinely needs browser APIs or React s
 ### 7. Visual editing contract
 Every page fetches `query` + `variables` + `data` from the TinaCMS client, then passes them into `useTina` in `page.client.tsx`. Never short-circuit this — skipping it breaks visual editing in edit mode.
 
+Hard constraints:
+- Page runtime rendering must use data returned by `useTina`, not the raw server response.
+- If a route includes multiple Tina queries/forms, `experimental___selectFormByFormId()` is required to force the page document form in the sidebar.
+- Empty Tina sidebar is a release blocker.
+
 ---
 
 ## Adding a New Block

@@ -1,0 +1,56 @@
+name: Hosted Verification Gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'woc-starter-v2/**'
+      - '.github/workflows/hosted-verification-gate.yml'
+  push:
+    branches:
+      - main
+      - tina-content
+    paths:
+      - 'woc-starter-v2/**'
+      - '.github/workflows/hosted-verification-gate.yml'
+
+jobs:
+  verify-hosted:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: woc-starter-v2
+    env:
+      TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
+      TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+      GITHUB_BRANCH: ${{ secrets.TINA_GITHUB_BRANCH || 'tina-content' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: woc-starter-v2/package-lock.json
+
+      - name: Validate required hosted secrets
+        run: |
+          if [ -z "$TINA_CLIENT_ID" ]; then
+            echo "Missing required secret: TINA_CLIENT_ID"
+            exit 1
+          fi
+          if [ -z "$TINA_TOKEN" ]; then
+            echo "Missing required secret: TINA_TOKEN"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run full hosted verification
+        run: npm run verify:hosted

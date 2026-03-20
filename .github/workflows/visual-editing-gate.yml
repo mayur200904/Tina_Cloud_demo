@@ -1,0 +1,38 @@
+name: Visual Editing Gate
+
+on:
+  pull_request:
+    paths:
+      - 'woc-starter-v2/**'
+      - '.github/workflows/visual-editing-gate.yml'
+  push:
+    branches:
+      - main
+      - tina-content
+    paths:
+      - 'woc-starter-v2/**'
+      - '.github/workflows/visual-editing-gate.yml'
+
+jobs:
+  verify-visual-editing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: woc-starter-v2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: woc-starter-v2/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run visual editing preflight
+        run: npm run verify:visual-editing

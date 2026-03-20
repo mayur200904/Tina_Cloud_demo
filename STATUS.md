@@ -1,7 +1,7 @@
 # Repository Status Snapshot
 
 Date: 2026-03-19
-Project focus: `woc-starter-v2` (primary), `woc-starter-v1` (legacy reference)
+Project focus: `woc-starter-v2` (single implementation target)
 
 ## 1) Intent (locked)
 
