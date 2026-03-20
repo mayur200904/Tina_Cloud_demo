@@ -46,7 +46,6 @@ const runtimeEnv = {
 console.log(`Running hosted verification on branch: ${runtimeEnv.GITHUB_BRANCH}`);
 
 runStep('node', ['scripts/tina-mode.mjs', 'check'], runtimeEnv);
-runStep('npx', ['tinacms', 'build'], runtimeEnv);
-runStep('npx', ['next', 'build'], runtimeEnv);
+runStep('npm', ['run', 'build'], runtimeEnv);
 
 console.log('✅ Hosted verification complete.');
