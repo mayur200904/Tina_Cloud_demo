@@ -1,0 +1,35 @@
+name: Compliance Report Gate
+
+on:
+  pull_request:
+    paths:
+      - 'RULEBOOK-COMPLIANCE-REPORT.md'
+      - 'RULEBOOK.md'
+      - 'AGENTS.md'
+      - '.github/workflows/compliance-report-gate.yml'
+      - 'scripts/verify-compliance-report.mjs'
+  push:
+    branches:
+      - main
+    paths:
+      - 'RULEBOOK-COMPLIANCE-REPORT.md'
+      - 'RULEBOOK.md'
+      - 'AGENTS.md'
+      - '.github/workflows/compliance-report-gate.yml'
+      - 'scripts/verify-compliance-report.mjs'
+
+jobs:
+  verify-compliance-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify compliance report structure
+        run: node scripts/verify-compliance-report.mjs

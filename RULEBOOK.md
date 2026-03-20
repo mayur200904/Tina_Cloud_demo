@@ -75,6 +75,7 @@ CI enforcement policy:
 - Do not override or bypass a failed preflight with manual approval notes.
 - Repository enforcement file: `.github/workflows/visual-editing-gate.yml`.
 - Full hosted verification enforcement file: `.github/workflows/hosted-verification-gate.yml`.
+- Compliance report structure enforcement file: `.github/workflows/compliance-report-gate.yml`.
 
 Publishing/saving changes require proof:
 - capture remote commit hash from GitHub branch after save.
