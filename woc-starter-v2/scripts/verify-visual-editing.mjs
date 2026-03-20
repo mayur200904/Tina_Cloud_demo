@@ -54,10 +54,13 @@ function getConfiguredEditableIncludes() {
     return new Set();
   }
 
+  const sourceWithoutBlockComments = configSource.replace(/\/\*[\s\S]*?\*\//g, "");
+  const sourceWithoutComments = sourceWithoutBlockComments.replace(/^\s*\/\/.*$/gm, "");
+
   const includes = new Set();
   const includeRegex = /match\s*:\s*\{\s*include\s*:\s*["']([a-z0-9_-]+)["']\s*\}/gi;
 
-  for (const match of configSource.matchAll(includeRegex)) {
+  for (const match of sourceWithoutComments.matchAll(includeRegex)) {
     const includeValue = match[1]?.trim();
     if (!includeValue || includeValue === "global") {
       continue;
