@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-      - tina-content
     paths:
       - 'woc-starter-v2/**'
       - '.github/workflows/visual-editing-gate.yml'
