@@ -63,3 +63,19 @@ Expected finalization set includes:
 1. Commit and push the validated route-structure fix + generated artifacts.
 2. Verify Tina checklist steps 3/4 by logging in at `/admin/index.html` and saving an edit.
 3. Start first true “minutes build” run from a real brief using the rapid template.
+
+## 7) North-star alignment check (must pass before closing any task)
+
+Primary motive for this directory/workspace:
+- Build an autonomous website-building system that ships client-ready sites in minutes.
+- Keep TinaCMS schema/content/rendering contracts deterministic and non-breaking.
+- Ensure non-technical editors can authenticate and publish content through TinaCloud with real Git commits.
+
+Right-path gate for every change:
+1. Does this improve generation speed, CMS safety, or editor reliability?
+2. Does this avoid hardcoded, non-editable values in the runtime UI?
+3. Does this preserve schema key parity across Tina schema, content files, and TSX reads?
+4. Does hosted mode still pass: `npm run mode:check`, `npx tinacms build`, `npm run build`?
+5. If a save flow was touched, was a real remote commit hash observed on GitHub?
+
+If any answer is "no", treat the work as incomplete.

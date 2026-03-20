@@ -5,6 +5,28 @@ Newest entries are always at the top.
 
 ---
 
+## [1.0.3] — 2026-03-19
+
+### TinaCloud commit-path verification + repository hygiene
+
+#### Remote commit behavior proven end-to-end
+- Confirmed Tina admin Save now creates a real GitHub commit on `tina-content` (`afa3e07...`, message: "TinaCMS content update").
+- Fast-forwarded `main` to include the Tina-authored content commit.
+- Verified remote `main` head reflects the CMS-originated update.
+
+#### Local-vs-cloud save confusion resolved
+- Identified prior save attempts were landing in local files during dev flow checks.
+- Stabilized hosted-mode environment handling so validation runs align with cloud commit expectations.
+
+#### Final cleanup and hardening
+- Kept only meaningful maintenance change in repo history (`scripts/tina-mode.mjs` env-resolution hardening).
+- Reverted generated-file churn from commit set to keep history intentional and reviewable.
+
+#### Path alignment (operator intent)
+- Re-confirmed project mission remains: autonomous, minutes-fast site generation with Tina schema safety, visual editing compatibility, and reliable TinaCloud-backed content commits.
+
+---
+
 ## [1.0.2] — 2026-03-19
 
 ### TinaCloud + monorepo reliability update (`woc-starter-v2`)

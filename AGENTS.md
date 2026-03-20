@@ -10,6 +10,24 @@ Generate high-quality client websites in minutes from a short brief, with:
 - TinaCloud authentication for admin editing
 - zero broken schema/query contracts
 
+## North-star Gate (Mandatory Before Task Closure)
+
+Every agent must pass this gate before declaring work complete.
+
+Primary motive for this directory/workspace:
+- Build an autonomous website-building system that ships client-ready sites in minutes.
+- Keep Tina schema/content/rendering deterministic, safe, and non-breaking.
+- Ensure editors can authenticate in TinaCloud and publish changes that create real GitHub commits.
+
+Required right-path checks:
+1. Does the change improve generation speed, CMS safety, or editor publishing reliability?
+2. Does the implementation avoid hardcoded, non-editable runtime content?
+3. Are schema keys aligned across `tina/config.ts`, content files, and TSX reads?
+4. For hosted mode, do these checks pass: `npm run mode:check`, `npx tinacms build`, `npm run build`?
+5. If save/publishing behavior changed, was a real remote commit hash verified on GitHub?
+
+If any answer is "no", the task remains open.
+
 ## Canonical Build Target
 
 - Build target is `woc-starter-v2/`.
