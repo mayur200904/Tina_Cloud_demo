@@ -2,28 +2,33 @@ import fs from "node:fs";
 import path from "node:path";
 
 const cwd = process.cwd();
+const tinaConfigPath = path.join(cwd, "tina/config.ts");
 
 const routes = [
   {
     route: "/",
+    include: "index",
     serverFile: "src/app/page.tsx",
     clientFile: "src/app/page.client.tsx",
     importPath: "./page.client",
   },
   {
     route: "/about",
+    include: "about",
     serverFile: "src/app/about/page.tsx",
     clientFile: "src/app/about/page.client.tsx",
     importPath: "./page.client",
   },
   {
     route: "/services",
+    include: "services",
     serverFile: "src/app/services/page.tsx",
     clientFile: "src/app/services/page.client.tsx",
     importPath: "./page.client",
   },
   {
     route: "/contact",
+    include: "contact",
     serverFile: "src/app/contact/page.tsx",
     clientFile: "src/app/contact/page.client.tsx",
     importPath: "./page.client",
@@ -41,6 +46,26 @@ function ensure(condition, errors, message) {
   if (!condition) {
     errors.push(message);
   }
+}
+
+function getConfiguredEditableIncludes() {
+  const configSource = readIfExists(tinaConfigPath);
+  if (!configSource) {
+    return new Set();
+  }
+
+  const includes = new Set();
+  const includeRegex = /match\s*:\s*\{\s*include\s*:\s*["']([a-z0-9_-]+)["']\s*\}/gi;
+
+  for (const match of configSource.matchAll(includeRegex)) {
+    const includeValue = match[1]?.trim();
+    if (!includeValue || includeValue === "global") {
+      continue;
+    }
+    includes.add(includeValue);
+  }
+
+  return includes;
 }
 
 function checkServerFile(route, serverSource, expectedImportPath, errors) {
@@ -126,8 +151,15 @@ function checkClientFile(route, clientSource, errors) {
 }
 
 const errors = [];
+const configuredIncludes = getConfiguredEditableIncludes();
+const editableRoutes = routes.filter((route) => configuredIncludes.has(route.include));
 
-for (const config of routes) {
+if (editableRoutes.length === 0) {
+  console.log("ℹ️ No editable page collections detected in tina/config.ts. Skipping route-level visual editing checks.");
+  process.exit(0);
+}
+
+for (const config of editableRoutes) {
   const serverPath = path.join(cwd, config.serverFile);
   const clientPath = path.join(cwd, config.clientFile);
 
@@ -153,4 +185,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("✅ Visual editing preflight passed for editable routes.");
+console.log("✅ Visual editing preflight passed for configured editable routes.");
