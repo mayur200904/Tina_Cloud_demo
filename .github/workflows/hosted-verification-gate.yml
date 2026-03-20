@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - tina-content
     paths:
       - 'woc-starter-v2/**'
       - '.github/workflows/hosted-verification-gate.yml'
@@ -25,7 +24,7 @@ jobs:
     env:
       TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
       TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-      GITHUB_BRANCH: ${{ secrets.TINA_GITHUB_BRANCH || 'tina-content' }}
+      GITHUB_BRANCH: ${{ secrets.TINA_GITHUB_BRANCH || 'main' }}
 
     steps:
       - name: Checkout
