@@ -4,6 +4,40 @@ This file defines which skill is responsible for each phase of autonomous site g
 
 ## Skill Routing
 
+### Orchestration Mode: `website-master` (single prompt)
+
+Execution order in one request:
+1. `high-end-woc-infrastructure`
+2. `woc-design`
+3. `woc-builder`
+4. `quality-gate`
+
+Mandatory co-skills during phases 2-4:
+- `frontend-design` (design quality and distinctive visual execution)
+- `vercel-react-best-practices` (Next.js/React performance and architecture quality)
+
+Optional final QA:
+- `web-design-guidelines` (UI/a11y guideline audit before closure)
+
+Behavior:
+- Agent must run end-to-end in one prompt unless blocked by missing inputs/secrets.
+- Agent must return phase-wise pass/fail evidence, not narrative-only completion.
+
+### 0) `high-end-woc-infrastructure` (new)
+
+Purpose:
+- enforce infrastructure-first website generation with premium design quality + Tina CMS safety + TinaCloud publish proof
+
+Must enforce:
+- design-first and schema-first execution order
+- server/client `useTina` visual-editing contract on editable routes
+- objective gates: `verify:visual-editing`, hosted checks, and remote commit proof
+- high-end design gate (rubric >= 22/30) and anti-template output checks
+- alignment with `frontend-design` and `vercel-react-best-practices`
+
+Outputs:
+- pass/fail sign-off evidence ready for `RULEBOOK-COMPLIANCE-REPORT.md`
+
 ### 1) `brief-intake`
 
 Purpose:
@@ -72,8 +106,8 @@ Checks:
 ## Skill-to-Repo Mapping
 
 - Primary implementation starter: `woc-starter-v2/`
-- Legacy reference only: `woc-starter-v1/`
 - Skill references:
+  - `.agents/skills/high-end-woc-infrastructure/SKILL.md`
   - `.agents/skills/woc-design/SKILL.md`
   - `.agents/skills/woc-builder/SKILL.md`
   - `.agents/skills/frontend-design/SKILL.md`
@@ -103,6 +137,21 @@ If `authMode` is `self-hosted-tinacloud-auth`, add:
     "TINA_PUBLIC_IS_LOCAL",
     "TINA_TOKEN"
   ]
+}
+```
+
+For one-prompt orchestration, include:
+
+```json
+{
+  "invocationMode": "website-master",
+  "routing": [
+    "high-end-woc-infrastructure",
+    "woc-design",
+    "woc-builder",
+    "quality-gate"
+  ],
+  "autonomous": true
 }
 ```
 

@@ -4,6 +4,85 @@ Templates for the human builder to invoke the agent workflow. Three tiers of con
 
 ---
 
+## Template MASTER — One Prompt Autonomous Orchestration (Recommended)
+
+Use this when you want **one single prompt** to run the full pipeline with minimal back-and-forth:
+- `high-end-woc-infrastructure` (governance + gates)
+- `woc-design` (creative direction)
+- `woc-builder` (implementation)
+
+```
+/website-master
+
+Run mode: autonomous-one-prompt
+Project target: woc-starter-v2
+
+Objective:
+- Create a high-end, client-specific website in minutes.
+- Keep all runtime business content Tina-editable.
+- Ensure TinaCloud admin login can publish changes to GitHub.
+
+Execution routing contract:
+1) Load and enforce `high-end-woc-infrastructure` skill first.
+2) Load and apply `frontend-design` during design decisions.
+3) Run design phase (`woc-design`) and output a Design Spec.
+4) Load and apply `vercel-react-best-practices` during implementation.
+5) Run implementation phase (`woc-builder`) from that Design Spec.
+4) Run gates and report pass/fail evidence.
+
+Client brief:
+- Business name: [name]
+- Niche/industry: [one sentence]
+- Target audience: [who exactly]
+- Region: [city/country]
+- Services/offers:
+  1) [service]
+  2) [service]
+  3) [service]
+- Differentiators: [years, proof, certifications]
+- Testimonials/stats: [real numbers/quotes]
+- CTA: [book / quote / call]
+- Contact: [email, phone, address]
+- Brand inputs: [logo, colors, preferred visual direction]
+- My qualitative read: [2–4 sentences]
+
+CMS/Auth:
+- Tina mode: hosted
+- Required env: TINA_CLIENT_ID, TINA_TOKEN
+- Branch target: tina-content
+
+Hard constraints:
+- Schema-first: define `tina/config.ts` fields before TSX/content.
+- High-end design only: no generic/template layout or copy patterns.
+- Enforce first-3-second hero impact, clear typography hierarchy, and alternating section rhythm.
+- Motion must be purposeful and restrained.
+- Responsive/mobile readability and CTA clarity are mandatory.
+- Enforce visual editing contract on each editable route:
+  - server passes `query`, `variables`, `data`
+  - client uses `useTina({ query, variables, data })`
+  - render from `useTina` data
+  - use `experimental___selectFormByFormId()` when multiple forms/hooks exist
+- No hardcoded business-facing copy in TSX.
+- Empty Tina sidebar = failure.
+
+Required sign-off output (pass/fail with evidence):
+1) `npm run verify:visual-editing`
+2) `npm run mode:check`
+3) `npx tinacms build`
+4) `npm run build`
+5) publish proof plan (remote hash before/after Tina admin publish)
+6) design quality rubric score (>= 22/30)
+7) React/Next best-practice summary (waterfalls/bundle/client-server boundaries)
+
+Return format:
+- Phase A: Design Spec
+- Phase B: Files changed + schema keys
+- Phase C: Validation outputs (pass/fail)
+- Phase D: Risks/blockers + exact next action
+```
+
+---
+
 ## Template 0 — Tina CMS Rapid Build (Minutes)
 
 Use when speed matters and you want a full Tina-editable site from one prompt.
@@ -34,6 +113,12 @@ CMS/Auth mode:
 Output requirements:
 - Create/Update Tina schema first, then TSX, then markdown content.
 - Ensure every displayed value is editable in Tina.
+- For each editable page route, enforce server + client visual-editing contract:
+  - server fetch returns `query`, `variables`, `data`
+  - client page uses `useTina({ query, variables, data })`
+  - rendered UI reads from `useTina` data
+  - when multiple forms/hooks exist, set `experimental___selectFormByFormId()` to page form ID
+- Treat empty Tina sidebar as a hard failure (do not declare done).
 - Ensure /admin/index.html is functional.
 - Do not edit tina/__generated__ manually.
 - Run build-safe implementation only.
