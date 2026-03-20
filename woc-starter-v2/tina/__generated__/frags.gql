@@ -25,3 +25,89 @@ fragment SettingsParts on Settings {
     url
   }
 }
+
+fragment HomeParts on Home {
+  __typename
+  title
+  eyebrow
+  headline
+  subheadline
+  heroImage
+  heroImageAlt
+  primaryCtaLabel
+  primaryCtaLink
+  secondaryCtaLabel
+  secondaryCtaLink
+  credibilityStats {
+    __typename
+    value
+    label
+  }
+  servicesPreview {
+    __typename
+    title
+    description
+    duration
+  }
+  trustQuote
+  trustQuoteAuthor
+}
+
+fragment AboutParts on About {
+  __typename
+  title
+  eyebrow
+  headline
+  intro
+  heroImage
+  heroImageAlt
+  storyHeading
+  storyBody
+  credentials {
+    __typename
+    label
+    detail
+  }
+}
+
+fragment ServicesParts on Services {
+  __typename
+  title
+  eyebrow
+  headline
+  subheadline
+  serviceItems {
+    __typename
+    name
+    duration
+    description
+  }
+  addonOffer {
+    __typename
+    title
+    description
+  }
+  ctaLabel
+  ctaLink
+}
+
+fragment ContactParts on Contact {
+  __typename
+  title
+  eyebrow
+  headline
+  subheadline
+  whatsappLabel
+  whatsappLink
+  calendlyLabel
+  calendlyLink
+  email
+  phone
+  address
+  hours
+  testimonial {
+    __typename
+    quote
+    author
+  }
+}

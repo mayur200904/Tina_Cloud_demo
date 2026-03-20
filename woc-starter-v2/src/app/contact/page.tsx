@@ -1,18 +1,21 @@
-// CONTACT PAGE — EMPTY SHELL
-// Agent: replace this file entirely with custom contact page sections.
-
 import client from "../../../tina/__generated__/client";
 import BaseLayout from "@/components/BaseLayout";
-import StarterPageShell from "@/components/StarterPageShell";
+import { notFound } from "next/navigation";
+import ContactPageClient from "./page.client";
 
 export default async function ContactPage() {
-  const settingsRes = await client.queries.settings({
-    relativePath: "global.json",
-  });
+  try {
+    const [settingsRes, contactRes] = await Promise.all([
+      client.queries.settings({ relativePath: "global.json" }),
+      client.queries.contact({ relativePath: "contact.md" }),
+    ]);
 
-  return (
-    <BaseLayout settings={settingsRes.data.settings}>
-      <StarterPageShell pageName="Contact" />
-    </BaseLayout>
-  );
+    return (
+      <BaseLayout settings={settingsRes.data.settings}>
+        <ContactPageClient query={contactRes.query} variables={contactRes.variables} data={contactRes.data} />
+      </BaseLayout>
+    );
+  } catch {
+    notFound();
+  }
 }

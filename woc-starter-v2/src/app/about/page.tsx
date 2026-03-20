@@ -1,18 +1,21 @@
-// ABOUT PAGE — EMPTY SHELL
-// Agent: replace this file entirely with custom about page sections.
-
 import client from "../../../tina/__generated__/client";
 import BaseLayout from "@/components/BaseLayout";
-import StarterPageShell from "@/components/StarterPageShell";
+import { notFound } from "next/navigation";
+import AboutPageClient from "./page.client";
 
 export default async function AboutPage() {
-  const settingsRes = await client.queries.settings({
-    relativePath: "global.json",
-  });
+  try {
+    const [settingsRes, aboutRes] = await Promise.all([
+      client.queries.settings({ relativePath: "global.json" }),
+      client.queries.about({ relativePath: "about.md" }),
+    ]);
 
-  return (
-    <BaseLayout settings={settingsRes.data.settings}>
-      <StarterPageShell pageName="About" />
-    </BaseLayout>
-  );
+    return (
+      <BaseLayout settings={settingsRes.data.settings}>
+        <AboutPageClient query={aboutRes.query} variables={aboutRes.variables} data={aboutRes.data} />
+      </BaseLayout>
+    );
+  } catch {
+    notFound();
+  }
 }
