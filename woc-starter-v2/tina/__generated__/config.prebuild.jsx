@@ -60,6 +60,156 @@ var settingsCollection = {
     }
   ]
 };
+var homeCollection = {
+  name: "home",
+  label: "Home Page",
+  path: "content/pages",
+  format: "md",
+  match: { include: "index" },
+  ui: {
+    router: () => "/",
+    allowedActions: { create: false, delete: false }
+  },
+  fields: [
+    { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
+    { name: "eyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "headline", label: "Hero Headline", type: "string", required: true },
+    { name: "subheadline", label: "Hero Subheadline", type: "string", ui: { component: "textarea" } },
+    { name: "heroImage", label: "Hero Image", type: "image" },
+    { name: "heroImageAlt", label: "Hero Image Alt", type: "string" },
+    { name: "primaryCtaLabel", label: "Primary CTA Label", type: "string" },
+    { name: "primaryCtaLink", label: "Primary CTA Link", type: "string" },
+    { name: "secondaryCtaLabel", label: "Secondary CTA Label", type: "string" },
+    { name: "secondaryCtaLink", label: "Secondary CTA Link", type: "string" },
+    {
+      name: "credibilityStats",
+      label: "Credibility Stats",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "value", label: "Value", type: "string" },
+        { name: "label", label: "Label", type: "string" }
+      ]
+    },
+    {
+      name: "servicesPreview",
+      label: "Services Preview",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "title", label: "Title", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
+        { name: "duration", label: "Duration", type: "string" }
+      ]
+    },
+    { name: "trustQuote", label: "Trust Quote", type: "string", ui: { component: "textarea" } },
+    { name: "trustQuoteAuthor", label: "Trust Quote Author", type: "string" }
+  ]
+};
+var aboutCollection = {
+  name: "about",
+  label: "About Page",
+  path: "content/pages",
+  format: "md",
+  match: { include: "about" },
+  ui: {
+    router: () => "/about",
+    allowedActions: { create: false, delete: false }
+  },
+  fields: [
+    { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
+    { name: "eyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "headline", label: "Headline", type: "string", required: true },
+    { name: "intro", label: "Intro", type: "string", ui: { component: "textarea" } },
+    { name: "heroImage", label: "Hero Image", type: "image" },
+    { name: "heroImageAlt", label: "Hero Image Alt", type: "string" },
+    { name: "storyHeading", label: "Story Heading", type: "string" },
+    { name: "storyBody", label: "Story Body", type: "string", ui: { component: "textarea" } },
+    {
+      name: "credentials",
+      label: "Credentials",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "label", label: "Label", type: "string" },
+        { name: "detail", label: "Detail", type: "string" }
+      ]
+    }
+  ]
+};
+var servicesCollection = {
+  name: "services",
+  label: "Services Page",
+  path: "content/pages",
+  format: "md",
+  match: { include: "services" },
+  ui: {
+    router: () => "/services",
+    allowedActions: { create: false, delete: false }
+  },
+  fields: [
+    { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
+    { name: "eyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "headline", label: "Headline", type: "string", required: true },
+    { name: "subheadline", label: "Subheadline", type: "string", ui: { component: "textarea" } },
+    {
+      name: "serviceItems",
+      label: "Service Items",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "name", label: "Service Name", type: "string" },
+        { name: "duration", label: "Duration", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } }
+      ]
+    },
+    {
+      name: "addonOffer",
+      label: "Add-on Offer",
+      type: "object",
+      fields: [
+        { name: "title", label: "Title", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } }
+      ]
+    },
+    { name: "ctaLabel", label: "CTA Label", type: "string" },
+    { name: "ctaLink", label: "CTA Link", type: "string" }
+  ]
+};
+var contactCollection = {
+  name: "contact",
+  label: "Contact Page",
+  path: "content/pages",
+  format: "md",
+  match: { include: "contact" },
+  ui: {
+    router: () => "/contact",
+    allowedActions: { create: false, delete: false }
+  },
+  fields: [
+    { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
+    { name: "eyebrow", label: "Eyebrow", type: "string" },
+    { name: "headline", label: "Headline", type: "string", required: true },
+    { name: "subheadline", label: "Subheadline", type: "string", ui: { component: "textarea" } },
+    { name: "whatsappLabel", label: "WhatsApp Label", type: "string" },
+    { name: "whatsappLink", label: "WhatsApp Link", type: "string" },
+    { name: "calendlyLabel", label: "Calendly Label", type: "string" },
+    { name: "calendlyLink", label: "Calendly Link", type: "string" },
+    { name: "email", label: "Email", type: "string" },
+    { name: "phone", label: "Phone", type: "string" },
+    { name: "address", label: "Address", type: "string", ui: { component: "textarea" } },
+    { name: "hours", label: "Hours", type: "string" },
+    {
+      name: "testimonial",
+      label: "Featured Testimonial",
+      type: "object",
+      fields: [
+        { name: "quote", label: "Quote", type: "string", ui: { component: "textarea" } },
+        { name: "author", label: "Author", type: "string" }
+      ]
+    }
+  ]
+};
 var config_default = defineConfig({
   branch,
   clientId: tinaClientId,
@@ -82,8 +232,11 @@ var config_default = defineConfig({
   },
   schema: {
     collections: [
-      settingsCollection
-      // Agent appends page collections here
+      settingsCollection,
+      homeCollection,
+      aboutCollection,
+      servicesCollection,
+      contactCollection
     ]
   }
 });

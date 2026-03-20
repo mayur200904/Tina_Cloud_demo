@@ -15,56 +15,56 @@
 @theme {
   /* --- COLOR --- */
   /* Primary brand color (buttons, links, accents) */
-  --color-primary: #1a1a1a;
+  --color-primary: #3b2a1a;
   /* Contrast text on primary (usually white or near-white) */
-  --color-primary-foreground: #ffffff;
+  --color-primary-foreground: #f5f0e8;
 
   /* Secondary / supporting accent */
-  --color-secondary: #444444;
-  --color-secondary-foreground: #ffffff;
+  --color-secondary: #8a9e85;
+  --color-secondary-foreground: #1f1a15;
 
   /* Surface colors */
-  --color-background: #ffffff;
-  --color-foreground: #111111;
-  --color-surface: #f5f5f5;
+  --color-background: #f5f0e8;
+  --color-foreground: #1f1a15;
+  --color-surface: #ece4d8;
   /* card backgrounds, alternating sections */
-  --color-surface-border: #e5e5e5;
+  --color-surface-border: #d7c8b2;
 
   /* Muted text (subheadings, captions) */
-  --color-muted: #737373;
+  --color-muted: #5f5245;
 
   /* Dark section — used with .woc-section--dark
      Agent sets this to match brand (deep navy, charcoal, etc.)
      Must be brand-tinted — never flat #111111. */
-  --color-dark: #111111;
-  --color-dark-foreground: #f8f8f8;
+  --color-dark: #2d2116;
+  --color-dark-foreground: #f5f0e8;
 
   /* --- TYPOGRAPHY --- */
   /* Agent sets these. Google Fonts URL goes in global.json. */
-  --font-heading: 'Georgia', serif;
-  --font-sans: system-ui, sans-serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
 
   /* --- SPACING --- */
-  --section-padding-y: 5rem;
+  --section-padding-y: 5.5rem;
   --section-padding-y-sm: 3rem;
-  --section-padding-y-lg: 7rem;
+  --section-padding-y-lg: 8rem;
   --container-max-width: 72rem;
   --container-padding-x: 1.5rem;
 
   /* --- SHAPE --- */
   /* 0px = sharp corporate, 8px = soft SMB, 16px = rounded consumer */
-  --radius-global: 6px;
-  --radius-card: 6px;
-  --radius-button: 6px;
+  --radius-global: 3px;
+  --radius-card: 3px;
+  --radius-button: 3px;
 
   /* --- SHADOWS --- */
-  --shadow-card: 0 2px 12px 0 rgba(0, 0, 0, 0.07);
-  --shadow-elevated: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
+  --shadow-card: 0 8px 24px 0 rgba(32, 23, 15, 0.08);
+  --shadow-elevated: 0 18px 48px 0 rgba(32, 23, 15, 0.16);
 
   /* --- NAV --- */
-  --nav-bg: #ffffff;
-  --nav-text: #111111;
-  --nav-border: #e5e5e5;
+  --nav-bg: color-mix(in srgb, #f5f0e8 92%, transparent);
+  --nav-text: #2d2116;
+  --nav-border: #d7c8b2;
   --nav-height: 4rem;
 }
 
