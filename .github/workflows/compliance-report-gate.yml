@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'RULEBOOK-COMPLIANCE-REPORT.md'
+      - 'COMPLIANCE-REPORT-LATEST.md'
       - 'RULEBOOK.md'
       - 'AGENTS.md'
       - '.github/workflows/compliance-report-gate.yml'
@@ -13,6 +14,7 @@ on:
       - main
     paths:
       - 'RULEBOOK-COMPLIANCE-REPORT.md'
+      - 'COMPLIANCE-REPORT-LATEST.md'
       - 'RULEBOOK.md'
       - 'AGENTS.md'
       - '.github/workflows/compliance-report-gate.yml'

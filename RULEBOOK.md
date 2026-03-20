@@ -237,6 +237,7 @@ Single-target policy:
 
 Every completed task must include a filled compliance handoff based on:
 - `RULEBOOK-COMPLIANCE-REPORT.md`
+- `COMPLIANCE-REPORT-LATEST.md` (filled, no placeholder values)
 
 Closure policy:
-- If the compliance report is missing, task is not complete.
+- If either compliance report artifact is missing or contains unresolved placeholders, task is not complete.

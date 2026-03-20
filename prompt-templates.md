@@ -49,7 +49,7 @@ Client brief:
 CMS/Auth:
 - Tina mode: hosted
 - Required env: TINA_CLIENT_ID, TINA_TOKEN
-- Branch target: tina-content
+- Branch target: main
 
 Hard constraints:
 - Schema-first: define `tina/config.ts` fields before TSX/content.
