@@ -2,6 +2,8 @@
 
 Prompt-driven website generation infrastructure with TinaCMS editing.
 
+> CI note: repository intentionally keeps this starter in infrastructure mode.
+
 ## Stack
 
 - Next.js (App Router)
