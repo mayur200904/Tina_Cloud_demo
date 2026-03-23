@@ -132,6 +132,6 @@ Paste concise output evidence:
 
 ## J) Final Declaration
 
-- Rulebook-compliant completion: no (blocked by hosted build gate)
+- Rulebook-compliant completion: no
 - Residual risks: TinaCloud remote schema remains behind local schema until push + reindex completes.
 - Next recommended action: push changes to `tina-demo/main`, reindex in TinaCloud, rerun `npx tinacms build` and `npm run build`, then verify admin publish commit hash change.
