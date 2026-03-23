@@ -1,7 +1,7 @@
 {
-  "siteName": "Sawasdee Thai Wellness",
-  "siteTagline": "Authentic Thai therapeutic bodywork in Pune",
-  "logoText": "Sawasdee Thai Wellness",
+  "siteName": "Website In Minutes",
+  "siteTagline": "Prompt-driven website generation infrastructure",
+  "logoText": "Website In Minutes",
   "logoImage": null,
   "navLinks": [
     {
@@ -17,9 +17,9 @@
       "href": "/contact"
     }
   ],
-  "navCtaLabel": "Book Session",
-  "navCtaLink": "https://wa.me/9198220XXXXX",
-  "footerTagline": "Quiet craft. Clinical relief. Traditional Thai lineage.",
+  "navCtaLabel": "Generate Site",
+  "navCtaLink": "/contact",
+  "footerTagline": "Use a brief. Generate a complete editable website.",
   "footerLinks": [
     {
       "label": "Services",
@@ -34,12 +34,7 @@
       "href": "/contact"
     }
   ],
-  "copyrightText": "© 2026 Sawasdee Thai Wellness. All rights reserved.",
-  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap",
-  "socialLinks": [
-    {
-      "platform": "instagram",
-      "url": "https://instagram.com/sawasdeewellness"
-    }
-  ]
+  "copyrightText": "© 2026 Website In Minutes",
+  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap",
+  "socialLinks": []
 }

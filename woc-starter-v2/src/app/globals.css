@@ -1,74 +1,42 @@
 @import "tailwindcss";
 
-/* =====================================================
-   WOC STARTER V2 — DESIGN TOKEN SYSTEM
-   =====================================================
-   Agent sets these tokens per client in globals.css.
-   All components and page sections consume these vars.
-
-   HOW TO USE:
-   - Set by the AI agent via woc-builder skill
-   - Covers: color, typography, spacing, radius, shadow
-   - Never add inline styles — always reference a token
-   ===================================================== */
-
 @theme {
-  /* --- COLOR --- */
-  /* Primary brand color (buttons, links, accents) */
-  --color-primary: #3b2a1a;
-  /* Contrast text on primary (usually white or near-white) */
-  --color-primary-foreground: #f5f0e8;
+  --color-primary: #2f6ddf;
+  --color-primary-foreground: #f9fbff;
+  --color-secondary: #e9eef8;
+  --color-secondary-foreground: #1b2435;
 
-  /* Secondary / supporting accent */
-  --color-secondary: #8a9e85;
-  --color-secondary-foreground: #1f1a15;
+  --color-background: #f7f9fc;
+  --color-foreground: #141b2a;
+  --color-surface: #eef2f8;
+  --color-surface-border: #d8e0ee;
+  --color-muted: #4f5f79;
 
-  /* Surface colors */
-  --color-background: #f5f0e8;
-  --color-foreground: #1f1a15;
-  --color-surface: #ece4d8;
-  /* card backgrounds, alternating sections */
-  --color-surface-border: #d7c8b2;
+  --color-dark: #11192a;
+  --color-dark-foreground: #edf3ff;
 
-  /* Muted text (subheadings, captions) */
-  --color-muted: #5f5245;
+  --font-heading: "Instrument Serif", serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
 
-  /* Dark section — used with .woc-section--dark
-     Agent sets this to match brand (deep navy, charcoal, etc.)
-     Must be brand-tinted — never flat #111111. */
-  --color-dark: #2d2116;
-  --color-dark-foreground: #f5f0e8;
-
-  /* --- TYPOGRAPHY --- */
-  /* Agent sets these. Google Fonts URL goes in global.json. */
-  --font-heading: 'Cormorant Garamond', serif;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-
-  /* --- SPACING --- */
-  --section-padding-y: 5.5rem;
+  --section-padding-y: 6.5rem;
   --section-padding-y-sm: 3rem;
   --section-padding-y-lg: 8rem;
-  --container-max-width: 72rem;
+  --container-max-width: 80rem;
   --container-padding-x: 1.5rem;
 
-  /* --- SHAPE --- */
-  /* 0px = sharp corporate, 8px = soft SMB, 16px = rounded consumer */
-  --radius-global: 3px;
-  --radius-card: 3px;
-  --radius-button: 3px;
+  --radius-global: 8px;
+  --radius-card: 18px;
+  --radius-button: 999px;
 
-  /* --- SHADOWS --- */
-  --shadow-card: 0 8px 24px 0 rgba(32, 23, 15, 0.08);
-  --shadow-elevated: 0 18px 48px 0 rgba(32, 23, 15, 0.16);
+  --shadow-card: 0 14px 30px rgba(22, 35, 63, 0.08);
+  --shadow-elevated: 0 20px 44px rgba(22, 35, 63, 0.12);
 
-  /* --- NAV --- */
-  --nav-bg: color-mix(in srgb, #f5f0e8 92%, transparent);
-  --nav-text: #2d2116;
-  --nav-border: #d7c8b2;
-  --nav-height: 4rem;
+  --nav-bg: color-mix(in srgb, #f7f9fc 88%, transparent);
+  --nav-text: #182238;
+  --nav-border: #d7e0ef;
+  --nav-height: 4.25rem;
 }
 
-/* === BASE RESETS === */
 *,
 *::before,
 *::after {
@@ -83,20 +51,32 @@ html {
 }
 
 body {
+  position: relative;
   font-family: var(--font-sans);
-  background-color: var(--color-background);
+  background: var(--color-background);
   color: var(--color-foreground);
   line-height: 1.6;
 }
 
-/* === CONTAINER UTILITY === */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.12;
+  background-image:
+    linear-gradient(transparent 95%, rgba(30, 52, 95, 0.08) 100%),
+    linear-gradient(90deg, transparent 95%, rgba(30, 52, 95, 0.08) 100%);
+  background-size: 20px 20px;
+}
+
 .woc-container {
   max-width: var(--container-max-width);
   margin-inline: auto;
   padding-inline: var(--container-padding-x);
 }
 
-/* === SECTION UTILITIES === */
 .woc-section {
   padding-block: var(--section-padding-y);
 }
@@ -113,7 +93,6 @@ body {
   background-color: var(--color-surface);
 }
 
-/* Dark section — agent sets --color-dark per brand */
 .woc-section--dark {
   background-color: var(--color-dark);
   color: var(--color-dark-foreground);
@@ -126,34 +105,28 @@ body {
   color: var(--color-dark-foreground);
 }
 
-.woc-section--dark .woc-eyebrow {
-  color: color-mix(in srgb, var(--color-primary-foreground) 70%, transparent);
-}
-
-/* === BUTTON SYSTEM === */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2rem;
-  background-color: var(--color-primary);
+  padding: 0.72rem 1.6rem;
+  background: linear-gradient(126deg, #e3bc79, var(--color-primary));
   color: var(--color-primary-foreground);
   border-radius: var(--radius-button);
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  border: 2px solid var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 76%, #fff 24%);
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 26px rgba(147, 103, 34, 0.26);
 }
 
 .btn-secondary {
@@ -161,18 +134,18 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 2rem;
-  background-color: transparent;
+  padding: 0.72rem 1.6rem;
+  background: transparent;
   color: var(--color-primary);
   border-radius: var(--radius-button);
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  border: 2px solid var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 68%, var(--color-surface-border));
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-secondary:hover {
@@ -181,86 +154,104 @@ body {
   transform: translateY(-2px);
 }
 
-/* === TYPOGRAPHY SCALE === */
 .woc-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.72rem;
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-primary);
 }
 
 .woc-eyebrow--lined::before {
-  content: '';
+  content: "";
   display: block;
-  width: 2.5rem;
-  height: 2px;
+  width: 2.3rem;
+  height: 1.5px;
   background-color: currentColor;
   flex-shrink: 0;
 }
 
 .woc-h1 {
   font-family: var(--font-heading);
-  font-size: clamp(2.75rem, 7vw, 5rem);
-  font-weight: 700;
-  line-height: 1.08;
+  font-size: clamp(2.35rem, 5.6vw, 4.9rem);
+  font-weight: 600;
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--color-foreground);
+  text-wrap: balance;
 }
 
 .woc-h2 {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 4.3vw, 3.3rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.014em;
   color: var(--color-foreground);
+  text-wrap: balance;
 }
 
 .woc-h3 {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-size: clamp(1.25rem, 2.6vw, 1.86rem);
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.28;
   color: var(--color-foreground);
 }
 
 .woc-lead {
-  font-size: clamp(1.0625rem, 2vw, 1.25rem);
-  line-height: 1.7;
+  font-size: clamp(1.02rem, 2vw, 1.2rem);
+  line-height: 1.88;
   color: var(--color-muted);
 }
 
-/* === CARD === */
 .woc-card {
   background: var(--color-background);
   border: 1px solid var(--color-surface-border);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  padding: 1.75rem;
+  padding: 1.65rem;
   transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
 }
 
 .woc-card:hover {
   box-shadow: var(--shadow-elevated);
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-surface-border));
+  border-color: color-mix(in srgb, var(--color-primary) 46%, var(--color-surface-border));
 }
 
-/* === DIVIDER === */
+.woc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-surface-border) 60%, var(--color-primary) 40%);
+  background: color-mix(in srgb, var(--color-background) 84%, white 16%);
+  padding: 0.42rem 0.9rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.woc-glass {
+  border: 1px solid rgba(247, 241, 231, 0.28);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(6px);
+}
+
 .woc-divider {
-  width: 3rem;
-  height: 3px;
-  background-color: var(--color-primary);
-  border-radius: 2px;
+  width: 3.4rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 22%, transparent));
+  border-radius: 99px;
   margin-block: 1rem;
 }
 
-/* === STARTER SHELL === */
 .woc-starter-shell {
   min-height: 42vh;
 }

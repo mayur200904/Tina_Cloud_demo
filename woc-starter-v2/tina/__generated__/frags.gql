@@ -31,26 +31,13 @@ fragment HomeParts on Home {
   title
   eyebrow
   headline
-  subheadline
-  heroImage
-  heroImageAlt
+  description
   primaryCtaLabel
   primaryCtaLink
   secondaryCtaLabel
   secondaryCtaLink
-  credibilityStats {
-    __typename
-    value
-    label
-  }
-  servicesPreview {
-    __typename
-    title
-    description
-    duration
-  }
-  trustQuote
-  trustQuoteAuthor
+  sectionHeading
+  sectionBody
 }
 
 fragment AboutParts on About {
@@ -58,16 +45,9 @@ fragment AboutParts on About {
   title
   eyebrow
   headline
-  intro
-  heroImage
-  heroImageAlt
-  storyHeading
-  storyBody
-  credentials {
-    __typename
-    label
-    detail
-  }
+  description
+  sectionHeading
+  sectionBody
 }
 
 fragment ServicesParts on Services {
@@ -75,14 +55,8 @@ fragment ServicesParts on Services {
   title
   eyebrow
   headline
-  subheadline
-  serviceItems {
-    __typename
-    name
-    duration
-    description
-  }
-  addonOffer {
+  description
+  items {
     __typename
     title
     description
@@ -96,18 +70,10 @@ fragment ContactParts on Contact {
   title
   eyebrow
   headline
-  subheadline
-  whatsappLabel
-  whatsappLink
-  calendlyLabel
-  calendlyLink
+  description
   email
   phone
   address
-  hours
-  testimonial {
-    __typename
-    quote
-    author
-  }
+  ctaLabel
+  ctaLink
 }

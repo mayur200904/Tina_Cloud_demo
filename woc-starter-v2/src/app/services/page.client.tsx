@@ -4,14 +4,13 @@ import Link from "next/link";
 import { useTina } from "tinacms/dist/react";
 import FadeUp from "@/components/motion/FadeUp";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 type ServicesPageDocument = {
   eyebrow?: string | null;
   headline?: string | null;
-  subheadline?: string | null;
-  serviceItems?: Array<{ name?: string | null; duration?: string | null; description?: string | null } | null> | null;
-  addonOffer?: { title?: string | null; description?: string | null } | null;
+  description?: string | null;
+  items?: Array<{ title?: string | null; description?: string | null } | null> | null;
   ctaLabel?: string | null;
   ctaLink?: string | null;
 };
@@ -31,52 +30,40 @@ export default function ServicesPageClient(props: ServicesPageClientProps) {
       return props.variables.relativePath ? `content/pages/${props.variables.relativePath}` : false;
     },
   });
+
   const page = data.services;
-  const serviceItems = (page?.serviceItems ?? []).filter(Boolean);
+  const items = (page?.items ?? []).filter(Boolean);
 
   return (
-    <>
-      <section className="woc-container py-16 md:py-24">
-        <FadeUp>
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)]">{page?.eyebrow}</p>
-          <h1 className="max-w-4xl font-[var(--font-heading)] text-4xl leading-tight md:text-6xl">{page?.headline}</h1>
-          <p className="mt-6 max-w-2xl text-lg text-[var(--color-muted)]">{page?.subheadline}</p>
-        </FadeUp>
-      </section>
+    <main className="woc-starter-shell" aria-label="Services starter shell">
+      <section className="woc-section">
+        <div className="woc-container">
+          <FadeUp>
+            <p className="woc-eyebrow">{page?.eyebrow}</p>
+            <h1 className="mt-4 woc-h1">{page?.headline}</h1>
+            <p className="mt-5 max-w-3xl woc-lead">{page?.description}</p>
+          </FadeUp>
 
-      <section className="woc-container pb-14 md:pb-20">
-        <div className="grid gap-4 md:grid-cols-3">
-          {serviceItems.map((service, index) => (
-            <FadeUp key={`${service?.name}-${index}`} delay={index * 0.08}>
-              <Card className="h-full">
-                <CardHeader>
-                  <CardTitle>{service?.name}</CardTitle>
-                  <p className="text-xs font-medium uppercase tracking-[0.1em] text-[var(--color-primary)]">{service?.duration}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-[var(--color-muted)]">{service?.description}</p>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {items.map((item, index) => (
+              <Card key={`${item?.title}-${index}`} className="rounded-2xl border-[var(--color-surface-border)] shadow-none">
+                <CardContent className="p-6">
+                  <h3 className="woc-h3">{item?.title}</h3>
+                  <p className="mt-3 text-[var(--color-muted)]">{item?.description}</p>
                 </CardContent>
               </Card>
-            </FadeUp>
-          ))}
+            ))}
+          </div>
+
+          {page?.ctaLabel && page?.ctaLink && (
+            <div className="mt-8">
+              <Button asChild size="lg" className="rounded-full px-7">
+                <Link href={page.ctaLink}>{page.ctaLabel}</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </section>
-
-      <section className="woc-container pb-20 md:pb-28">
-        <FadeUp>
-          <div className="rounded-[var(--radius-card)] border border-[var(--color-surface-border)] bg-[var(--color-surface)] p-8 md:p-12">
-            <h2 className="font-[var(--font-heading)] text-3xl">{page?.addonOffer?.title}</h2>
-            <p className="mt-4 max-w-2xl text-[var(--color-muted)]">{page?.addonOffer?.description}</p>
-            {page?.ctaLabel && page?.ctaLink && (
-              <div className="mt-8">
-                <Button asChild size="lg">
-                  <Link href={page.ctaLink}>{page.ctaLabel}</Link>
-                </Button>
-              </div>
-            )}
-          </div>
-        </FadeUp>
-      </section>
-    </>
+    </main>
   );
 }

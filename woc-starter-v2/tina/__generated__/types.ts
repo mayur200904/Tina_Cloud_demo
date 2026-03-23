@@ -331,66 +331,34 @@ export type SettingsConnection = Connection & {
   edges?: Maybe<Array<Maybe<SettingsConnectionEdges>>>;
 };
 
-export type HomeCredibilityStats = {
-  __typename?: 'HomeCredibilityStats';
-  value?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-};
-
-export type HomeServicesPreview = {
-  __typename?: 'HomeServicesPreview';
-  title?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  duration?: Maybe<Scalars['String']['output']>;
-};
-
 export type Home = Node & Document & {
   __typename?: 'Home';
   title: Scalars['String']['output'];
   eyebrow?: Maybe<Scalars['String']['output']>;
   headline: Scalars['String']['output'];
-  subheadline?: Maybe<Scalars['String']['output']>;
-  heroImage?: Maybe<Scalars['String']['output']>;
-  heroImageAlt?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   primaryCtaLabel?: Maybe<Scalars['String']['output']>;
   primaryCtaLink?: Maybe<Scalars['String']['output']>;
   secondaryCtaLabel?: Maybe<Scalars['String']['output']>;
   secondaryCtaLink?: Maybe<Scalars['String']['output']>;
-  credibilityStats?: Maybe<Array<Maybe<HomeCredibilityStats>>>;
-  servicesPreview?: Maybe<Array<Maybe<HomeServicesPreview>>>;
-  trustQuote?: Maybe<Scalars['String']['output']>;
-  trustQuoteAuthor?: Maybe<Scalars['String']['output']>;
+  sectionHeading?: Maybe<Scalars['String']['output']>;
+  sectionBody?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
-};
-
-export type HomeCredibilityStatsFilter = {
-  value?: InputMaybe<StringFilter>;
-  label?: InputMaybe<StringFilter>;
-};
-
-export type HomeServicesPreviewFilter = {
-  title?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  duration?: InputMaybe<StringFilter>;
 };
 
 export type HomeFilter = {
   title?: InputMaybe<StringFilter>;
   eyebrow?: InputMaybe<StringFilter>;
   headline?: InputMaybe<StringFilter>;
-  subheadline?: InputMaybe<StringFilter>;
-  heroImage?: InputMaybe<ImageFilter>;
-  heroImageAlt?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
   primaryCtaLabel?: InputMaybe<StringFilter>;
   primaryCtaLink?: InputMaybe<StringFilter>;
   secondaryCtaLabel?: InputMaybe<StringFilter>;
   secondaryCtaLink?: InputMaybe<StringFilter>;
-  credibilityStats?: InputMaybe<HomeCredibilityStatsFilter>;
-  servicesPreview?: InputMaybe<HomeServicesPreviewFilter>;
-  trustQuote?: InputMaybe<StringFilter>;
-  trustQuoteAuthor?: InputMaybe<StringFilter>;
+  sectionHeading?: InputMaybe<StringFilter>;
+  sectionBody?: InputMaybe<StringFilter>;
 };
 
 export type HomeConnectionEdges = {
@@ -406,43 +374,26 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
-export type AboutCredentials = {
-  __typename?: 'AboutCredentials';
-  label?: Maybe<Scalars['String']['output']>;
-  detail?: Maybe<Scalars['String']['output']>;
-};
-
 export type About = Node & Document & {
   __typename?: 'About';
   title: Scalars['String']['output'];
   eyebrow?: Maybe<Scalars['String']['output']>;
   headline: Scalars['String']['output'];
-  intro?: Maybe<Scalars['String']['output']>;
-  heroImage?: Maybe<Scalars['String']['output']>;
-  heroImageAlt?: Maybe<Scalars['String']['output']>;
-  storyHeading?: Maybe<Scalars['String']['output']>;
-  storyBody?: Maybe<Scalars['String']['output']>;
-  credentials?: Maybe<Array<Maybe<AboutCredentials>>>;
+  description?: Maybe<Scalars['String']['output']>;
+  sectionHeading?: Maybe<Scalars['String']['output']>;
+  sectionBody?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
-};
-
-export type AboutCredentialsFilter = {
-  label?: InputMaybe<StringFilter>;
-  detail?: InputMaybe<StringFilter>;
 };
 
 export type AboutFilter = {
   title?: InputMaybe<StringFilter>;
   eyebrow?: InputMaybe<StringFilter>;
   headline?: InputMaybe<StringFilter>;
-  intro?: InputMaybe<StringFilter>;
-  heroImage?: InputMaybe<ImageFilter>;
-  heroImageAlt?: InputMaybe<StringFilter>;
-  storyHeading?: InputMaybe<StringFilter>;
-  storyBody?: InputMaybe<StringFilter>;
-  credentials?: InputMaybe<AboutCredentialsFilter>;
+  description?: InputMaybe<StringFilter>;
+  sectionHeading?: InputMaybe<StringFilter>;
+  sectionBody?: InputMaybe<StringFilter>;
 };
 
 export type AboutConnectionEdges = {
@@ -458,15 +409,8 @@ export type AboutConnection = Connection & {
   edges?: Maybe<Array<Maybe<AboutConnectionEdges>>>;
 };
 
-export type ServicesServiceItems = {
-  __typename?: 'ServicesServiceItems';
-  name?: Maybe<Scalars['String']['output']>;
-  duration?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-};
-
-export type ServicesAddonOffer = {
-  __typename?: 'ServicesAddonOffer';
+export type ServicesItems = {
+  __typename?: 'ServicesItems';
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
 };
@@ -476,9 +420,8 @@ export type Services = Node & Document & {
   title: Scalars['String']['output'];
   eyebrow?: Maybe<Scalars['String']['output']>;
   headline: Scalars['String']['output'];
-  subheadline?: Maybe<Scalars['String']['output']>;
-  serviceItems?: Maybe<Array<Maybe<ServicesServiceItems>>>;
-  addonOffer?: Maybe<ServicesAddonOffer>;
+  description?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<ServicesItems>>>;
   ctaLabel?: Maybe<Scalars['String']['output']>;
   ctaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -486,13 +429,7 @@ export type Services = Node & Document & {
   _values: Scalars['JSON']['output'];
 };
 
-export type ServicesServiceItemsFilter = {
-  name?: InputMaybe<StringFilter>;
-  duration?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-};
-
-export type ServicesAddonOfferFilter = {
+export type ServicesItemsFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
 };
@@ -501,9 +438,8 @@ export type ServicesFilter = {
   title?: InputMaybe<StringFilter>;
   eyebrow?: InputMaybe<StringFilter>;
   headline?: InputMaybe<StringFilter>;
-  subheadline?: InputMaybe<StringFilter>;
-  serviceItems?: InputMaybe<ServicesServiceItemsFilter>;
-  addonOffer?: InputMaybe<ServicesAddonOfferFilter>;
+  description?: InputMaybe<StringFilter>;
+  items?: InputMaybe<ServicesItemsFilter>;
   ctaLabel?: InputMaybe<StringFilter>;
   ctaLink?: InputMaybe<StringFilter>;
 };
@@ -521,51 +457,32 @@ export type ServicesConnection = Connection & {
   edges?: Maybe<Array<Maybe<ServicesConnectionEdges>>>;
 };
 
-export type ContactTestimonial = {
-  __typename?: 'ContactTestimonial';
-  quote?: Maybe<Scalars['String']['output']>;
-  author?: Maybe<Scalars['String']['output']>;
-};
-
 export type Contact = Node & Document & {
   __typename?: 'Contact';
   title: Scalars['String']['output'];
   eyebrow?: Maybe<Scalars['String']['output']>;
   headline: Scalars['String']['output'];
-  subheadline?: Maybe<Scalars['String']['output']>;
-  whatsappLabel?: Maybe<Scalars['String']['output']>;
-  whatsappLink?: Maybe<Scalars['String']['output']>;
-  calendlyLabel?: Maybe<Scalars['String']['output']>;
-  calendlyLink?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   address?: Maybe<Scalars['String']['output']>;
-  hours?: Maybe<Scalars['String']['output']>;
-  testimonial?: Maybe<ContactTestimonial>;
+  ctaLabel?: Maybe<Scalars['String']['output']>;
+  ctaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
-};
-
-export type ContactTestimonialFilter = {
-  quote?: InputMaybe<StringFilter>;
-  author?: InputMaybe<StringFilter>;
 };
 
 export type ContactFilter = {
   title?: InputMaybe<StringFilter>;
   eyebrow?: InputMaybe<StringFilter>;
   headline?: InputMaybe<StringFilter>;
-  subheadline?: InputMaybe<StringFilter>;
-  whatsappLabel?: InputMaybe<StringFilter>;
-  whatsappLink?: InputMaybe<StringFilter>;
-  calendlyLabel?: InputMaybe<StringFilter>;
-  calendlyLink?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringFilter>;
   address?: InputMaybe<StringFilter>;
-  hours?: InputMaybe<StringFilter>;
-  testimonial?: InputMaybe<ContactTestimonialFilter>;
+  ctaLabel?: InputMaybe<StringFilter>;
+  ctaLink?: InputMaybe<StringFilter>;
 };
 
 export type ContactConnectionEdges = {
@@ -740,58 +657,29 @@ export type SettingsMutation = {
   socialLinks?: InputMaybe<Array<InputMaybe<SettingsSocialLinksMutation>>>;
 };
 
-export type HomeCredibilityStatsMutation = {
-  value?: InputMaybe<Scalars['String']['input']>;
-  label?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type HomeServicesPreviewMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  duration?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type HomeMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headline?: InputMaybe<Scalars['String']['input']>;
-  subheadline?: InputMaybe<Scalars['String']['input']>;
-  heroImage?: InputMaybe<Scalars['String']['input']>;
-  heroImageAlt?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   primaryCtaLabel?: InputMaybe<Scalars['String']['input']>;
   primaryCtaLink?: InputMaybe<Scalars['String']['input']>;
   secondaryCtaLabel?: InputMaybe<Scalars['String']['input']>;
   secondaryCtaLink?: InputMaybe<Scalars['String']['input']>;
-  credibilityStats?: InputMaybe<Array<InputMaybe<HomeCredibilityStatsMutation>>>;
-  servicesPreview?: InputMaybe<Array<InputMaybe<HomeServicesPreviewMutation>>>;
-  trustQuote?: InputMaybe<Scalars['String']['input']>;
-  trustQuoteAuthor?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type AboutCredentialsMutation = {
-  label?: InputMaybe<Scalars['String']['input']>;
-  detail?: InputMaybe<Scalars['String']['input']>;
+  sectionHeading?: InputMaybe<Scalars['String']['input']>;
+  sectionBody?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AboutMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headline?: InputMaybe<Scalars['String']['input']>;
-  intro?: InputMaybe<Scalars['String']['input']>;
-  heroImage?: InputMaybe<Scalars['String']['input']>;
-  heroImageAlt?: InputMaybe<Scalars['String']['input']>;
-  storyHeading?: InputMaybe<Scalars['String']['input']>;
-  storyBody?: InputMaybe<Scalars['String']['input']>;
-  credentials?: InputMaybe<Array<InputMaybe<AboutCredentialsMutation>>>;
-};
-
-export type ServicesServiceItemsMutation = {
-  name?: InputMaybe<Scalars['String']['input']>;
-  duration?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  sectionHeading?: InputMaybe<Scalars['String']['input']>;
+  sectionBody?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ServicesAddonOfferMutation = {
+export type ServicesItemsMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
 };
@@ -800,43 +688,33 @@ export type ServicesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headline?: InputMaybe<Scalars['String']['input']>;
-  subheadline?: InputMaybe<Scalars['String']['input']>;
-  serviceItems?: InputMaybe<Array<InputMaybe<ServicesServiceItemsMutation>>>;
-  addonOffer?: InputMaybe<ServicesAddonOfferMutation>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<ServicesItemsMutation>>>;
   ctaLabel?: InputMaybe<Scalars['String']['input']>;
   ctaLink?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ContactTestimonialMutation = {
-  quote?: InputMaybe<Scalars['String']['input']>;
-  author?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContactMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headline?: InputMaybe<Scalars['String']['input']>;
-  subheadline?: InputMaybe<Scalars['String']['input']>;
-  whatsappLabel?: InputMaybe<Scalars['String']['input']>;
-  whatsappLink?: InputMaybe<Scalars['String']['input']>;
-  calendlyLabel?: InputMaybe<Scalars['String']['input']>;
-  calendlyLink?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   address?: InputMaybe<Scalars['String']['input']>;
-  hours?: InputMaybe<Scalars['String']['input']>;
-  testimonial?: InputMaybe<ContactTestimonialMutation>;
+  ctaLabel?: InputMaybe<Scalars['String']['input']>;
+  ctaLink?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SettingsPartsFragment = { __typename: 'Settings', siteName: string, siteTagline?: string | null, logoText?: string | null, logoImage?: string | null, navCtaLabel?: string | null, navCtaLink?: string | null, footerTagline?: string | null, copyrightText?: string | null, googleFontsUrl?: string | null, navLinks?: Array<{ __typename: 'SettingsNavLinks', label: string, href: string } | null> | null, footerLinks?: Array<{ __typename: 'SettingsFooterLinks', label?: string | null, href?: string | null } | null> | null, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', platform?: string | null, url?: string | null } | null> | null };
 
-export type HomePartsFragment = { __typename: 'Home', title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, trustQuote?: string | null, trustQuoteAuthor?: string | null, credibilityStats?: Array<{ __typename: 'HomeCredibilityStats', value?: string | null, label?: string | null } | null> | null, servicesPreview?: Array<{ __typename: 'HomeServicesPreview', title?: string | null, description?: string | null, duration?: string | null } | null> | null };
+export type HomePartsFragment = { __typename: 'Home', title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null };
 
-export type AboutPartsFragment = { __typename: 'About', title: string, eyebrow?: string | null, headline: string, intro?: string | null, heroImage?: string | null, heroImageAlt?: string | null, storyHeading?: string | null, storyBody?: string | null, credentials?: Array<{ __typename: 'AboutCredentials', label?: string | null, detail?: string | null } | null> | null };
+export type AboutPartsFragment = { __typename: 'About', title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null };
 
-export type ServicesPartsFragment = { __typename: 'Services', title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, ctaLabel?: string | null, ctaLink?: string | null, serviceItems?: Array<{ __typename: 'ServicesServiceItems', name?: string | null, duration?: string | null, description?: string | null } | null> | null, addonOffer?: { __typename: 'ServicesAddonOffer', title?: string | null, description?: string | null } | null };
+export type ServicesPartsFragment = { __typename: 'Services', title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null };
 
-export type ContactPartsFragment = { __typename: 'Contact', title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, whatsappLabel?: string | null, whatsappLink?: string | null, calendlyLabel?: string | null, calendlyLink?: string | null, email?: string | null, phone?: string | null, address?: string | null, hours?: string | null, testimonial?: { __typename: 'ContactTestimonial', quote?: string | null, author?: string | null } | null };
+export type ContactPartsFragment = { __typename: 'Contact', title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null };
 
 export type SettingsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -862,7 +740,7 @@ export type HomeQueryVariables = Exact<{
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, trustQuote?: string | null, trustQuoteAuthor?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, credibilityStats?: Array<{ __typename: 'HomeCredibilityStats', value?: string | null, label?: string | null } | null> | null, servicesPreview?: Array<{ __typename: 'HomeServicesPreview', title?: string | null, description?: string | null, duration?: string | null } | null> | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -874,14 +752,14 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, trustQuote?: string | null, trustQuoteAuthor?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, credibilityStats?: Array<{ __typename: 'HomeCredibilityStats', value?: string | null, label?: string | null } | null> | null, servicesPreview?: Array<{ __typename: 'HomeServicesPreview', title?: string | null, description?: string | null, duration?: string | null } | null> | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type AboutQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type AboutQuery = { __typename?: 'Query', about: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, intro?: string | null, heroImage?: string | null, heroImageAlt?: string | null, storyHeading?: string | null, storyBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, credentials?: Array<{ __typename: 'AboutCredentials', label?: string | null, detail?: string | null } | null> | null } };
+export type AboutQuery = { __typename?: 'Query', about: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type AboutConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -893,14 +771,14 @@ export type AboutConnectionQueryVariables = Exact<{
 }>;
 
 
-export type AboutConnectionQuery = { __typename?: 'Query', aboutConnection: { __typename?: 'AboutConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'AboutConnectionEdges', cursor: string, node?: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, intro?: string | null, heroImage?: string | null, heroImageAlt?: string | null, storyHeading?: string | null, storyBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, credentials?: Array<{ __typename: 'AboutCredentials', label?: string | null, detail?: string | null } | null> | null } | null } | null> | null } };
+export type AboutConnectionQuery = { __typename?: 'Query', aboutConnection: { __typename?: 'AboutConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'AboutConnectionEdges', cursor: string, node?: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type ServicesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type ServicesQuery = { __typename?: 'Query', services: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, serviceItems?: Array<{ __typename: 'ServicesServiceItems', name?: string | null, duration?: string | null, description?: string | null } | null> | null, addonOffer?: { __typename: 'ServicesAddonOffer', title?: string | null, description?: string | null } | null } };
+export type ServicesQuery = { __typename?: 'Query', services: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null } };
 
 export type ServicesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -912,14 +790,14 @@ export type ServicesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ServicesConnectionQuery = { __typename?: 'Query', servicesConnection: { __typename?: 'ServicesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ServicesConnectionEdges', cursor: string, node?: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, serviceItems?: Array<{ __typename: 'ServicesServiceItems', name?: string | null, duration?: string | null, description?: string | null } | null> | null, addonOffer?: { __typename: 'ServicesAddonOffer', title?: string | null, description?: string | null } | null } | null } | null> | null } };
+export type ServicesConnectionQuery = { __typename?: 'Query', servicesConnection: { __typename?: 'ServicesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ServicesConnectionEdges', cursor: string, node?: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null } | null } | null> | null } };
 
 export type ContactQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type ContactQuery = { __typename?: 'Query', contact: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, whatsappLabel?: string | null, whatsappLink?: string | null, calendlyLabel?: string | null, calendlyLink?: string | null, email?: string | null, phone?: string | null, address?: string | null, hours?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, testimonial?: { __typename: 'ContactTestimonial', quote?: string | null, author?: string | null } | null } };
+export type ContactQuery = { __typename?: 'Query', contact: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ContactConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -931,7 +809,7 @@ export type ContactConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ContactConnectionQuery = { __typename?: 'Query', contactConnection: { __typename?: 'ContactConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ContactConnectionEdges', cursor: string, node?: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, subheadline?: string | null, whatsappLabel?: string | null, whatsappLink?: string | null, calendlyLabel?: string | null, calendlyLink?: string | null, email?: string | null, phone?: string | null, address?: string | null, hours?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, testimonial?: { __typename: 'ContactTestimonial', quote?: string | null, author?: string | null } | null } | null } | null> | null } };
+export type ContactConnectionQuery = { __typename?: 'Query', contactConnection: { __typename?: 'ContactConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ContactConnectionEdges', cursor: string, node?: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const SettingsPartsFragmentDoc = gql`
     fragment SettingsParts on Settings {
@@ -968,26 +846,13 @@ export const HomePartsFragmentDoc = gql`
   title
   eyebrow
   headline
-  subheadline
-  heroImage
-  heroImageAlt
+  description
   primaryCtaLabel
   primaryCtaLink
   secondaryCtaLabel
   secondaryCtaLink
-  credibilityStats {
-    __typename
-    value
-    label
-  }
-  servicesPreview {
-    __typename
-    title
-    description
-    duration
-  }
-  trustQuote
-  trustQuoteAuthor
+  sectionHeading
+  sectionBody
 }
     `;
 export const AboutPartsFragmentDoc = gql`
@@ -996,16 +861,9 @@ export const AboutPartsFragmentDoc = gql`
   title
   eyebrow
   headline
-  intro
-  heroImage
-  heroImageAlt
-  storyHeading
-  storyBody
-  credentials {
-    __typename
-    label
-    detail
-  }
+  description
+  sectionHeading
+  sectionBody
 }
     `;
 export const ServicesPartsFragmentDoc = gql`
@@ -1014,14 +872,8 @@ export const ServicesPartsFragmentDoc = gql`
   title
   eyebrow
   headline
-  subheadline
-  serviceItems {
-    __typename
-    name
-    duration
-    description
-  }
-  addonOffer {
+  description
+  items {
     __typename
     title
     description
@@ -1036,20 +888,12 @@ export const ContactPartsFragmentDoc = gql`
   title
   eyebrow
   headline
-  subheadline
-  whatsappLabel
-  whatsappLink
-  calendlyLabel
-  calendlyLink
+  description
   email
   phone
   address
-  hours
-  testimonial {
-    __typename
-    quote
-    author
-  }
+  ctaLabel
+  ctaLink
 }
     `;
 export const SettingsDocument = gql`
@@ -1417,7 +1261,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/2.2/content/9a60dbc6-72ff-480f-9f48-07750e1a1551/github/main",
+        url: "https://content.tinajs.io/2.2/content/dcf16d36-5bf7-453a-a56c-0f51f4d2192b/github/main",
         queries,
       })
     )

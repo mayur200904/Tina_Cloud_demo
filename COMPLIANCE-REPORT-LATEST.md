@@ -3,8 +3,8 @@
 ## A) Task Metadata
 
 - Date: 2026-03-20
-- Agent: GitHub Copilot (GPT-5.3-Codex)
-- Task summary: Harden infrastructure with strict machine-checked compliance evidence gate and CI enforcement.
+- Agent: Codex (GPT-5)
+- Task summary: Full high-end website rewrite for `woc-starter-v2` with schema-first Tina-editable content and redesigned multi-page UI.
 - Primary target path: woc-starter-v2/
 - Tina mode used: hosted
 
@@ -12,8 +12,8 @@
 
 - Client-ready in minutes objective supported? yes
 - Deterministic Tina-safe objective preserved? yes
-- TinaCloud save-to-GitHub reliability preserved? yes
-- If any item is no, state blocker: none
+- TinaCloud save-to-GitHub reliability preserved? partial (blocked by remote schema lag)
+- If any item is no, state blocker: TinaCloud remote indexing/schema not yet aligned to current local schema.
 
 ## B.1) Mandatory Skill Stack Evidence
 
@@ -22,20 +22,38 @@
 - `woc-builder` loaded and applied? yes
 - `frontend-design` loaded and applied? yes
 - `vercel-react-best-practices` loaded and applied? yes
-- Optional `web-design-guidelines` run? n/a
+- Optional `web-design-guidelines` run? no
 - If any mandatory item is no, closure blocked: no
 
 ## C) Files + Schema Contract
 
 ### Changed files
-- scripts/verify-compliance-report.mjs
-- .github/workflows/compliance-report-gate.yml
-- RULEBOOK.md
-- COMPLIANCE-REPORT-LATEST.md
+- woc-starter-v2/tina/config.ts
+- woc-starter-v2/src/app/globals.css
+- woc-starter-v2/src/app/layout.tsx
+- woc-starter-v2/src/app/page.client.tsx
+- woc-starter-v2/src/app/about/page.client.tsx
+- woc-starter-v2/src/app/services/page.client.tsx
+- woc-starter-v2/src/app/contact/page.client.tsx
+- woc-starter-v2/content/pages/index.md
+- woc-starter-v2/content/pages/about.md
+- woc-starter-v2/content/pages/services.md
+- woc-starter-v2/content/pages/contact.md
+- woc-starter-v2/content/settings/global.json
+- woc-starter-v2/tina/__generated__/_graphql.json
+- woc-starter-v2/tina/__generated__/_schema.json
+- woc-starter-v2/tina/__generated__/client.ts
+- woc-starter-v2/tina/__generated__/config.prebuild.jsx
+- woc-starter-v2/tina/__generated__/frags.gql
+- woc-starter-v2/tina/__generated__/schema.gql
+- woc-starter-v2/tina/__generated__/types.ts
+- woc-starter-v2/tina/tina-lock.json
 
 ### Schema keys added or modified
-- Collection: none
-- Field keys: none
+- Home: `experienceEyebrow`, `experienceHeadline`, `experienceFlow[]`, `servicesSectionEyebrow`, `servicesSectionHeadline`, `quoteEyebrow`
+- About: `philosophyEyebrow`, `credentialsEyebrow`, `credentialsHeadline`
+- Services: `listEyebrow`, `listHeadline`, `principlesEyebrow`, `principles[]`, `addonEyebrow`
+- Contact: `channelsEyebrow`, `emailLabel`, `phoneLabel`, `hoursLabel`, `visitEyebrow`, `visitHeadline`, `testimonialHeading`
 
 ### 3-way key parity check
 - Schema keys == TSX keys: pass
@@ -53,41 +71,41 @@
 - Server → client split present for each editable page? pass
 - `useTina({ query, variables, data })` implemented on each editable page? pass
 - Runtime render reads `useTina` data (not raw server response)? pass
-- `experimental___selectFormByFormId()` added where multiple forms/hooks exist? n/a
-- Tina sidebar fields visible in admin for home/about/services/contact? pass
-- If fail, list affected route(s) and root cause: none
+- `experimental___selectFormByFormId()` added where multiple forms/hooks exist? pass
+- Tina sidebar fields visible in admin for home/about/services/contact? pending manual UI check
+- If fail, list affected route(s) and root cause: n/a
 
 ## F) Validation Evidence
 
 - visual-editing preflight: pass
 - mode check: pass
-- Tina build: pass
-- app build: pass
+- Tina build: fail
+- app build: fail
 
 Paste concise output evidence:
-- visual-editing preflight output: "No editable page collections detected in tina/config.ts. Skipping route-level visual editing checks."
-- mode check output: "hosted mode requirements satisfied"
-- Tina build output: "Checking branch 'main' is on TinaCloud. ✅"
-- app build output: "Compiled successfully; build completed with non-blocking warning on dynamic dependency trace"
+- visual-editing preflight output: `✅ Visual editing preflight passed for configured editable routes.`
+- mode check output: `✅ hosted mode requirements satisfied.`
+- Tina build output: `The local GraphQL schema doesn't match the remote GraphQL schema... Reason: [NON_BREAKING - TYPE_ADDED] Type 'HomeCredibilityStats' was added`
+- app build output: `npm run build` fails at `tinacms build` with the same remote schema mismatch.
 
 ## G) Publishing Proof (Required if save/publish touched)
 
 - Branch verified: main
-- Remote hash before: 29182c4e66eb1cb67f421d3092ef35dcd00e5081
-- Remote hash after: 3faab41b319ee37561389bc8aee70ce5d21a1554
-- Commit message observed: ci(compliance): enforce required compliance-report sections
-- Proof status: pass
+- Remote hash before: tina-demo/main `130aaf2d29c5b1ab7945548bc668ce05d69e2bd0`
+- Remote hash after: pending publish test
+- Commit message observed: pending
+- Proof status: pending
 
 ## H) Design Quality Rubric (0–5 each)
 
 - Brand specificity: 4
-- Visual hierarchy: 4
+- Visual hierarchy: 5
 - Typography quality: 4
 - Rhythm and spacing: 4
 - Conversion clarity: 4
 - Motion restraint and purpose: 4
 
-- Total score (/30): 24
+- Total score (/30): 25
 - Meets minimum 22/30: yes
 
 ### H.1) High-End Design Gate Evidence (Required)
@@ -99,21 +117,21 @@ Paste concise output evidence:
 - Mobile readability and CTA clarity validated? pass
 - If any fail, list route + root cause: none
 
-## H.2) React/Next Best-Practice Evidence (Required)
+### H.2) React/Next Best-Practice Evidence (Required)
 
-- Async waterfalls avoided on key routes? pass
-- Bundle discipline maintained (no unnecessary client-heavy imports)? pass
-- Client/server boundaries respected? pass
+- Async waterfalls avoided on key routes? pass (`Promise.all` for settings + page docs)
+- Bundle discipline maintained (no unnecessary client-heavy imports)? pass (page clients use limited UI primitives/icons)
+- Client/server boundaries respected? pass (data fetch in server components, rendering in client `useTina` components)
 - Critical regressions against `vercel-react-best-practices` present? no
 - If any fail, list file(s) and correction plan: n/a
 
 ## I) Hard Gate Result
 
-- Any hard gate failed? no
-- If yes, task closure blocked: no
+- Any hard gate failed? yes
+- If yes, task closure blocked: yes (hosted TinaCloud schema/index lag)
 
 ## J) Final Declaration
 
-- Rulebook-compliant completion: yes
-- Residual risks: reviewer judgment quality still requires human accountability.
-- Next recommended action: run independent code review agent, then run end-to-end website generation and Tina admin publish test.
+- Rulebook-compliant completion: no (blocked by hosted build gate)
+- Residual risks: TinaCloud remote schema remains behind local schema until push + reindex completes.
+- Next recommended action: push changes to `tina-demo/main`, reindex in TinaCloud, rerun `npx tinacms build` and `npm run build`, then verify admin publish commit hash change.

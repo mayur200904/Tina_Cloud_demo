@@ -1,33 +1,12 @@
 ---
 title: Home
-eyebrow: "Wat Pho Trained. Pune Rooted."
-headline: "Traditional Thai bodywork for people carrying stress in their shoulders, spine, and sleep."
-subheadline: "Sawasdee Thai Wellness delivers clinical-grade Thai therapeutic care in a calm, unhurried setting. No luxury-spa theatre, no upsell scripts — just authentic technique and measurable relief."
-heroImage: "https://source.unsplash.com/1600x900/?thai,massage,wellness,interior,warm,calm"
-heroImageAlt: "Warmly lit Thai wellness therapy room with natural textures"
-primaryCtaLabel: "Book on WhatsApp"
-primaryCtaLink: "https://wa.me/9198220XXXXX"
-secondaryCtaLabel: "View Services"
-secondaryCtaLink: "/services"
-credibilityStats:
-  - value: "4.9 / 5"
-    label: "Google Rating · 214 Reviews"
-  - value: "78%"
-    label: "Book Again Within 30 Days"
-  - value: "14 Months"
-    label: "Average Client Retention"
-  - value: "12 Years"
-    label: "Clinical Practice Experience"
-servicesPreview:
-  - title: "Traditional Thai Yoga Massage"
-    duration: "90 / 120 min"
-    description: "Assisted stretching and acupressure across Sen energy lines to restore posture, mobility, and deep muscular ease."
-  - title: "Thai Herbal Compress Therapy"
-    duration: "60 / 90 min"
-    description: "Steamed herb bundles with lemongrass, kaffir lime, turmeric, and plai pressed rhythmically for anti-inflammatory release."
-  - title: "Thai Foot Reflexology"
-    duration: "45 min"
-    description: "Targeted reflex-point work for desk fatigue, circulation reset, and lower-leg recovery with optional scalp-neck add-on."
-trustQuote: "I've done Thai massage across Bangkok and Chiang Mai. This is the real thing — Malee reads tension you didn't know you had."
-trustQuoteAuthor: "Rohan V., Software Architect, Pune"
+eyebrow: Website Generator Baseline
+headline: Build your website in minutes from a prompt.
+description: This starter is intentionally generic. Use the website-master prompt template to generate a full custom website.
+primaryCtaLabel: Start With Prompt
+primaryCtaLink: /contact
+secondaryCtaLabel: View Services Route
+secondaryCtaLink: /services
+sectionHeading: Infrastructure Mode
+sectionBody: Tina schema, content files, and editable routes are ready. Run the prompt workflow to replace this baseline with a client-specific website.
 ---

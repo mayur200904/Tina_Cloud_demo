@@ -4,6 +4,7 @@ This file is the source of truth for all autonomous agents working in this repos
 
 Mandatory companion policy:
 - `RULEBOOK.md` is required reading and enforcement for every run.
+- `DESIGN-EXCELLENCE-CHECKLIST.md` is required for UI/design sign-off on every generated site.
 - If any `RULEBOOK.md` hard gate fails, task closure is not allowed.
 - `RULEBOOK-COMPLIANCE-REPORT.md` must be used for final handoff evidence.
 
@@ -23,10 +24,9 @@ For any website generation or redesign task, agents must load and apply:
 - `woc-design`
 - `woc-builder`
 - `frontend-design`
+- `designing-beautiful-websites` (installed from `skills.sh`)
 - `vercel-react-best-practices`
-
-Optional but recommended for final QA:
-- `web-design-guidelines`
+- `web-design-guidelines` (installed from `skills.sh`, required final review)
 
 If these skills are not loaded, the task is not ready for implementation.
 
@@ -114,7 +114,7 @@ Collect:
 
 - Run `woc-design` (or inline equivalent) and produce a Design Spec.
 - Identify one explicit Surprise Element.
-- Apply `frontend-design` standards while shaping concept, typography, layout rhythm, and motion intent.
+- Apply `frontend-design` + `designing-beautiful-websites` standards while shaping concept, typography, layout rhythm, spacing scale, and motion intent.
 
 ### Step 2.5 — High-End Design & UX Gate (Mandatory)
 
@@ -123,10 +123,23 @@ Before coding, confirm:
 - hero creates a strong first-3-second impression
 - page rhythm alternates visual weight (no monotone stacking)
 - typography has clear hierarchy and brand character
+- typography density is controlled (no congested headline/body blocks)
+- content line-length and spacing are readable on desktop and mobile
 - motion is purposeful and restrained (no decorative-only animation)
 - mobile readability and CTA clarity are preserved
 
 If any item fails, redesign before implementation.
+
+### Step 2.6 — Anti-Congestion Rules (Mandatory)
+
+When implementing generated designs:
+- limit main paragraph line length to readable measure (`~45–80` characters)
+- avoid oversized heading blocks that crowd the viewport
+- maintain group spacing rule: more space between groups than inside groups
+- avoid large copy overlays with low contrast on busy imagery
+- ensure CTA buttons remain visible and not visually merged with surrounding text
+
+If any anti-congestion rule fails, implementation is not ready.
 
 ### Step 3 — Schema-First Build
 
@@ -153,10 +166,13 @@ Run:
 - `npm run dev` (admin reachable)
 - `npm run verify:visual-editing` (fails if editable routes miss server/client `useTina` contract)
 - `npm run build` (schema/codegen/build clean)
+- apply and document `DESIGN-EXCELLENCE-CHECKLIST.md` checks
 
 Also enforce:
 - high-end design rubric score `>= 22/30` (brand specificity, hierarchy, typography, rhythm, conversion clarity, motion restraint)
+- enhanced release target `>= 26/30` for production handoff
 - Next.js/React best-practice checks from `vercel-react-best-practices` (especially async waterfalls, bundle size, and client/server boundaries)
+- run `web-design-guidelines` review against edited routes/components before closure
 - no regressions against Tina editability or `useTina` runtime contract
 
 CI requirement:
@@ -170,6 +186,7 @@ Definition of done:
 - Tina visual editing sidebar shows correct form fields on each editable page
 - mandatory skill stack usage is evidenced in handoff report
 - design rubric and React/Next best-practice evidence are documented in handoff report
+- `web-design-guidelines` findings and fixes are documented in handoff report
 
 ## File Boundaries for Agents
 

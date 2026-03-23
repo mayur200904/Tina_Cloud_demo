@@ -7,6 +7,9 @@ This rulebook exists to enforce three outcomes on every run:
 2. deterministic Tina-safe implementation,
 3. reliable editor publishing with real GitHub commits.
 
+Required companion checklist:
+- `DESIGN-EXCELLENCE-CHECKLIST.md` must be applied and referenced in the final handoff.
+
 ---
 
 ## 1) Non-Negotiable North Star
@@ -20,8 +23,7 @@ If any one is not met, the task is incomplete.
 
 Mandatory capability-load rule:
 - For website generation/redesign tasks, agent must load and apply:
-	`high-end-woc-infrastructure`, `woc-design`, `woc-builder`, `frontend-design`, `vercel-react-best-practices`.
-- Optional final QA: `web-design-guidelines`.
+	`high-end-woc-infrastructure`, `woc-design`, `woc-builder`, `frontend-design`, `designing-beautiful-websites`, `vercel-react-best-practices`, `web-design-guidelines`.
 - If mandatory skills are not loaded, implementation and closure are blocked.
 
 ---
@@ -84,18 +86,21 @@ Publishing/saving changes require proof:
 
 Mandatory for every generated website:
 - apply high-end design standards from `high-end-woc-infrastructure` and `frontend-design`
+- apply high-end design standards from `designing-beautiful-websites` for hierarchy/spacing/clarity checks
 - apply performance/architecture standards from `vercel-react-best-practices`
 - keep design quality and technical quality balanced; neither can regress the other
 
 Required implementation checks:
 - no generic/template visual output; design must be client-specific
 - clear typography hierarchy and section rhythm
+- no congested type blocks (heading/body sizing and spacing must remain readable)
+- paragraph measure and spacing must preserve readability across breakpoints
 - motion must support narrative/conversion intent, not decoration-only noise
 - responsive behavior must preserve hierarchy and CTA clarity on mobile
 - avoid async waterfalls and unnecessary client bundle growth in Next.js pages
 
 Failure policy:
-- if design rubric < `22/30`, fail
+- if design rubric < `26/30`, fail
 - if critical React/Next best-practice violations are present (waterfalls/bundle misuse), fail
 - if fixing performance degrades Tina editability contract, fail and rework
 
@@ -165,7 +170,7 @@ Score each build from 0–5 on:
 6. Motion restraint and purpose
 
 Release target:
-- total score >= 22/30,
+- total score >= 26/30,
 - and all hard gates pass.
 
 Hard gates override score:
@@ -204,6 +209,7 @@ Before closing a task, provide:
 - Editability confirmation (all runtime business content Tina-backed)
 - Visual editing proof (server+client `useTina` contract implemented and sidebar fields visible on all edited pages)
 - High-end design evidence (rubric scoring with justification)
+- Design checklist evidence (`DESIGN-EXCELLENCE-CHECKLIST.md` item review)
 - React/Next best-practice evidence (critical checks reviewed: waterfalls, bundle discipline, client/server boundaries)
 - Remote commit hash proof if save/publish flow was touched
 

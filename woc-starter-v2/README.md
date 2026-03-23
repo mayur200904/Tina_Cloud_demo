@@ -1,6 +1,6 @@
-# WoC Starter v2 (Next.js + TinaCMS)
+# WoC Starter v2 (Websites In Minutes Infrastructure)
 
-Autonomous website starter focused on fast client delivery with TinaCMS editing.
+Prompt-driven website generation infrastructure with TinaCMS editing.
 
 ## Stack
 
@@ -9,11 +9,20 @@ Autonomous website starter focused on fast client delivery with TinaCMS editing.
 - Tailwind CSS
 - TypeScript
 
-## What this starter is for
+## Infrastructure Mode (Current)
 
-- Generate a complete multi-page marketing website from a short brief.
-- Keep all content editable in Tina admin.
-- Support fast iteration by agents and non-technical editors.
+This repo is intentionally kept as a generic baseline:
+- no client-specific design or business copy
+- editable Tina schema for home/about/services/contact
+- ready for one-prompt website generation workflow
+
+To generate a full website from prompt input, use the root file:
+- `../prompt-templates.md` → **Template MASTER — One Prompt Autonomous Orchestration**
+
+Mandatory design/CMS guardrails for agent runs:
+- `../AGENTS.md`
+- `../RULEBOOK.md`
+- `../DESIGN-EXCELLENCE-CHECKLIST.md`
 
 ## Quick Start
 
@@ -25,6 +34,8 @@ npm run dev
 Open:
 - Site: http://localhost:3000
 - Tina admin: http://localhost:3000/admin/index.html
+
+Then provide your client brief prompt to the agent and regenerate pages.
 
 ## Required Environment Variables
 

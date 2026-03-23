@@ -21,9 +21,10 @@ For any website design/build run, also load and apply:
 - `woc-design`
 - `woc-builder`
 - `frontend-design`
+- `designing-beautiful-websites`
 - `vercel-react-best-practices`
 
-Optional final QA:
+Required final QA:
 - `web-design-guidelines`
 
 Do not start implementation unless these are active.
@@ -43,6 +44,7 @@ Do not wait for extra prompting between phases unless a true blocker exists (mis
 Before writing code, read and enforce:
 - `RULEBOOK.md`
 - `AGENTS.md`
+- `DESIGN-EXCELLENCE-CHECKLIST.md`
 - `RULEBOOK-COMPLIANCE-REPORT.md`
 
 Then follow this execution order.
@@ -97,11 +99,14 @@ Read these references while executing:
 ## High-End Quality Gate (Hard)
 
 Before closure, confirm all:
-1. Design rubric score `>= 22/30`.
+1. Design rubric score `>= 26/30`.
 2. First-3-second hero impact is specific to client character.
 3. Typography hierarchy and section rhythm are intentional and consistent.
-4. Motion is purposeful (no decorative-only animation noise).
-5. Mobile readability + CTA clarity hold on key routes.
-6. `vercel-react-best-practices` critical checks are respected (async waterfalls, bundle discipline, client/server boundaries).
+4. Typography density is readable (no congested heading/body composition).
+5. Motion is purposeful (no decorative-only animation noise).
+6. Mobile readability + CTA clarity hold on key routes.
+7. `web-design-guidelines` review is run on changed UI files and critical findings are fixed.
+8. `vercel-react-best-practices` critical checks are respected (async waterfalls, bundle discipline, client/server boundaries).
+9. `DESIGN-EXCELLENCE-CHECKLIST.md` sections are explicitly reviewed and evidenced in handoff.
 
 If any item fails, task remains open.

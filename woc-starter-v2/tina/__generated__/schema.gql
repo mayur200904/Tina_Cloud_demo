@@ -187,63 +187,33 @@ type SettingsConnection implements Connection {
   edges: [SettingsConnectionEdges]
 }
 
-type HomeCredibilityStats {
-  value: String
-  label: String
-}
-
-type HomeServicesPreview {
-  title: String
-  description: String
-  duration: String
-}
-
 type Home implements Node & Document {
   title: String!
   eyebrow: String
   headline: String!
-  subheadline: String
-  heroImage: String
-  heroImageAlt: String
+  description: String
   primaryCtaLabel: String
   primaryCtaLink: String
   secondaryCtaLabel: String
   secondaryCtaLink: String
-  credibilityStats: [HomeCredibilityStats]
-  servicesPreview: [HomeServicesPreview]
-  trustQuote: String
-  trustQuoteAuthor: String
+  sectionHeading: String
+  sectionBody: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
-}
-
-input HomeCredibilityStatsFilter {
-  value: StringFilter
-  label: StringFilter
-}
-
-input HomeServicesPreviewFilter {
-  title: StringFilter
-  description: StringFilter
-  duration: StringFilter
 }
 
 input HomeFilter {
   title: StringFilter
   eyebrow: StringFilter
   headline: StringFilter
-  subheadline: StringFilter
-  heroImage: ImageFilter
-  heroImageAlt: StringFilter
+  description: StringFilter
   primaryCtaLabel: StringFilter
   primaryCtaLink: StringFilter
   secondaryCtaLabel: StringFilter
   secondaryCtaLink: StringFilter
-  credibilityStats: HomeCredibilityStatsFilter
-  servicesPreview: HomeServicesPreviewFilter
-  trustQuote: StringFilter
-  trustQuoteAuthor: StringFilter
+  sectionHeading: StringFilter
+  sectionBody: StringFilter
 }
 
 type HomeConnectionEdges {
@@ -257,41 +227,25 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
-type AboutCredentials {
-  label: String
-  detail: String
-}
-
 type About implements Node & Document {
   title: String!
   eyebrow: String
   headline: String!
-  intro: String
-  heroImage: String
-  heroImageAlt: String
-  storyHeading: String
-  storyBody: String
-  credentials: [AboutCredentials]
+  description: String
+  sectionHeading: String
+  sectionBody: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
-}
-
-input AboutCredentialsFilter {
-  label: StringFilter
-  detail: StringFilter
 }
 
 input AboutFilter {
   title: StringFilter
   eyebrow: StringFilter
   headline: StringFilter
-  intro: StringFilter
-  heroImage: ImageFilter
-  heroImageAlt: StringFilter
-  storyHeading: StringFilter
-  storyBody: StringFilter
-  credentials: AboutCredentialsFilter
+  description: StringFilter
+  sectionHeading: StringFilter
+  sectionBody: StringFilter
 }
 
 type AboutConnectionEdges {
@@ -305,13 +259,7 @@ type AboutConnection implements Connection {
   edges: [AboutConnectionEdges]
 }
 
-type ServicesServiceItems {
-  name: String
-  duration: String
-  description: String
-}
-
-type ServicesAddonOffer {
+type ServicesItems {
   title: String
   description: String
 }
@@ -320,9 +268,8 @@ type Services implements Node & Document {
   title: String!
   eyebrow: String
   headline: String!
-  subheadline: String
-  serviceItems: [ServicesServiceItems]
-  addonOffer: ServicesAddonOffer
+  description: String
+  items: [ServicesItems]
   ctaLabel: String
   ctaLink: String
   id: ID!
@@ -330,13 +277,7 @@ type Services implements Node & Document {
   _values: JSON!
 }
 
-input ServicesServiceItemsFilter {
-  name: StringFilter
-  duration: StringFilter
-  description: StringFilter
-}
-
-input ServicesAddonOfferFilter {
+input ServicesItemsFilter {
   title: StringFilter
   description: StringFilter
 }
@@ -345,9 +286,8 @@ input ServicesFilter {
   title: StringFilter
   eyebrow: StringFilter
   headline: StringFilter
-  subheadline: StringFilter
-  serviceItems: ServicesServiceItemsFilter
-  addonOffer: ServicesAddonOfferFilter
+  description: StringFilter
+  items: ServicesItemsFilter
   ctaLabel: StringFilter
   ctaLink: StringFilter
 }
@@ -363,49 +303,31 @@ type ServicesConnection implements Connection {
   edges: [ServicesConnectionEdges]
 }
 
-type ContactTestimonial {
-  quote: String
-  author: String
-}
-
 type Contact implements Node & Document {
   title: String!
   eyebrow: String
   headline: String!
-  subheadline: String
-  whatsappLabel: String
-  whatsappLink: String
-  calendlyLabel: String
-  calendlyLink: String
+  description: String
   email: String
   phone: String
   address: String
-  hours: String
-  testimonial: ContactTestimonial
+  ctaLabel: String
+  ctaLink: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
-}
-
-input ContactTestimonialFilter {
-  quote: StringFilter
-  author: StringFilter
 }
 
 input ContactFilter {
   title: StringFilter
   eyebrow: StringFilter
   headline: StringFilter
-  subheadline: StringFilter
-  whatsappLabel: StringFilter
-  whatsappLink: StringFilter
-  calendlyLabel: StringFilter
-  calendlyLink: StringFilter
+  description: StringFilter
   email: StringFilter
   phone: StringFilter
   address: StringFilter
-  hours: StringFilter
-  testimonial: ContactTestimonialFilter
+  ctaLabel: StringFilter
+  ctaLink: StringFilter
 }
 
 type ContactConnectionEdges {
@@ -484,58 +406,29 @@ input SettingsMutation {
   socialLinks: [SettingsSocialLinksMutation]
 }
 
-input HomeCredibilityStatsMutation {
-  value: String
-  label: String
-}
-
-input HomeServicesPreviewMutation {
-  title: String
-  description: String
-  duration: String
-}
-
 input HomeMutation {
   title: String
   eyebrow: String
   headline: String
-  subheadline: String
-  heroImage: String
-  heroImageAlt: String
+  description: String
   primaryCtaLabel: String
   primaryCtaLink: String
   secondaryCtaLabel: String
   secondaryCtaLink: String
-  credibilityStats: [HomeCredibilityStatsMutation]
-  servicesPreview: [HomeServicesPreviewMutation]
-  trustQuote: String
-  trustQuoteAuthor: String
-}
-
-input AboutCredentialsMutation {
-  label: String
-  detail: String
+  sectionHeading: String
+  sectionBody: String
 }
 
 input AboutMutation {
   title: String
   eyebrow: String
   headline: String
-  intro: String
-  heroImage: String
-  heroImageAlt: String
-  storyHeading: String
-  storyBody: String
-  credentials: [AboutCredentialsMutation]
-}
-
-input ServicesServiceItemsMutation {
-  name: String
-  duration: String
   description: String
+  sectionHeading: String
+  sectionBody: String
 }
 
-input ServicesAddonOfferMutation {
+input ServicesItemsMutation {
   title: String
   description: String
 }
@@ -544,32 +437,22 @@ input ServicesMutation {
   title: String
   eyebrow: String
   headline: String
-  subheadline: String
-  serviceItems: [ServicesServiceItemsMutation]
-  addonOffer: ServicesAddonOfferMutation
+  description: String
+  items: [ServicesItemsMutation]
   ctaLabel: String
   ctaLink: String
-}
-
-input ContactTestimonialMutation {
-  quote: String
-  author: String
 }
 
 input ContactMutation {
   title: String
   eyebrow: String
   headline: String
-  subheadline: String
-  whatsappLabel: String
-  whatsappLink: String
-  calendlyLabel: String
-  calendlyLink: String
+  description: String
   email: String
   phone: String
   address: String
-  hours: String
-  testimonial: ContactTestimonialMutation
+  ctaLabel: String
+  ctaLink: String
 }
 
 schema {

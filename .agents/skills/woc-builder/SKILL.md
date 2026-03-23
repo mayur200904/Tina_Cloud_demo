@@ -11,7 +11,10 @@ You write custom React sections, TinaCMS schema, and content files for each clie
 
 Mandatory companion standards while building:
 - apply `frontend-design` for premium, client-specific visual execution
+- apply `designing-beautiful-websites` for hierarchy, spacing, and UX clarity discipline
 - apply `vercel-react-best-practices` for Next.js/React architecture and performance quality
+- run `web-design-guidelines` review on changed UI files before closure
+- pass `DESIGN-EXCELLENCE-CHECKLIST.md` and include section-level evidence in handoff
 
 **Before touching a single file:** read everything given to you. If a Design Spec exists, it governs all design decisions. If no Design Spec is provided, run the inline design phase (Step 1A) before writing any files.
 
@@ -35,6 +38,10 @@ Four things separate great WoC sites from template output:
 2. **Visual rhythm throughout** — alternating dark/light/dark, no two dark sections adjacent, no three light sections in a row
 3. **Motion feels earned** — every animation serves a purpose; none are gratuitous
 4. **Copy is specific** — no Lorem Ipsum energy, no weak headlines, no generic eyebrows
+
+Two additional non-negotiables:
+5. **No congestion** — heading/body scale and spacing must stay readable at a glance
+6. **Clear scanning** — sections must have obvious focal points and breathing room
 
 These outcomes are invalid if achieved by violating Tina editability or core React/Next performance discipline.
 
@@ -175,6 +182,8 @@ Read `references/motion-guide.md` for animation rules.
 - If multiple Tina forms/hooks are present on the route, implement
   `experimental___selectFormByFormId()` and return `content/pages/${variables.relativePath}`
 - Empty Tina visual sidebar is a hard failure; task is not complete until fields appear
+- Keep readable paragraph measure (`~45–80` characters where practical) and avoid dense text walls
+- Keep spacing hierarchy clear: more space between groups than inside groups
 
 ### Section Rhythm
 

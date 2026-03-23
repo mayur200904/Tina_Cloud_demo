@@ -10,6 +10,8 @@ Use this when you want **one single prompt** to run the full pipeline with minim
 - `high-end-woc-infrastructure` (governance + gates)
 - `woc-design` (creative direction)
 - `woc-builder` (implementation)
+- `designing-beautiful-websites` (UX hierarchy/spacing system)
+- `web-design-guidelines` (final UI quality review)
 
 ```
 /website-master
@@ -24,11 +26,12 @@ Objective:
 
 Execution routing contract:
 1) Load and enforce `high-end-woc-infrastructure` skill first.
-2) Load and apply `frontend-design` during design decisions.
+2) Load and apply `frontend-design` + `designing-beautiful-websites` during design decisions.
 3) Run design phase (`woc-design`) and output a Design Spec.
 4) Load and apply `vercel-react-best-practices` during implementation.
 5) Run implementation phase (`woc-builder`) from that Design Spec.
-4) Run gates and report pass/fail evidence.
+6) Run `web-design-guidelines` review on changed UI files and fix findings.
+7) Run gates and report pass/fail evidence.
 
 Client brief:
 - Business name: [name]
@@ -55,8 +58,10 @@ Hard constraints:
 - Schema-first: define `tina/config.ts` fields before TSX/content.
 - High-end design only: no generic/template layout or copy patterns.
 - Enforce first-3-second hero impact, clear typography hierarchy, and alternating section rhythm.
+- Enforce anti-congestion design: readable heading scale, readable paragraph measure, generous group spacing.
 - Motion must be purposeful and restrained.
 - Responsive/mobile readability and CTA clarity are mandatory.
+- Apply `DESIGN-EXCELLENCE-CHECKLIST.md` before sign-off and include item-level evidence.
 - Enforce visual editing contract on each editable route:
   - server passes `query`, `variables`, `data`
   - client uses `useTina({ query, variables, data })`
@@ -71,8 +76,10 @@ Required sign-off output (pass/fail with evidence):
 3) `npx tinacms build`
 4) `npm run build`
 5) publish proof plan (remote hash before/after Tina admin publish)
-6) design quality rubric score (>= 22/30)
-7) React/Next best-practice summary (waterfalls/bundle/client-server boundaries)
+6) design quality rubric score (>= 26/30)
+7) `web-design-guidelines` audit summary + resolved findings
+8) React/Next best-practice summary (waterfalls/bundle/client-server boundaries)
+9) `DESIGN-EXCELLENCE-CHECKLIST.md` summary (pass/fail by section)
 
 Return format:
 - Phase A: Design Spec
@@ -113,6 +120,8 @@ CMS/Auth mode:
 Output requirements:
 - Create/Update Tina schema first, then TSX, then markdown content.
 - Ensure every displayed value is editable in Tina.
+- Apply `frontend-design` + `designing-beautiful-websites` rules while implementing.
+- Run `web-design-guidelines` review before final handoff.
 - For each editable page route, enforce server + client visual-editing contract:
   - server fetch returns `query`, `variables`, `data`
   - client page uses `useTina({ query, variables, data })`
@@ -122,6 +131,7 @@ Output requirements:
 - Ensure /admin/index.html is functional.
 - Do not edit tina/__generated__ manually.
 - Run build-safe implementation only.
+- Avoid congested type/layout density; maintain readable spacing and line-length.
 ```
 
 ---
