@@ -49,6 +49,9 @@ export default function BaseLayout({
 
   return (
     <>
+      <a href="#main-content" className="woc-skip-link">
+        Skip to main content
+      </a>
       {/* NAV */}
       <header
         className={`woc-nav${scrolled ? ' is-scrolled' : ''}`}
@@ -57,7 +60,13 @@ export default function BaseLayout({
         <div className="woc-container woc-nav__inner">
           <Link href="/" className="woc-nav__logo" aria-label={siteName || 'Home'}>
             {settings?.logoImage ? (
-              <img src={settings.logoImage} alt={siteName} className="woc-nav__logo-img" />
+              <img
+                src={settings.logoImage}
+                alt={siteName}
+                width={160}
+                height={32}
+                className="woc-nav__logo-img"
+              />
             ) : (
               <span className="woc-nav__logo-text">{logoText}</span>
             )}
@@ -81,6 +90,7 @@ export default function BaseLayout({
               </Link>
             )}
             <button
+              type="button"
               className={`woc-nav__hamburger${mobileOpen ? ' is-open' : ''}`}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
@@ -308,6 +318,26 @@ export default function BaseLayout({
         }
         .woc-nav__mobile-link:hover { opacity: 1; }
         .woc-nav__mobile-cta { margin-top: 0.5rem; }
+
+        .woc-skip-link {
+          position: absolute;
+          top: -3rem;
+          left: 1rem;
+          z-index: 200;
+          background: var(--color-dark);
+          color: var(--color-dark-foreground);
+          border: 1px solid color-mix(in srgb, var(--color-dark-foreground) 35%, transparent);
+          border-radius: 0.5rem;
+          padding: 0.45rem 0.75rem;
+          text-decoration: none;
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          transition: top 0.2s ease;
+        }
+        .woc-skip-link:focus-visible {
+          top: 0.75rem;
+        }
 
         @media (max-width: 768px) {
           .woc-nav__links { display: none; }

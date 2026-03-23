@@ -1,7 +1,7 @@
 {
-  "siteName": "Website In Minutes",
-  "siteTagline": "Prompt-driven website generation infrastructure",
-  "logoText": "Website In Minutes",
+  "siteName": "Ferromark Precision Industries",
+  "siteTagline": "CNC machining and metal fabrication engineered for zero surprises.",
+  "logoText": "FERROMARK",
   "logoImage": null,
   "navLinks": [
     {
@@ -17,9 +17,9 @@
       "href": "/contact"
     }
   ],
-  "navCtaLabel": "Generate Site",
+  "navCtaLabel": "Request Quote",
   "navCtaLink": "/contact",
-  "footerTagline": "Use a brief. Generate a complete editable website.",
+  "footerTagline": "ISO 9001:2015 + AS9100D precision manufacturing from Pune for OEM programs across India, UAE, and Germany.",
   "footerLinks": [
     {
       "label": "Services",
@@ -34,7 +34,12 @@
       "href": "/contact"
     }
   ],
-  "copyrightText": "© 2026 Website In Minutes",
-  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap",
-  "socialLinks": []
+  "copyrightText": "© 2026 Ferromark Precision Industries. All rights reserved.",
+  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap",
+  "socialLinks": [
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/company/ferromark-precision-industries"
+    }
+  ]
 }

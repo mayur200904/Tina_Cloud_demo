@@ -187,33 +187,103 @@ type SettingsConnection implements Connection {
   edges: [SettingsConnectionEdges]
 }
 
+type HomeHeroStats {
+  value: String
+  label: String
+}
+
+type HomeCapabilities {
+  title: String
+  description: String
+  spec: String
+}
+
+type HomeQualityPoints {
+  label: String
+  value: String
+}
+
+type HomeTestimonials {
+  quote: String
+  author: String
+  role: String
+}
+
 type Home implements Node & Document {
   title: String!
-  eyebrow: String
-  headline: String!
-  description: String
+  heroEyebrow: String
+  heroHeadline: String!
+  heroDescription: String
+  heroImage: String
+  heroImageAlt: String
   primaryCtaLabel: String
   primaryCtaLink: String
   secondaryCtaLabel: String
   secondaryCtaLink: String
-  sectionHeading: String
-  sectionBody: String
+  heroStats: [HomeHeroStats]
+  capabilityEyebrow: String
+  capabilityHeadline: String
+  capabilities: [HomeCapabilities]
+  qualityEyebrow: String
+  qualityHeadline: String
+  qualityDescription: String
+  qualityPoints: [HomeQualityPoints]
+  proofEyebrow: String
+  proofHeadline: String
+  testimonials: [HomeTestimonials]
+  proofCtaLabel: String
+  proofCtaLink: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
+input HomeHeroStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
+input HomeCapabilitiesFilter {
+  title: StringFilter
+  description: StringFilter
+  spec: StringFilter
+}
+
+input HomeQualityPointsFilter {
+  label: StringFilter
+  value: StringFilter
+}
+
+input HomeTestimonialsFilter {
+  quote: StringFilter
+  author: StringFilter
+  role: StringFilter
+}
+
 input HomeFilter {
   title: StringFilter
-  eyebrow: StringFilter
-  headline: StringFilter
-  description: StringFilter
+  heroEyebrow: StringFilter
+  heroHeadline: StringFilter
+  heroDescription: StringFilter
+  heroImage: ImageFilter
+  heroImageAlt: StringFilter
   primaryCtaLabel: StringFilter
   primaryCtaLink: StringFilter
   secondaryCtaLabel: StringFilter
   secondaryCtaLink: StringFilter
-  sectionHeading: StringFilter
-  sectionBody: StringFilter
+  heroStats: HomeHeroStatsFilter
+  capabilityEyebrow: StringFilter
+  capabilityHeadline: StringFilter
+  capabilities: HomeCapabilitiesFilter
+  qualityEyebrow: StringFilter
+  qualityHeadline: StringFilter
+  qualityDescription: StringFilter
+  qualityPoints: HomeQualityPointsFilter
+  proofEyebrow: StringFilter
+  proofHeadline: StringFilter
+  testimonials: HomeTestimonialsFilter
+  proofCtaLabel: StringFilter
+  proofCtaLink: StringFilter
 }
 
 type HomeConnectionEdges {
@@ -227,25 +297,77 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
+type AboutMilestones {
+  year: String
+  title: String
+  description: String
+}
+
+type AboutCertifications {
+  name: String
+  details: String
+}
+
+type AboutFootprintStats {
+  value: String
+  label: String
+}
+
 type About implements Node & Document {
   title: String!
-  eyebrow: String
-  headline: String!
-  description: String
-  sectionHeading: String
-  sectionBody: String
+  heroEyebrow: String
+  heroHeadline: String!
+  heroDescription: String
+  timelineEyebrow: String
+  timelineHeadline: String
+  milestones: [AboutMilestones]
+  certificationsEyebrow: String
+  certificationsHeadline: String
+  certifications: [AboutCertifications]
+  footprintEyebrow: String
+  footprintHeadline: String
+  footprintDescription: String
+  footprintStats: [AboutFootprintStats]
+  ctaLabel: String
+  ctaLink: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
+input AboutMilestonesFilter {
+  year: StringFilter
+  title: StringFilter
+  description: StringFilter
+}
+
+input AboutCertificationsFilter {
+  name: StringFilter
+  details: StringFilter
+}
+
+input AboutFootprintStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
 input AboutFilter {
   title: StringFilter
-  eyebrow: StringFilter
-  headline: StringFilter
-  description: StringFilter
-  sectionHeading: StringFilter
-  sectionBody: StringFilter
+  heroEyebrow: StringFilter
+  heroHeadline: StringFilter
+  heroDescription: StringFilter
+  timelineEyebrow: StringFilter
+  timelineHeadline: StringFilter
+  milestones: AboutMilestonesFilter
+  certificationsEyebrow: StringFilter
+  certificationsHeadline: StringFilter
+  certifications: AboutCertificationsFilter
+  footprintEyebrow: StringFilter
+  footprintHeadline: StringFilter
+  footprintDescription: StringFilter
+  footprintStats: AboutFootprintStatsFilter
+  ctaLabel: StringFilter
+  ctaLink: StringFilter
 }
 
 type AboutConnectionEdges {
@@ -259,17 +381,30 @@ type AboutConnection implements Connection {
   edges: [AboutConnectionEdges]
 }
 
-type ServicesItems {
+type ServicesServiceCards {
+  name: String
+  description: String
+  tolerance: String
+  materials: String
+}
+
+type ServicesProcessSteps {
+  step: String
   title: String
   description: String
 }
 
 type Services implements Node & Document {
   title: String!
-  eyebrow: String
-  headline: String!
-  description: String
-  items: [ServicesItems]
+  heroEyebrow: String
+  heroHeadline: String!
+  heroDescription: String
+  serviceCards: [ServicesServiceCards]
+  processEyebrow: String
+  processHeadline: String
+  processSteps: [ServicesProcessSteps]
+  ctaHeading: String
+  ctaDescription: String
   ctaLabel: String
   ctaLink: String
   id: ID!
@@ -277,17 +412,30 @@ type Services implements Node & Document {
   _values: JSON!
 }
 
-input ServicesItemsFilter {
+input ServicesServiceCardsFilter {
+  name: StringFilter
+  description: StringFilter
+  tolerance: StringFilter
+  materials: StringFilter
+}
+
+input ServicesProcessStepsFilter {
+  step: StringFilter
   title: StringFilter
   description: StringFilter
 }
 
 input ServicesFilter {
   title: StringFilter
-  eyebrow: StringFilter
-  headline: StringFilter
-  description: StringFilter
-  items: ServicesItemsFilter
+  heroEyebrow: StringFilter
+  heroHeadline: StringFilter
+  heroDescription: StringFilter
+  serviceCards: ServicesServiceCardsFilter
+  processEyebrow: StringFilter
+  processHeadline: StringFilter
+  processSteps: ServicesProcessStepsFilter
+  ctaHeading: StringFilter
+  ctaDescription: StringFilter
   ctaLabel: StringFilter
   ctaLink: StringFilter
 }
@@ -305,12 +453,24 @@ type ServicesConnection implements Connection {
 
 type Contact implements Node & Document {
   title: String!
-  eyebrow: String
-  headline: String!
-  description: String
-  email: String
-  phone: String
-  address: String
+  heroEyebrow: String
+  heroHeadline: String!
+  heroDescription: String
+  formHeading: String
+  formDescription: String
+  uploadHint: String
+  emailLabel: String
+  emailValue: String
+  phoneLabel: String
+  phoneValue: String
+  addressLabel: String
+  addressValue: String
+  hoursLabel: String
+  hoursValue: String
+  responseLabel: String
+  responseValue: String
+  testimonialQuote: String
+  testimonialAuthor: String
   ctaLabel: String
   ctaLink: String
   id: ID!
@@ -320,12 +480,24 @@ type Contact implements Node & Document {
 
 input ContactFilter {
   title: StringFilter
-  eyebrow: StringFilter
-  headline: StringFilter
-  description: StringFilter
-  email: StringFilter
-  phone: StringFilter
-  address: StringFilter
+  heroEyebrow: StringFilter
+  heroHeadline: StringFilter
+  heroDescription: StringFilter
+  formHeading: StringFilter
+  formDescription: StringFilter
+  uploadHint: StringFilter
+  emailLabel: StringFilter
+  emailValue: StringFilter
+  phoneLabel: StringFilter
+  phoneValue: StringFilter
+  addressLabel: StringFilter
+  addressValue: StringFilter
+  hoursLabel: StringFilter
+  hoursValue: StringFilter
+  responseLabel: StringFilter
+  responseValue: StringFilter
+  testimonialQuote: StringFilter
+  testimonialAuthor: StringFilter
   ctaLabel: StringFilter
   ctaLink: StringFilter
 }
@@ -406,51 +578,137 @@ input SettingsMutation {
   socialLinks: [SettingsSocialLinksMutation]
 }
 
+input HomeHeroStatsMutation {
+  value: String
+  label: String
+}
+
+input HomeCapabilitiesMutation {
+  title: String
+  description: String
+  spec: String
+}
+
+input HomeQualityPointsMutation {
+  label: String
+  value: String
+}
+
+input HomeTestimonialsMutation {
+  quote: String
+  author: String
+  role: String
+}
+
 input HomeMutation {
   title: String
-  eyebrow: String
-  headline: String
-  description: String
+  heroEyebrow: String
+  heroHeadline: String
+  heroDescription: String
+  heroImage: String
+  heroImageAlt: String
   primaryCtaLabel: String
   primaryCtaLink: String
   secondaryCtaLabel: String
   secondaryCtaLink: String
-  sectionHeading: String
-  sectionBody: String
+  heroStats: [HomeHeroStatsMutation]
+  capabilityEyebrow: String
+  capabilityHeadline: String
+  capabilities: [HomeCapabilitiesMutation]
+  qualityEyebrow: String
+  qualityHeadline: String
+  qualityDescription: String
+  qualityPoints: [HomeQualityPointsMutation]
+  proofEyebrow: String
+  proofHeadline: String
+  testimonials: [HomeTestimonialsMutation]
+  proofCtaLabel: String
+  proofCtaLink: String
+}
+
+input AboutMilestonesMutation {
+  year: String
+  title: String
+  description: String
+}
+
+input AboutCertificationsMutation {
+  name: String
+  details: String
+}
+
+input AboutFootprintStatsMutation {
+  value: String
+  label: String
 }
 
 input AboutMutation {
   title: String
-  eyebrow: String
-  headline: String
-  description: String
-  sectionHeading: String
-  sectionBody: String
+  heroEyebrow: String
+  heroHeadline: String
+  heroDescription: String
+  timelineEyebrow: String
+  timelineHeadline: String
+  milestones: [AboutMilestonesMutation]
+  certificationsEyebrow: String
+  certificationsHeadline: String
+  certifications: [AboutCertificationsMutation]
+  footprintEyebrow: String
+  footprintHeadline: String
+  footprintDescription: String
+  footprintStats: [AboutFootprintStatsMutation]
+  ctaLabel: String
+  ctaLink: String
 }
 
-input ServicesItemsMutation {
+input ServicesServiceCardsMutation {
+  name: String
+  description: String
+  tolerance: String
+  materials: String
+}
+
+input ServicesProcessStepsMutation {
+  step: String
   title: String
   description: String
 }
 
 input ServicesMutation {
   title: String
-  eyebrow: String
-  headline: String
-  description: String
-  items: [ServicesItemsMutation]
+  heroEyebrow: String
+  heroHeadline: String
+  heroDescription: String
+  serviceCards: [ServicesServiceCardsMutation]
+  processEyebrow: String
+  processHeadline: String
+  processSteps: [ServicesProcessStepsMutation]
+  ctaHeading: String
+  ctaDescription: String
   ctaLabel: String
   ctaLink: String
 }
 
 input ContactMutation {
   title: String
-  eyebrow: String
-  headline: String
-  description: String
-  email: String
-  phone: String
-  address: String
+  heroEyebrow: String
+  heroHeadline: String
+  heroDescription: String
+  formHeading: String
+  formDescription: String
+  uploadHint: String
+  emailLabel: String
+  emailValue: String
+  phoneLabel: String
+  phoneValue: String
+  addressLabel: String
+  addressValue: String
+  hoursLabel: String
+  hoursValue: String
+  responseLabel: String
+  responseValue: String
+  testimonialQuote: String
+  testimonialAuthor: String
   ctaLabel: String
   ctaLink: String
 }

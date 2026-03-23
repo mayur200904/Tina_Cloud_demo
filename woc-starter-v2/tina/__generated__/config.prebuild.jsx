@@ -72,15 +72,66 @@ var homeCollection = {
   },
   fields: [
     { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
-    { name: "eyebrow", label: "Eyebrow", type: "string" },
-    { name: "headline", label: "Headline", type: "string", required: true },
-    { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
+    { name: "heroEyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "heroHeadline", label: "Hero Headline", type: "string", required: true },
+    { name: "heroDescription", label: "Hero Description", type: "string", ui: { component: "textarea" } },
+    { name: "heroImage", label: "Hero Image", type: "image" },
+    { name: "heroImageAlt", label: "Hero Image Alt", type: "string" },
     { name: "primaryCtaLabel", label: "Primary CTA Label", type: "string" },
     { name: "primaryCtaLink", label: "Primary CTA Link", type: "string" },
     { name: "secondaryCtaLabel", label: "Secondary CTA Label", type: "string" },
     { name: "secondaryCtaLink", label: "Secondary CTA Link", type: "string" },
-    { name: "sectionHeading", label: "Section Heading", type: "string" },
-    { name: "sectionBody", label: "Section Body", type: "string", ui: { component: "textarea" } }
+    {
+      name: "heroStats",
+      label: "Hero Stats",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "value", label: "Value", type: "string" },
+        { name: "label", label: "Label", type: "string" }
+      ]
+    },
+    { name: "capabilityEyebrow", label: "Capabilities Eyebrow", type: "string" },
+    { name: "capabilityHeadline", label: "Capabilities Headline", type: "string" },
+    {
+      name: "capabilities",
+      label: "Capabilities",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "title", label: "Title", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
+        { name: "spec", label: "Spec", type: "string" }
+      ]
+    },
+    { name: "qualityEyebrow", label: "Quality Eyebrow", type: "string" },
+    { name: "qualityHeadline", label: "Quality Headline", type: "string" },
+    { name: "qualityDescription", label: "Quality Description", type: "string", ui: { component: "textarea" } },
+    {
+      name: "qualityPoints",
+      label: "Quality Points",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "label", label: "Label", type: "string" },
+        { name: "value", label: "Value", type: "string" }
+      ]
+    },
+    { name: "proofEyebrow", label: "Proof Eyebrow", type: "string" },
+    { name: "proofHeadline", label: "Proof Headline", type: "string" },
+    {
+      name: "testimonials",
+      label: "Testimonials",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "quote", label: "Quote", type: "string", ui: { component: "textarea" } },
+        { name: "author", label: "Author", type: "string" },
+        { name: "role", label: "Role", type: "string" }
+      ]
+    },
+    { name: "proofCtaLabel", label: "Proof CTA Label", type: "string" },
+    { name: "proofCtaLink", label: "Proof CTA Link", type: "string" }
   ]
 };
 var aboutCollection = {
@@ -95,11 +146,49 @@ var aboutCollection = {
   },
   fields: [
     { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
-    { name: "eyebrow", label: "Eyebrow", type: "string" },
-    { name: "headline", label: "Headline", type: "string", required: true },
-    { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-    { name: "sectionHeading", label: "Section Heading", type: "string" },
-    { name: "sectionBody", label: "Section Body", type: "string", ui: { component: "textarea" } }
+    { name: "heroEyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "heroHeadline", label: "Hero Headline", type: "string", required: true },
+    { name: "heroDescription", label: "Hero Description", type: "string", ui: { component: "textarea" } },
+    { name: "timelineEyebrow", label: "Timeline Eyebrow", type: "string" },
+    { name: "timelineHeadline", label: "Timeline Headline", type: "string" },
+    {
+      name: "milestones",
+      label: "Milestones",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "year", label: "Year", type: "string" },
+        { name: "title", label: "Title", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } }
+      ]
+    },
+    { name: "certificationsEyebrow", label: "Certifications Eyebrow", type: "string" },
+    { name: "certificationsHeadline", label: "Certifications Headline", type: "string" },
+    {
+      name: "certifications",
+      label: "Certifications",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "name", label: "Name", type: "string" },
+        { name: "details", label: "Details", type: "string" }
+      ]
+    },
+    { name: "footprintEyebrow", label: "Footprint Eyebrow", type: "string" },
+    { name: "footprintHeadline", label: "Footprint Headline", type: "string" },
+    { name: "footprintDescription", label: "Footprint Description", type: "string", ui: { component: "textarea" } },
+    {
+      name: "footprintStats",
+      label: "Footprint Stats",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "value", label: "Value", type: "string" },
+        { name: "label", label: "Label", type: "string" }
+      ]
+    },
+    { name: "ctaLabel", label: "CTA Label", type: "string" },
+    { name: "ctaLink", label: "CTA Link", type: "string" }
   ]
 };
 var servicesCollection = {
@@ -114,19 +203,36 @@ var servicesCollection = {
   },
   fields: [
     { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
-    { name: "eyebrow", label: "Eyebrow", type: "string" },
-    { name: "headline", label: "Headline", type: "string", required: true },
-    { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
+    { name: "heroEyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "heroHeadline", label: "Hero Headline", type: "string", required: true },
+    { name: "heroDescription", label: "Hero Description", type: "string", ui: { component: "textarea" } },
     {
-      name: "items",
-      label: "Service Items",
+      name: "serviceCards",
+      label: "Service Cards",
       type: "object",
       list: true,
       fields: [
+        { name: "name", label: "Name", type: "string" },
+        { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
+        { name: "tolerance", label: "Tolerance", type: "string" },
+        { name: "materials", label: "Materials", type: "string" }
+      ]
+    },
+    { name: "processEyebrow", label: "Process Eyebrow", type: "string" },
+    { name: "processHeadline", label: "Process Headline", type: "string" },
+    {
+      name: "processSteps",
+      label: "Process Steps",
+      type: "object",
+      list: true,
+      fields: [
+        { name: "step", label: "Step", type: "string" },
         { name: "title", label: "Title", type: "string" },
         { name: "description", label: "Description", type: "string", ui: { component: "textarea" } }
       ]
     },
+    { name: "ctaHeading", label: "CTA Heading", type: "string" },
+    { name: "ctaDescription", label: "CTA Description", type: "string", ui: { component: "textarea" } },
     { name: "ctaLabel", label: "CTA Label", type: "string" },
     { name: "ctaLink", label: "CTA Link", type: "string" }
   ]
@@ -143,12 +249,24 @@ var contactCollection = {
   },
   fields: [
     { name: "title", label: "Page Title", type: "string", isTitle: true, required: true },
-    { name: "eyebrow", label: "Eyebrow", type: "string" },
-    { name: "headline", label: "Headline", type: "string", required: true },
-    { name: "description", label: "Description", type: "string", ui: { component: "textarea" } },
-    { name: "email", label: "Email", type: "string" },
-    { name: "phone", label: "Phone", type: "string" },
-    { name: "address", label: "Address", type: "string", ui: { component: "textarea" } },
+    { name: "heroEyebrow", label: "Hero Eyebrow", type: "string" },
+    { name: "heroHeadline", label: "Hero Headline", type: "string", required: true },
+    { name: "heroDescription", label: "Hero Description", type: "string", ui: { component: "textarea" } },
+    { name: "formHeading", label: "Form Heading", type: "string" },
+    { name: "formDescription", label: "Form Description", type: "string", ui: { component: "textarea" } },
+    { name: "uploadHint", label: "Upload Hint", type: "string" },
+    { name: "emailLabel", label: "Email Label", type: "string" },
+    { name: "emailValue", label: "Email Value", type: "string" },
+    { name: "phoneLabel", label: "Phone Label", type: "string" },
+    { name: "phoneValue", label: "Phone Value", type: "string" },
+    { name: "addressLabel", label: "Address Label", type: "string" },
+    { name: "addressValue", label: "Address Value", type: "string", ui: { component: "textarea" } },
+    { name: "hoursLabel", label: "Hours Label", type: "string" },
+    { name: "hoursValue", label: "Hours Value", type: "string" },
+    { name: "responseLabel", label: "Response Label", type: "string" },
+    { name: "responseValue", label: "Response Value", type: "string" },
+    { name: "testimonialQuote", label: "Testimonial Quote", type: "string", ui: { component: "textarea" } },
+    { name: "testimonialAuthor", label: "Testimonial Author", type: "string" },
     { name: "ctaLabel", label: "CTA Label", type: "string" },
     { name: "ctaLink", label: "CTA Link", type: "string" }
   ]

@@ -29,38 +29,104 @@ fragment SettingsParts on Settings {
 fragment HomeParts on Home {
   __typename
   title
-  eyebrow
-  headline
-  description
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  heroImage
+  heroImageAlt
   primaryCtaLabel
   primaryCtaLink
   secondaryCtaLabel
   secondaryCtaLink
-  sectionHeading
-  sectionBody
+  heroStats {
+    __typename
+    value
+    label
+  }
+  capabilityEyebrow
+  capabilityHeadline
+  capabilities {
+    __typename
+    title
+    description
+    spec
+  }
+  qualityEyebrow
+  qualityHeadline
+  qualityDescription
+  qualityPoints {
+    __typename
+    label
+    value
+  }
+  proofEyebrow
+  proofHeadline
+  testimonials {
+    __typename
+    quote
+    author
+    role
+  }
+  proofCtaLabel
+  proofCtaLink
 }
 
 fragment AboutParts on About {
   __typename
   title
-  eyebrow
-  headline
-  description
-  sectionHeading
-  sectionBody
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  timelineEyebrow
+  timelineHeadline
+  milestones {
+    __typename
+    year
+    title
+    description
+  }
+  certificationsEyebrow
+  certificationsHeadline
+  certifications {
+    __typename
+    name
+    details
+  }
+  footprintEyebrow
+  footprintHeadline
+  footprintDescription
+  footprintStats {
+    __typename
+    value
+    label
+  }
+  ctaLabel
+  ctaLink
 }
 
 fragment ServicesParts on Services {
   __typename
   title
-  eyebrow
-  headline
-  description
-  items {
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  serviceCards {
     __typename
+    name
+    description
+    tolerance
+    materials
+  }
+  processEyebrow
+  processHeadline
+  processSteps {
+    __typename
+    step
     title
     description
   }
+  ctaHeading
+  ctaDescription
   ctaLabel
   ctaLink
 }
@@ -68,12 +134,24 @@ fragment ServicesParts on Services {
 fragment ContactParts on Contact {
   __typename
   title
-  eyebrow
-  headline
-  description
-  email
-  phone
-  address
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  formHeading
+  formDescription
+  uploadHint
+  emailLabel
+  emailValue
+  phoneLabel
+  phoneValue
+  addressLabel
+  addressValue
+  hoursLabel
+  hoursValue
+  responseLabel
+  responseValue
+  testimonialQuote
+  testimonialAuthor
   ctaLabel
   ctaLink
 }

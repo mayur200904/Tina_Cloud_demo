@@ -331,34 +331,108 @@ export type SettingsConnection = Connection & {
   edges?: Maybe<Array<Maybe<SettingsConnectionEdges>>>;
 };
 
+export type HomeHeroStats = {
+  __typename?: 'HomeHeroStats';
+  value?: Maybe<Scalars['String']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeCapabilities = {
+  __typename?: 'HomeCapabilities';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  spec?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeQualityPoints = {
+  __typename?: 'HomeQualityPoints';
+  label?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeTestimonials = {
+  __typename?: 'HomeTestimonials';
+  quote?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+};
+
 export type Home = Node & Document & {
   __typename?: 'Home';
   title: Scalars['String']['output'];
-  eyebrow?: Maybe<Scalars['String']['output']>;
-  headline: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeadline: Scalars['String']['output'];
+  heroDescription?: Maybe<Scalars['String']['output']>;
+  heroImage?: Maybe<Scalars['String']['output']>;
+  heroImageAlt?: Maybe<Scalars['String']['output']>;
   primaryCtaLabel?: Maybe<Scalars['String']['output']>;
   primaryCtaLink?: Maybe<Scalars['String']['output']>;
   secondaryCtaLabel?: Maybe<Scalars['String']['output']>;
   secondaryCtaLink?: Maybe<Scalars['String']['output']>;
-  sectionHeading?: Maybe<Scalars['String']['output']>;
-  sectionBody?: Maybe<Scalars['String']['output']>;
+  heroStats?: Maybe<Array<Maybe<HomeHeroStats>>>;
+  capabilityEyebrow?: Maybe<Scalars['String']['output']>;
+  capabilityHeadline?: Maybe<Scalars['String']['output']>;
+  capabilities?: Maybe<Array<Maybe<HomeCapabilities>>>;
+  qualityEyebrow?: Maybe<Scalars['String']['output']>;
+  qualityHeadline?: Maybe<Scalars['String']['output']>;
+  qualityDescription?: Maybe<Scalars['String']['output']>;
+  qualityPoints?: Maybe<Array<Maybe<HomeQualityPoints>>>;
+  proofEyebrow?: Maybe<Scalars['String']['output']>;
+  proofHeadline?: Maybe<Scalars['String']['output']>;
+  testimonials?: Maybe<Array<Maybe<HomeTestimonials>>>;
+  proofCtaLabel?: Maybe<Scalars['String']['output']>;
+  proofCtaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
 };
 
+export type HomeHeroStatsFilter = {
+  value?: InputMaybe<StringFilter>;
+  label?: InputMaybe<StringFilter>;
+};
+
+export type HomeCapabilitiesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  spec?: InputMaybe<StringFilter>;
+};
+
+export type HomeQualityPointsFilter = {
+  label?: InputMaybe<StringFilter>;
+  value?: InputMaybe<StringFilter>;
+};
+
+export type HomeTestimonialsFilter = {
+  quote?: InputMaybe<StringFilter>;
+  author?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+};
+
 export type HomeFilter = {
   title?: InputMaybe<StringFilter>;
-  eyebrow?: InputMaybe<StringFilter>;
-  headline?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeadline?: InputMaybe<StringFilter>;
+  heroDescription?: InputMaybe<StringFilter>;
+  heroImage?: InputMaybe<ImageFilter>;
+  heroImageAlt?: InputMaybe<StringFilter>;
   primaryCtaLabel?: InputMaybe<StringFilter>;
   primaryCtaLink?: InputMaybe<StringFilter>;
   secondaryCtaLabel?: InputMaybe<StringFilter>;
   secondaryCtaLink?: InputMaybe<StringFilter>;
-  sectionHeading?: InputMaybe<StringFilter>;
-  sectionBody?: InputMaybe<StringFilter>;
+  heroStats?: InputMaybe<HomeHeroStatsFilter>;
+  capabilityEyebrow?: InputMaybe<StringFilter>;
+  capabilityHeadline?: InputMaybe<StringFilter>;
+  capabilities?: InputMaybe<HomeCapabilitiesFilter>;
+  qualityEyebrow?: InputMaybe<StringFilter>;
+  qualityHeadline?: InputMaybe<StringFilter>;
+  qualityDescription?: InputMaybe<StringFilter>;
+  qualityPoints?: InputMaybe<HomeQualityPointsFilter>;
+  proofEyebrow?: InputMaybe<StringFilter>;
+  proofHeadline?: InputMaybe<StringFilter>;
+  testimonials?: InputMaybe<HomeTestimonialsFilter>;
+  proofCtaLabel?: InputMaybe<StringFilter>;
+  proofCtaLink?: InputMaybe<StringFilter>;
 };
 
 export type HomeConnectionEdges = {
@@ -374,26 +448,81 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
+export type AboutMilestones = {
+  __typename?: 'AboutMilestones';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type AboutCertifications = {
+  __typename?: 'AboutCertifications';
+  name?: Maybe<Scalars['String']['output']>;
+  details?: Maybe<Scalars['String']['output']>;
+};
+
+export type AboutFootprintStats = {
+  __typename?: 'AboutFootprintStats';
+  value?: Maybe<Scalars['String']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+};
+
 export type About = Node & Document & {
   __typename?: 'About';
   title: Scalars['String']['output'];
-  eyebrow?: Maybe<Scalars['String']['output']>;
-  headline: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  sectionHeading?: Maybe<Scalars['String']['output']>;
-  sectionBody?: Maybe<Scalars['String']['output']>;
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeadline: Scalars['String']['output'];
+  heroDescription?: Maybe<Scalars['String']['output']>;
+  timelineEyebrow?: Maybe<Scalars['String']['output']>;
+  timelineHeadline?: Maybe<Scalars['String']['output']>;
+  milestones?: Maybe<Array<Maybe<AboutMilestones>>>;
+  certificationsEyebrow?: Maybe<Scalars['String']['output']>;
+  certificationsHeadline?: Maybe<Scalars['String']['output']>;
+  certifications?: Maybe<Array<Maybe<AboutCertifications>>>;
+  footprintEyebrow?: Maybe<Scalars['String']['output']>;
+  footprintHeadline?: Maybe<Scalars['String']['output']>;
+  footprintDescription?: Maybe<Scalars['String']['output']>;
+  footprintStats?: Maybe<Array<Maybe<AboutFootprintStats>>>;
+  ctaLabel?: Maybe<Scalars['String']['output']>;
+  ctaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
 };
 
+export type AboutMilestonesFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type AboutCertificationsFilter = {
+  name?: InputMaybe<StringFilter>;
+  details?: InputMaybe<StringFilter>;
+};
+
+export type AboutFootprintStatsFilter = {
+  value?: InputMaybe<StringFilter>;
+  label?: InputMaybe<StringFilter>;
+};
+
 export type AboutFilter = {
   title?: InputMaybe<StringFilter>;
-  eyebrow?: InputMaybe<StringFilter>;
-  headline?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  sectionHeading?: InputMaybe<StringFilter>;
-  sectionBody?: InputMaybe<StringFilter>;
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeadline?: InputMaybe<StringFilter>;
+  heroDescription?: InputMaybe<StringFilter>;
+  timelineEyebrow?: InputMaybe<StringFilter>;
+  timelineHeadline?: InputMaybe<StringFilter>;
+  milestones?: InputMaybe<AboutMilestonesFilter>;
+  certificationsEyebrow?: InputMaybe<StringFilter>;
+  certificationsHeadline?: InputMaybe<StringFilter>;
+  certifications?: InputMaybe<AboutCertificationsFilter>;
+  footprintEyebrow?: InputMaybe<StringFilter>;
+  footprintHeadline?: InputMaybe<StringFilter>;
+  footprintDescription?: InputMaybe<StringFilter>;
+  footprintStats?: InputMaybe<AboutFootprintStatsFilter>;
+  ctaLabel?: InputMaybe<StringFilter>;
+  ctaLink?: InputMaybe<StringFilter>;
 };
 
 export type AboutConnectionEdges = {
@@ -409,8 +538,17 @@ export type AboutConnection = Connection & {
   edges?: Maybe<Array<Maybe<AboutConnectionEdges>>>;
 };
 
-export type ServicesItems = {
-  __typename?: 'ServicesItems';
+export type ServicesServiceCards = {
+  __typename?: 'ServicesServiceCards';
+  name?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  tolerance?: Maybe<Scalars['String']['output']>;
+  materials?: Maybe<Scalars['String']['output']>;
+};
+
+export type ServicesProcessSteps = {
+  __typename?: 'ServicesProcessSteps';
+  step?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
 };
@@ -418,10 +556,15 @@ export type ServicesItems = {
 export type Services = Node & Document & {
   __typename?: 'Services';
   title: Scalars['String']['output'];
-  eyebrow?: Maybe<Scalars['String']['output']>;
-  headline: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  items?: Maybe<Array<Maybe<ServicesItems>>>;
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeadline: Scalars['String']['output'];
+  heroDescription?: Maybe<Scalars['String']['output']>;
+  serviceCards?: Maybe<Array<Maybe<ServicesServiceCards>>>;
+  processEyebrow?: Maybe<Scalars['String']['output']>;
+  processHeadline?: Maybe<Scalars['String']['output']>;
+  processSteps?: Maybe<Array<Maybe<ServicesProcessSteps>>>;
+  ctaHeading?: Maybe<Scalars['String']['output']>;
+  ctaDescription?: Maybe<Scalars['String']['output']>;
   ctaLabel?: Maybe<Scalars['String']['output']>;
   ctaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -429,17 +572,30 @@ export type Services = Node & Document & {
   _values: Scalars['JSON']['output'];
 };
 
-export type ServicesItemsFilter = {
+export type ServicesServiceCardsFilter = {
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  tolerance?: InputMaybe<StringFilter>;
+  materials?: InputMaybe<StringFilter>;
+};
+
+export type ServicesProcessStepsFilter = {
+  step?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
 };
 
 export type ServicesFilter = {
   title?: InputMaybe<StringFilter>;
-  eyebrow?: InputMaybe<StringFilter>;
-  headline?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  items?: InputMaybe<ServicesItemsFilter>;
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeadline?: InputMaybe<StringFilter>;
+  heroDescription?: InputMaybe<StringFilter>;
+  serviceCards?: InputMaybe<ServicesServiceCardsFilter>;
+  processEyebrow?: InputMaybe<StringFilter>;
+  processHeadline?: InputMaybe<StringFilter>;
+  processSteps?: InputMaybe<ServicesProcessStepsFilter>;
+  ctaHeading?: InputMaybe<StringFilter>;
+  ctaDescription?: InputMaybe<StringFilter>;
   ctaLabel?: InputMaybe<StringFilter>;
   ctaLink?: InputMaybe<StringFilter>;
 };
@@ -460,12 +616,24 @@ export type ServicesConnection = Connection & {
 export type Contact = Node & Document & {
   __typename?: 'Contact';
   title: Scalars['String']['output'];
-  eyebrow?: Maybe<Scalars['String']['output']>;
-  headline: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  address?: Maybe<Scalars['String']['output']>;
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeadline: Scalars['String']['output'];
+  heroDescription?: Maybe<Scalars['String']['output']>;
+  formHeading?: Maybe<Scalars['String']['output']>;
+  formDescription?: Maybe<Scalars['String']['output']>;
+  uploadHint?: Maybe<Scalars['String']['output']>;
+  emailLabel?: Maybe<Scalars['String']['output']>;
+  emailValue?: Maybe<Scalars['String']['output']>;
+  phoneLabel?: Maybe<Scalars['String']['output']>;
+  phoneValue?: Maybe<Scalars['String']['output']>;
+  addressLabel?: Maybe<Scalars['String']['output']>;
+  addressValue?: Maybe<Scalars['String']['output']>;
+  hoursLabel?: Maybe<Scalars['String']['output']>;
+  hoursValue?: Maybe<Scalars['String']['output']>;
+  responseLabel?: Maybe<Scalars['String']['output']>;
+  responseValue?: Maybe<Scalars['String']['output']>;
+  testimonialQuote?: Maybe<Scalars['String']['output']>;
+  testimonialAuthor?: Maybe<Scalars['String']['output']>;
   ctaLabel?: Maybe<Scalars['String']['output']>;
   ctaLink?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -475,12 +643,24 @@ export type Contact = Node & Document & {
 
 export type ContactFilter = {
   title?: InputMaybe<StringFilter>;
-  eyebrow?: InputMaybe<StringFilter>;
-  headline?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  email?: InputMaybe<StringFilter>;
-  phone?: InputMaybe<StringFilter>;
-  address?: InputMaybe<StringFilter>;
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeadline?: InputMaybe<StringFilter>;
+  heroDescription?: InputMaybe<StringFilter>;
+  formHeading?: InputMaybe<StringFilter>;
+  formDescription?: InputMaybe<StringFilter>;
+  uploadHint?: InputMaybe<StringFilter>;
+  emailLabel?: InputMaybe<StringFilter>;
+  emailValue?: InputMaybe<StringFilter>;
+  phoneLabel?: InputMaybe<StringFilter>;
+  phoneValue?: InputMaybe<StringFilter>;
+  addressLabel?: InputMaybe<StringFilter>;
+  addressValue?: InputMaybe<StringFilter>;
+  hoursLabel?: InputMaybe<StringFilter>;
+  hoursValue?: InputMaybe<StringFilter>;
+  responseLabel?: InputMaybe<StringFilter>;
+  responseValue?: InputMaybe<StringFilter>;
+  testimonialQuote?: InputMaybe<StringFilter>;
+  testimonialAuthor?: InputMaybe<StringFilter>;
   ctaLabel?: InputMaybe<StringFilter>;
   ctaLink?: InputMaybe<StringFilter>;
 };
@@ -657,64 +837,150 @@ export type SettingsMutation = {
   socialLinks?: InputMaybe<Array<InputMaybe<SettingsSocialLinksMutation>>>;
 };
 
+export type HomeHeroStatsMutation = {
+  value?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeCapabilitiesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  spec?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeQualityPointsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeTestimonialsMutation = {
+  quote?: InputMaybe<Scalars['String']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomeMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  eyebrow?: InputMaybe<Scalars['String']['input']>;
-  headline?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeadline?: InputMaybe<Scalars['String']['input']>;
+  heroDescription?: InputMaybe<Scalars['String']['input']>;
+  heroImage?: InputMaybe<Scalars['String']['input']>;
+  heroImageAlt?: InputMaybe<Scalars['String']['input']>;
   primaryCtaLabel?: InputMaybe<Scalars['String']['input']>;
   primaryCtaLink?: InputMaybe<Scalars['String']['input']>;
   secondaryCtaLabel?: InputMaybe<Scalars['String']['input']>;
   secondaryCtaLink?: InputMaybe<Scalars['String']['input']>;
-  sectionHeading?: InputMaybe<Scalars['String']['input']>;
-  sectionBody?: InputMaybe<Scalars['String']['input']>;
+  heroStats?: InputMaybe<Array<InputMaybe<HomeHeroStatsMutation>>>;
+  capabilityEyebrow?: InputMaybe<Scalars['String']['input']>;
+  capabilityHeadline?: InputMaybe<Scalars['String']['input']>;
+  capabilities?: InputMaybe<Array<InputMaybe<HomeCapabilitiesMutation>>>;
+  qualityEyebrow?: InputMaybe<Scalars['String']['input']>;
+  qualityHeadline?: InputMaybe<Scalars['String']['input']>;
+  qualityDescription?: InputMaybe<Scalars['String']['input']>;
+  qualityPoints?: InputMaybe<Array<InputMaybe<HomeQualityPointsMutation>>>;
+  proofEyebrow?: InputMaybe<Scalars['String']['input']>;
+  proofHeadline?: InputMaybe<Scalars['String']['input']>;
+  testimonials?: InputMaybe<Array<InputMaybe<HomeTestimonialsMutation>>>;
+  proofCtaLabel?: InputMaybe<Scalars['String']['input']>;
+  proofCtaLink?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AboutMilestonesMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AboutCertificationsMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  details?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AboutFootprintStatsMutation = {
+  value?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AboutMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  eyebrow?: InputMaybe<Scalars['String']['input']>;
-  headline?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  sectionHeading?: InputMaybe<Scalars['String']['input']>;
-  sectionBody?: InputMaybe<Scalars['String']['input']>;
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeadline?: InputMaybe<Scalars['String']['input']>;
+  heroDescription?: InputMaybe<Scalars['String']['input']>;
+  timelineEyebrow?: InputMaybe<Scalars['String']['input']>;
+  timelineHeadline?: InputMaybe<Scalars['String']['input']>;
+  milestones?: InputMaybe<Array<InputMaybe<AboutMilestonesMutation>>>;
+  certificationsEyebrow?: InputMaybe<Scalars['String']['input']>;
+  certificationsHeadline?: InputMaybe<Scalars['String']['input']>;
+  certifications?: InputMaybe<Array<InputMaybe<AboutCertificationsMutation>>>;
+  footprintEyebrow?: InputMaybe<Scalars['String']['input']>;
+  footprintHeadline?: InputMaybe<Scalars['String']['input']>;
+  footprintDescription?: InputMaybe<Scalars['String']['input']>;
+  footprintStats?: InputMaybe<Array<InputMaybe<AboutFootprintStatsMutation>>>;
+  ctaLabel?: InputMaybe<Scalars['String']['input']>;
+  ctaLink?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ServicesItemsMutation = {
+export type ServicesServiceCardsMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  tolerance?: InputMaybe<Scalars['String']['input']>;
+  materials?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ServicesProcessStepsMutation = {
+  step?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ServicesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  eyebrow?: InputMaybe<Scalars['String']['input']>;
-  headline?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  items?: InputMaybe<Array<InputMaybe<ServicesItemsMutation>>>;
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeadline?: InputMaybe<Scalars['String']['input']>;
+  heroDescription?: InputMaybe<Scalars['String']['input']>;
+  serviceCards?: InputMaybe<Array<InputMaybe<ServicesServiceCardsMutation>>>;
+  processEyebrow?: InputMaybe<Scalars['String']['input']>;
+  processHeadline?: InputMaybe<Scalars['String']['input']>;
+  processSteps?: InputMaybe<Array<InputMaybe<ServicesProcessStepsMutation>>>;
+  ctaHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaDescription?: InputMaybe<Scalars['String']['input']>;
   ctaLabel?: InputMaybe<Scalars['String']['input']>;
   ctaLink?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContactMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  eyebrow?: InputMaybe<Scalars['String']['input']>;
-  headline?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  address?: InputMaybe<Scalars['String']['input']>;
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeadline?: InputMaybe<Scalars['String']['input']>;
+  heroDescription?: InputMaybe<Scalars['String']['input']>;
+  formHeading?: InputMaybe<Scalars['String']['input']>;
+  formDescription?: InputMaybe<Scalars['String']['input']>;
+  uploadHint?: InputMaybe<Scalars['String']['input']>;
+  emailLabel?: InputMaybe<Scalars['String']['input']>;
+  emailValue?: InputMaybe<Scalars['String']['input']>;
+  phoneLabel?: InputMaybe<Scalars['String']['input']>;
+  phoneValue?: InputMaybe<Scalars['String']['input']>;
+  addressLabel?: InputMaybe<Scalars['String']['input']>;
+  addressValue?: InputMaybe<Scalars['String']['input']>;
+  hoursLabel?: InputMaybe<Scalars['String']['input']>;
+  hoursValue?: InputMaybe<Scalars['String']['input']>;
+  responseLabel?: InputMaybe<Scalars['String']['input']>;
+  responseValue?: InputMaybe<Scalars['String']['input']>;
+  testimonialQuote?: InputMaybe<Scalars['String']['input']>;
+  testimonialAuthor?: InputMaybe<Scalars['String']['input']>;
   ctaLabel?: InputMaybe<Scalars['String']['input']>;
   ctaLink?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SettingsPartsFragment = { __typename: 'Settings', siteName: string, siteTagline?: string | null, logoText?: string | null, logoImage?: string | null, navCtaLabel?: string | null, navCtaLink?: string | null, footerTagline?: string | null, copyrightText?: string | null, googleFontsUrl?: string | null, navLinks?: Array<{ __typename: 'SettingsNavLinks', label: string, href: string } | null> | null, footerLinks?: Array<{ __typename: 'SettingsFooterLinks', label?: string | null, href?: string | null } | null> | null, socialLinks?: Array<{ __typename: 'SettingsSocialLinks', platform?: string | null, url?: string | null } | null> | null };
 
-export type HomePartsFragment = { __typename: 'Home', title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null };
+export type HomePartsFragment = { __typename: 'Home', title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, capabilityEyebrow?: string | null, capabilityHeadline?: string | null, qualityEyebrow?: string | null, qualityHeadline?: string | null, qualityDescription?: string | null, proofEyebrow?: string | null, proofHeadline?: string | null, proofCtaLabel?: string | null, proofCtaLink?: string | null, heroStats?: Array<{ __typename: 'HomeHeroStats', value?: string | null, label?: string | null } | null> | null, capabilities?: Array<{ __typename: 'HomeCapabilities', title?: string | null, description?: string | null, spec?: string | null } | null> | null, qualityPoints?: Array<{ __typename: 'HomeQualityPoints', label?: string | null, value?: string | null } | null> | null, testimonials?: Array<{ __typename: 'HomeTestimonials', quote?: string | null, author?: string | null, role?: string | null } | null> | null };
 
-export type AboutPartsFragment = { __typename: 'About', title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null };
+export type AboutPartsFragment = { __typename: 'About', title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, timelineEyebrow?: string | null, timelineHeadline?: string | null, certificationsEyebrow?: string | null, certificationsHeadline?: string | null, footprintEyebrow?: string | null, footprintHeadline?: string | null, footprintDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, milestones?: Array<{ __typename: 'AboutMilestones', year?: string | null, title?: string | null, description?: string | null } | null> | null, certifications?: Array<{ __typename: 'AboutCertifications', name?: string | null, details?: string | null } | null> | null, footprintStats?: Array<{ __typename: 'AboutFootprintStats', value?: string | null, label?: string | null } | null> | null };
 
-export type ServicesPartsFragment = { __typename: 'Services', title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null };
+export type ServicesPartsFragment = { __typename: 'Services', title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, processEyebrow?: string | null, processHeadline?: string | null, ctaHeading?: string | null, ctaDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, serviceCards?: Array<{ __typename: 'ServicesServiceCards', name?: string | null, description?: string | null, tolerance?: string | null, materials?: string | null } | null> | null, processSteps?: Array<{ __typename: 'ServicesProcessSteps', step?: string | null, title?: string | null, description?: string | null } | null> | null };
 
-export type ContactPartsFragment = { __typename: 'Contact', title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null };
+export type ContactPartsFragment = { __typename: 'Contact', title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, formHeading?: string | null, formDescription?: string | null, uploadHint?: string | null, emailLabel?: string | null, emailValue?: string | null, phoneLabel?: string | null, phoneValue?: string | null, addressLabel?: string | null, addressValue?: string | null, hoursLabel?: string | null, hoursValue?: string | null, responseLabel?: string | null, responseValue?: string | null, testimonialQuote?: string | null, testimonialAuthor?: string | null, ctaLabel?: string | null, ctaLink?: string | null };
 
 export type SettingsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -740,7 +1006,7 @@ export type HomeQueryVariables = Exact<{
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, capabilityEyebrow?: string | null, capabilityHeadline?: string | null, qualityEyebrow?: string | null, qualityHeadline?: string | null, qualityDescription?: string | null, proofEyebrow?: string | null, proofHeadline?: string | null, proofCtaLabel?: string | null, proofCtaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, heroStats?: Array<{ __typename: 'HomeHeroStats', value?: string | null, label?: string | null } | null> | null, capabilities?: Array<{ __typename: 'HomeCapabilities', title?: string | null, description?: string | null, spec?: string | null } | null> | null, qualityPoints?: Array<{ __typename: 'HomeQualityPoints', label?: string | null, value?: string | null } | null> | null, testimonials?: Array<{ __typename: 'HomeTestimonials', quote?: string | null, author?: string | null, role?: string | null } | null> | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -752,14 +1018,14 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, heroImage?: string | null, heroImageAlt?: string | null, primaryCtaLabel?: string | null, primaryCtaLink?: string | null, secondaryCtaLabel?: string | null, secondaryCtaLink?: string | null, capabilityEyebrow?: string | null, capabilityHeadline?: string | null, qualityEyebrow?: string | null, qualityHeadline?: string | null, qualityDescription?: string | null, proofEyebrow?: string | null, proofHeadline?: string | null, proofCtaLabel?: string | null, proofCtaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, heroStats?: Array<{ __typename: 'HomeHeroStats', value?: string | null, label?: string | null } | null> | null, capabilities?: Array<{ __typename: 'HomeCapabilities', title?: string | null, description?: string | null, spec?: string | null } | null> | null, qualityPoints?: Array<{ __typename: 'HomeQualityPoints', label?: string | null, value?: string | null } | null> | null, testimonials?: Array<{ __typename: 'HomeTestimonials', quote?: string | null, author?: string | null, role?: string | null } | null> | null } | null } | null> | null } };
 
 export type AboutQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type AboutQuery = { __typename?: 'Query', about: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type AboutQuery = { __typename?: 'Query', about: { __typename: 'About', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, timelineEyebrow?: string | null, timelineHeadline?: string | null, certificationsEyebrow?: string | null, certificationsHeadline?: string | null, footprintEyebrow?: string | null, footprintHeadline?: string | null, footprintDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, milestones?: Array<{ __typename: 'AboutMilestones', year?: string | null, title?: string | null, description?: string | null } | null> | null, certifications?: Array<{ __typename: 'AboutCertifications', name?: string | null, details?: string | null } | null> | null, footprintStats?: Array<{ __typename: 'AboutFootprintStats', value?: string | null, label?: string | null } | null> | null } };
 
 export type AboutConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -771,14 +1037,14 @@ export type AboutConnectionQueryVariables = Exact<{
 }>;
 
 
-export type AboutConnectionQuery = { __typename?: 'Query', aboutConnection: { __typename?: 'AboutConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'AboutConnectionEdges', cursor: string, node?: { __typename: 'About', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, sectionHeading?: string | null, sectionBody?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type AboutConnectionQuery = { __typename?: 'Query', aboutConnection: { __typename?: 'AboutConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'AboutConnectionEdges', cursor: string, node?: { __typename: 'About', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, timelineEyebrow?: string | null, timelineHeadline?: string | null, certificationsEyebrow?: string | null, certificationsHeadline?: string | null, footprintEyebrow?: string | null, footprintHeadline?: string | null, footprintDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, milestones?: Array<{ __typename: 'AboutMilestones', year?: string | null, title?: string | null, description?: string | null } | null> | null, certifications?: Array<{ __typename: 'AboutCertifications', name?: string | null, details?: string | null } | null> | null, footprintStats?: Array<{ __typename: 'AboutFootprintStats', value?: string | null, label?: string | null } | null> | null } | null } | null> | null } };
 
 export type ServicesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type ServicesQuery = { __typename?: 'Query', services: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null } };
+export type ServicesQuery = { __typename?: 'Query', services: { __typename: 'Services', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, processEyebrow?: string | null, processHeadline?: string | null, ctaHeading?: string | null, ctaDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, serviceCards?: Array<{ __typename: 'ServicesServiceCards', name?: string | null, description?: string | null, tolerance?: string | null, materials?: string | null } | null> | null, processSteps?: Array<{ __typename: 'ServicesProcessSteps', step?: string | null, title?: string | null, description?: string | null } | null> | null } };
 
 export type ServicesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -790,14 +1056,14 @@ export type ServicesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ServicesConnectionQuery = { __typename?: 'Query', servicesConnection: { __typename?: 'ServicesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ServicesConnectionEdges', cursor: string, node?: { __typename: 'Services', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'ServicesItems', title?: string | null, description?: string | null } | null> | null } | null } | null> | null } };
+export type ServicesConnectionQuery = { __typename?: 'Query', servicesConnection: { __typename?: 'ServicesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ServicesConnectionEdges', cursor: string, node?: { __typename: 'Services', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, processEyebrow?: string | null, processHeadline?: string | null, ctaHeading?: string | null, ctaDescription?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, serviceCards?: Array<{ __typename: 'ServicesServiceCards', name?: string | null, description?: string | null, tolerance?: string | null, materials?: string | null } | null> | null, processSteps?: Array<{ __typename: 'ServicesProcessSteps', step?: string | null, title?: string | null, description?: string | null } | null> | null } | null } | null> | null } };
 
 export type ContactQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type ContactQuery = { __typename?: 'Query', contact: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ContactQuery = { __typename?: 'Query', contact: { __typename: 'Contact', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, formHeading?: string | null, formDescription?: string | null, uploadHint?: string | null, emailLabel?: string | null, emailValue?: string | null, phoneLabel?: string | null, phoneValue?: string | null, addressLabel?: string | null, addressValue?: string | null, hoursLabel?: string | null, hoursValue?: string | null, responseLabel?: string | null, responseValue?: string | null, testimonialQuote?: string | null, testimonialAuthor?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ContactConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -809,7 +1075,7 @@ export type ContactConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ContactConnectionQuery = { __typename?: 'Query', contactConnection: { __typename?: 'ContactConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ContactConnectionEdges', cursor: string, node?: { __typename: 'Contact', id: string, title: string, eyebrow?: string | null, headline: string, description?: string | null, email?: string | null, phone?: string | null, address?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ContactConnectionQuery = { __typename?: 'Query', contactConnection: { __typename?: 'ContactConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ContactConnectionEdges', cursor: string, node?: { __typename: 'Contact', id: string, title: string, heroEyebrow?: string | null, heroHeadline: string, heroDescription?: string | null, formHeading?: string | null, formDescription?: string | null, uploadHint?: string | null, emailLabel?: string | null, emailValue?: string | null, phoneLabel?: string | null, phoneValue?: string | null, addressLabel?: string | null, addressValue?: string | null, hoursLabel?: string | null, hoursValue?: string | null, responseLabel?: string | null, responseValue?: string | null, testimonialQuote?: string | null, testimonialAuthor?: string | null, ctaLabel?: string | null, ctaLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const SettingsPartsFragmentDoc = gql`
     fragment SettingsParts on Settings {
@@ -844,40 +1110,106 @@ export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
   __typename
   title
-  eyebrow
-  headline
-  description
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  heroImage
+  heroImageAlt
   primaryCtaLabel
   primaryCtaLink
   secondaryCtaLabel
   secondaryCtaLink
-  sectionHeading
-  sectionBody
+  heroStats {
+    __typename
+    value
+    label
+  }
+  capabilityEyebrow
+  capabilityHeadline
+  capabilities {
+    __typename
+    title
+    description
+    spec
+  }
+  qualityEyebrow
+  qualityHeadline
+  qualityDescription
+  qualityPoints {
+    __typename
+    label
+    value
+  }
+  proofEyebrow
+  proofHeadline
+  testimonials {
+    __typename
+    quote
+    author
+    role
+  }
+  proofCtaLabel
+  proofCtaLink
 }
     `;
 export const AboutPartsFragmentDoc = gql`
     fragment AboutParts on About {
   __typename
   title
-  eyebrow
-  headline
-  description
-  sectionHeading
-  sectionBody
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  timelineEyebrow
+  timelineHeadline
+  milestones {
+    __typename
+    year
+    title
+    description
+  }
+  certificationsEyebrow
+  certificationsHeadline
+  certifications {
+    __typename
+    name
+    details
+  }
+  footprintEyebrow
+  footprintHeadline
+  footprintDescription
+  footprintStats {
+    __typename
+    value
+    label
+  }
+  ctaLabel
+  ctaLink
 }
     `;
 export const ServicesPartsFragmentDoc = gql`
     fragment ServicesParts on Services {
   __typename
   title
-  eyebrow
-  headline
-  description
-  items {
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  serviceCards {
     __typename
+    name
+    description
+    tolerance
+    materials
+  }
+  processEyebrow
+  processHeadline
+  processSteps {
+    __typename
+    step
     title
     description
   }
+  ctaHeading
+  ctaDescription
   ctaLabel
   ctaLink
 }
@@ -886,12 +1218,24 @@ export const ContactPartsFragmentDoc = gql`
     fragment ContactParts on Contact {
   __typename
   title
-  eyebrow
-  headline
-  description
-  email
-  phone
-  address
+  heroEyebrow
+  heroHeadline
+  heroDescription
+  formHeading
+  formDescription
+  uploadHint
+  emailLabel
+  emailValue
+  phoneLabel
+  phoneValue
+  addressLabel
+  addressValue
+  hoursLabel
+  hoursValue
+  responseLabel
+  responseValue
+  testimonialQuote
+  testimonialAuthor
   ctaLabel
   ctaLink
 }
@@ -1261,7 +1605,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/2.2/content/dcf16d36-5bf7-453a-a56c-0f51f4d2192b/github/main",
+        url: "http://localhost:4001/graphql",
         queries,
       })
     )
